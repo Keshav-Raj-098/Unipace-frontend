@@ -49,13 +49,6 @@ export default function SignIn({ BASE_URL, setShowAlert, setAlertMessage, setAle
   const loginStudent = async (e) => {
     e.preventDefault();
     setLoading(true);
-    // if (email.substring(email.length - 11, email.length) !== '@iitd.ac.in') {
-    //   setAlertMessage('Please enter IIT Delhi email ID.');
-    //   setAlertSeverity('info');
-    //   setShowAlert(true);
-    //   setLoading(false);
-    //   return;
-    // }
     const formData = {
       email: email,
     };

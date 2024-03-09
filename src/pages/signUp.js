@@ -12,13 +12,6 @@ export default function SignUp({ BASE_URL, setShowAlert, setAlertMessage, setAle
   const registerStudent = async (e) => {
     e.preventDefault();
     setLoading(true);
-    if (email.substring(email.length - 11, email.length) !== '@iitd.ac.in') {
-      setAlertMessage('Please enter IIT Delhi email ID.');
-      setAlertSeverity('info');
-      setShowAlert(true);
-      setLoading(false);
-      return;
-    } else {
       const formData = {
         name: name,
         email: email,
@@ -57,7 +50,6 @@ export default function SignUp({ BASE_URL, setShowAlert, setAlertMessage, setAle
       } catch (error) {
         console.log(error);
       }
-    }
   };
 
   const registerStartUp = async (e) => {
