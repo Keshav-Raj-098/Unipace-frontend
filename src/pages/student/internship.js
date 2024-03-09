@@ -1,14 +1,10 @@
-import { Container, Typography, Grid, CardContent, Card, Box, Button, CircularProgress } from '@mui/material';
-import VisibilityRoundedIcon from '@mui/icons-material/VisibilityRounded';
+import { Container, Typography, Grid, CardContent, Card, Box, CircularProgress } from '@mui/material';
 import React, { useState, useEffect } from 'react';
-import InternshipTable from '../../components/table';
 import InternshipImage from '../../assets/internshipImage.svg';
 import CofounderImage from '../../assets/cofounderImage.svg';
 import JobImage from '../../assets/jobImage.svg';
 import ProjectImage from '../../assets/projectImage.svg';
 import { useNavigate, useLocation } from 'react-router-dom';
-import PopOver from '../../components/student/popOver';
-import moment from 'moment';
 import JobListing from '../../components/student/JobListing';
 import logo from "./logo.png"
 
@@ -91,86 +87,7 @@ export default function Internship({ BASE_URL, studentDetails, setShowAlert, set
     }
   };
 
-  const statusTypoColor = (jobStatus) => {
-    if (jobStatus === 'Selected' || jobStatus === 'Shortlisted') {
-      return '#2e7d32';
-    } else if (jobStatus === 'Not shortlisted' || jobStatus === 'Not selected') {
-      return '#d32f2f';
-    } else if (jobStatus === 'Applied') {
-      return 'primary';
-    } else {
-      return 'none';
-    }
-  };
 
-  const internshipTableColumn = [
-    {
-      field: 'company',
-      headerName: 'Company',
-      flex: 1,
-    },
-    {
-      field: 'designation',
-      headerName: 'Designation',
-      flex: 1,
-    },
-    {
-      field: 'stipend',
-      headerName: 'Stipend',
-      flex: 1,
-    },
-    {
-      field: 'deadline',
-      headerName: 'Deadline',
-      flex: 1,
-      renderCell: ({ value }) => {
-        return value < moment().format('YYYY-MM-DDThh:mm') ? 'Deadline passed' : moment(value).format('MMMM Do, h:mm a');
-      },
-    },
-    {
-      field: 'status',
-      headerName: 'Status',
-      flex: 1,
-      renderCell: ({ value }) => {
-        return <Typography color={statusTypoColor(value)}>{value}</Typography>;
-      },
-    },
-    {
-      field: 'details',
-      headerName: 'Details',
-      flex: 1,
-      renderCell: ({ value }) => {
-        return (
-          <Button
-            size="small"
-            onClick={() => {
-              navigate('../details', { state: { jobId: value } });
-            }}
-          >
-            <VisibilityRoundedIcon />
-          </Button>
-        );
-      },
-    },
-    {
-      field: 'apply',
-      headerName: 'Apply',
-      flex: 1,
-      renderCell: ({ value }) => {
-        return (
-          <PopOver
-            jobId={value.jobId}
-            status={value.status}
-            studentDetails={studentDetails}
-            deadline={value.deadline}
-            setShowAlert={setShowAlert}
-            setAlertMessage={setAlertMessage}
-            setAlertSeverity={setAlertSeverity}
-          />
-        );
-      },
-    },
-  ];
 
   useEffect(() => {
     getInternship();

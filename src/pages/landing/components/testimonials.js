@@ -84,11 +84,11 @@ export default function Testimonials() {
                     <img className="relative rounded-full" src={TestimonialImage1} width={96} height={96} alt="Testimonial 01" />
                   </div>
                   <blockquote className="text-xl font-medium mb-4">
-                    “ I love this product and would recommend it to anyone. Could be not easier to use, and our multiple websites are wonderful. We get nice comments all the time. “
+                    “UniPace helped me find great job opportunities through their user-friendly onboarding and matchmaking. Highly recommend for students looking to kickstart their careers!“
                   </blockquote>
-                  <cite className="block font-bold text-lg not-italic mb-1">Darya Finger</cite>
+                  <cite className="block font-bold text-lg not-italic mb-1">Anushka</cite>
                   <div className="text-gray-600">
-                    <span>CEO & Co-Founder</span> <a className="text-blue-600 hover:underline" href="#0">@Dropbox</a>
+                    <span>B.Tech Mechanical Engineering</span> <a className="text-blue-600 hover:underline" href="#0">@IIT Delhi'26</a>
                   </div>
                 </div>
   
