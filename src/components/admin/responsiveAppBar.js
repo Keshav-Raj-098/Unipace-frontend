@@ -9,7 +9,7 @@ import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { useNavigate } from 'react-router-dom';
-import eDCLogo from '../../assets/eDCWhiteLogo.svg';
+import Logo from '../../assets/UNI.png';
 import Brightness2Icon from '@mui/icons-material/Brightness2';
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -71,7 +71,7 @@ function ResponsiveAppBar({ mode, setMode }) {
               mr: 2,
             }}
           >
-            <img src={eDCLogo} alt="eDCLogo" loading="lazy" width={60} height={60} style={{ cursor: 'pointer' }} />
+            <img src={Logo} alt="Logo" loading="lazy" width={60} height={60} style={{ cursor: 'pointer' }} />
           </Box>
 
           <Box
@@ -82,7 +82,7 @@ function ResponsiveAppBar({ mode, setMode }) {
               flexGrow: 1,
             }}
           >
-            <img src={eDCLogo} alt="eDCLogo" loading="lazy" width={60} height={60} style={{ cursor: 'pointer' }} />
+            <img src={Logo} alt="Logo" loading="lazy" width={60} height={60} style={{ cursor: 'pointer' }} />
           </Box>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {/* {pages.map((value, key) => (

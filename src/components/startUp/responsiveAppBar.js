@@ -12,9 +12,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { useNavigate } from 'react-router-dom';
-import eDCLogo from '../../assets/eDCWhiteLogo.svg';
-import Brightness2Icon from '@mui/icons-material/Brightness2';
-import WbSunnyIcon from '@mui/icons-material/WbSunny';
+import Logo from '../../assets/UNI.png';
 import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
 
@@ -98,8 +96,8 @@ function ResponsiveAppBar({ companyName, mode, setMode, setStartUpDetails }) {
             }}
           >
             <img
-              src={eDCLogo}
-              alt="eDCLogo"
+              src={Logo}
+              alt="Logo"
               loading="lazy"
               width={60}
               height={60}
@@ -155,8 +153,8 @@ function ResponsiveAppBar({ companyName, mode, setMode, setStartUpDetails }) {
             }}
           >
             <img
-              src={eDCLogo}
-              alt="eDCLogo"
+              src={Logo}
+              alt="Logo"
               loading="lazy"
               width={60}
               height={60}

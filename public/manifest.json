@@ -1,27 +1,17 @@
 {
-  "short_name": "Opportunity Portal",
-  "name": "Opportunity Portal eDC IITD",
+  "short_name": "UniPace",
+  "name": "UniPace",
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "favicon.jpg",
       "sizes": "256x256",
-      "type": "image/x-icon"
+      "type": "image/jpg"
     },
     {
-      "src": "maskable_icon.png",
+      "src": "UNI.png",
       "type": "image/png",
-      "sizes": "192x192",
+      "sizes": "500x500",
       "purpose": "maskable"
-    },
-    {
-      "src": "logo192.png",
-      "type": "image/png",
-      "sizes": "192x192"
-    },
-    {
-      "src": "logo512.png",
-      "type": "image/png",
-      "sizes": "512x512"
     }
   ],
   "start_url": ".",

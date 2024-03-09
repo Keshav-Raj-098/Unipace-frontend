@@ -1,12 +1,9 @@
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import { Container, Box, Button } from '@mui/material';
-// import eDCLogo from '../assets/eDCWhiteLogo.svg';
-import edcAndDevclub from '../assets/edcAndDevclub.svg';
+import { Container, Box} from '@mui/material';
+import Logo from '../assets/UNI.png';
 import { useNavigate } from 'react-router-dom';
-import Brightness2Icon from '@mui/icons-material/Brightness2';
-import WbSunnyIcon from '@mui/icons-material/WbSunny';
 
 export default function ResponsiveAppBar({ mode, setMode }) {
   const navigate = useNavigate();
@@ -35,11 +32,10 @@ export default function ResponsiveAppBar({ mode, setMode }) {
             }}
           >
             <img
-              src={edcAndDevclub}
-              alt="eDCLogo"
+              src={Logo}
+              alt="Logo"
               loading="lazy"
-              width={120}
-              height={60}
+              width={300}
               style={{ cursor: 'pointer' }}
               onClick={() => {
                 navigate('/');

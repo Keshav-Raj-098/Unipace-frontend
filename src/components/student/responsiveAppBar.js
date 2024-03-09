@@ -12,9 +12,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { useNavigate } from 'react-router-dom';
-import eDCLogo from '../../assets/eDCWhiteLogo.svg';
-import Brightness2Icon from '@mui/icons-material/Brightness2';
-import WbSunnyIcon from '@mui/icons-material/WbSunny';
+import Logo from '../../assets/UNI.png';
 import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
 
@@ -96,11 +94,10 @@ function ResponsiveAppBar({ studentName, mode, setMode, setStudentDetails }) {
             }}
           >
             <img
-              src={eDCLogo}
-              alt="eDCLogo"
+              src={Logo}
+              alt="Logo"
               loading="lazy"
               width={60}
-              height={60}
               style={{ cursor: 'pointer' }}
               onClick={() => {
                 navigate('internship', { state: { type: 'Internship' } });
@@ -153,8 +150,8 @@ function ResponsiveAppBar({ studentName, mode, setMode, setStudentDetails }) {
             }}
           >
             <img
-              src={eDCLogo}
-              alt="eDCLogo"
+              src={Logo}
+              alt="Logo"
               loading="lazy"
               width={60}
               height={60}
@@ -216,7 +213,7 @@ function ResponsiveAppBar({ studentName, mode, setMode, setStudentDetails }) {
                   <LogoutIcon sx={{ mr: 1 }} /> {'Logout'}
                 </Box>
               </MenuItem>
-              <MenuItem onClick={changeMode}>
+              {/* <MenuItem onClick={changeMode}>
                 {mode === 'dark' ? (
                   <Box
                     sx={{
@@ -239,7 +236,7 @@ function ResponsiveAppBar({ studentName, mode, setMode, setStudentDetails }) {
                     {'Dark'}
                   </Box>
                 )}
-              </MenuItem>
+              </MenuItem> */}
             </Menu>
           </Box>
         </Toolbar>
