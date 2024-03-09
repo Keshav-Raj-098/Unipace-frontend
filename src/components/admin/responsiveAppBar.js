@@ -71,7 +71,7 @@ function ResponsiveAppBar({ mode, setMode }) {
               mr: 2,
             }}
           >
-            <img src={Logo} alt="Logo" loading="lazy" width={60} height={60} style={{ cursor: 'pointer' }} />
+            <img src={Logo} alt="Logo" loading="lazy" width={60} height={60} style={{ cursor: 'pointer' , zoom : 1.5}} />
           </Box>
 
           <Box

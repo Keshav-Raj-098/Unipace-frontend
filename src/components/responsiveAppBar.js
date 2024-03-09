@@ -8,15 +8,6 @@ import { useNavigate } from 'react-router-dom';
 export default function ResponsiveAppBar({ mode, setMode }) {
   const navigate = useNavigate();
 
-  const changeMode = () => {
-    if (mode === 'dark') {
-      setMode('light');
-      localStorage.setItem('colorMode', 'light');
-    } else {
-      setMode('dark');
-      localStorage.setItem('colorMode', 'dark');
-    }
-  };
 
   return (
     <AppBar position="fixed">
@@ -35,26 +26,13 @@ export default function ResponsiveAppBar({ mode, setMode }) {
               src={Logo}
               alt="Logo"
               loading="lazy"
-              width={300}
+              width={60}
               style={{ cursor: 'pointer' }}
               onClick={() => {
                 navigate('/');
               }}
             />
           </Box>
-          {/* <Box color="inherit" onClick={() => changeMode()}>
-            {mode === 'dark' ? (
-              <Button sx={{ color: 'white' }}>
-                <WbSunnyIcon sx={{ mr: 1 }} /> {'Light'}
-              </Button>
-            ) : 
-            (
-              <Button sx={{ color: 'white' }}>
-                <Brightness2Icon sx={{ mr: 1 }} />
-                {'Dark'}
-              </Button>
-            )}
-          </Box> */}
         </Toolbar>
       </Container>
     </AppBar>
