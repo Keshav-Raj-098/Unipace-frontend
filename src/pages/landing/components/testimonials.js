@@ -86,7 +86,7 @@ export default function Testimonials() {
                   <blockquote className="text-xl font-medium mb-4">
                     “UniPace helped me find great job opportunities through their user-friendly onboarding and matchmaking. Highly recommend for students looking to kickstart their careers!“
                   </blockquote>
-                  <cite className="block font-bold text-lg not-italic mb-1">Anushka</cite>
+                  <cite className="block font-bold text-lg not-italic mb-1">Anushka Chowdhary</cite>
                   <div className="text-gray-600">
                     <span>B.Tech Mechanical Engineering</span> <a className="text-blue-600 hover:underline" href="#0">@IIT Delhi'26</a>
                   </div>
