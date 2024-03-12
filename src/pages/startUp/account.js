@@ -42,6 +42,7 @@ export default function Account({ BASE_URL, startUpDetails, setStartUpDetails, s
       social: social,
       cruchbase: cruchbase,
     };
+    console.log(formData)
     const requestOptions = {
       method: 'PUT',
       headers: {

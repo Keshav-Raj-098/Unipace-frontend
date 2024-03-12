@@ -143,11 +143,12 @@ function JobListing({ logo, companyName, mission, role, salary, deadline, type, 
                   Role: {role}
                 </Typography>
               </Grid>
+              {(type!=="Cofounder") &&
               <Grid item>
                 <Typography variant="body1" component="div" color="black">
                   Salary:{salary}
                 </Typography>
-              </Grid>
+              </Grid>}
               <Grid item>
                 <Typography variant="body1" component="div" color="black">
                   Deadline:{deadline}

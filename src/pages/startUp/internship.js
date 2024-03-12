@@ -249,28 +249,6 @@ export default function Internship({ BASE_URL, startUpDetails, setShowAlert, set
             )}
           </CardContent>
         </Card>
-
-        {/* <Card sx={{ mb: 1 }}>
-          <CardContent>
-            {loading ? (
-              <Box
-                sx={{
-                  height: 370.5,
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-              >
-                <CircularProgress />
-              </Box>
-            ) : (
-              <InternshipTable column={internshipTableColumn} row={internshipTableRow} />
-            )}
-          </CardContent>
-        </Card> */}
-
-
-
       </Container>
     </div>
   );
