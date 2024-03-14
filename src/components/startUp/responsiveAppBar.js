@@ -73,15 +73,6 @@ function ResponsiveAppBar({ companyName, mode, setMode, setStartUpDetails }) {
     navigate('/');
   };
 
-  const changeMode = () => {
-    if (mode === 'dark') {
-      setMode('light');
-      localStorage.setItem('colorMode', 'light');
-    } else {
-      setMode('dark');
-      localStorage.setItem('colorMode', 'dark');
-    }
-  };
 
   return (
     <AppBar position="fixed">

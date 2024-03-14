@@ -8,6 +8,7 @@ import internshipImage from '../assets/internshipImage.svg';
 import cofounderImage from '../assets/cofounderImage.svg';
 import BorderColorRoundedIcon from '@mui/icons-material/BorderColorRounded';
 
+
 // Things to set :
 // jobStartUpDetails.stage, jobStartUpDetails.companyPhoto, jobStartUpDetails.socials
 // jobStartUpDetails.founderImage

@@ -217,7 +217,7 @@ export default function Account({ BASE_URL, studentDetails, setStudentDetails, s
                     accept: '.pdf',
                   }}
                   onChange={(e) => handleFileUpload(e)}
-                  required
+                  // required
                   name="resume"
                   label="Resume"
                   outlined
