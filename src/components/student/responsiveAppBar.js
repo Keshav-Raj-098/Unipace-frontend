@@ -19,23 +19,23 @@ import LogoutIcon from '@mui/icons-material/Logout';
 const pages = [
   {
     page: 'Internship',
-    route: 'internship',
+    route: 'dashboard',
   },
   {
     page: 'Job',
-    route: 'internship',
+    route: 'dashboard',
   },
   {
     page: 'Cofounder',
-    route: 'internship',
+    route: 'dashboard',
   },
   {
     page: 'Project',
-    route: 'internship',
+    route: 'dashboard',
   },
 ];
 
-function ResponsiveAppBar({ studentName, mode, setMode, setStudentDetails }) {
+function ResponsiveAppBar({ studentName, setStudentDetails }) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const navigate = useNavigate();
@@ -90,7 +90,7 @@ function ResponsiveAppBar({ studentName, mode, setMode, setStudentDetails }) {
               width={60}
               style={{ cursor: 'pointer' }}
               onClick={() => {
-                navigate('internship', { state: { type: 'Internship' } });
+                navigate('dashboard', { state: { type: 'Internship' } });
               }}
             />
           </Box>
@@ -147,7 +147,7 @@ function ResponsiveAppBar({ studentName, mode, setMode, setStudentDetails }) {
               height={60}
               style={{ cursor: 'pointer' }}
               onClick={() => {
-                navigate('internship', { state: { type: 'Internship' } });
+                navigate('dashboard', { state: { type: 'Internship' } });
               }}
             />
           </Box>

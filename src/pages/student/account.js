@@ -50,7 +50,7 @@ export default function Account({ BASE_URL, studentDetails, setStudentDetails, s
             setAlertMessage(`Account details ${updateOrSave + 'd'} successfully.`);
             setAlertSeverity('success');
             setShowAlert(true);
-            navigate('../internship', { state: { type: 'Internship' } });
+            navigate('../dashboard', { state: { type: 'Internship' } });
           } else {
             console.log(data);
           }

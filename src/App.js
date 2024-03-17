@@ -5,12 +5,11 @@ import SignIn from './pages/signIn';
 import OTPVerify from './pages/otpVerify';
 import SignUp from './pages/signUp';
 import StudentIndex from './pages/student/index';
+import StudentApply from './pages/student/apply';
 import StartUpIndex from './pages/startUp/index';
 import StartUpInternship from './pages/startUp/internship';
-import StudentInternship from './pages/student/internship';
-import StudentApply from './pages/student/apply';
-import JobPortalIndex from './pages/index';
 import StudentAccount from './pages/student/account';
+import JobPortalIndex from './pages/index';
 import StartUpAccount from './pages/startUp/account';
 import StartUpAddNew from './pages/startUp/addNew';
 import JobDetails from './pages/details';
@@ -20,13 +19,15 @@ import CssBaseline from '@mui/material/CssBaseline';
 import darkScrollbar from '@mui/material/darkScrollbar';
 import { useEffect, useState } from 'react';
 import { Box, CircularProgress } from '@mui/material';
-// import useMediaQuery from '@mui/material/useMediaQuery';
 import AlertSnackbar from '../src/components/snackbar';
 import AdminSignInRedirect from './pages/admin/AdminSignInRedirect';
 import AdminDashboard from './pages/admin/dashboard';
 import AdminIndex from './pages/admin/index';
 import ReactGA from 'react-ga';
 import Landing from './pages/landing';
+import StudentDashbaord from "./pages/student/dashboard"
+import Trial from "./pages/student/dashboard/opportunityTable"
+
 
 const trackingId = 'G-1D3RFBNRQV';
 ReactGA.initialize(trackingId);
@@ -176,7 +177,8 @@ export default function App() {
                 path="student"
                 element={<StudentIndex mode={mode} setMode={setMode} studentDetails={studentDetails} setStudentDetails={setStudentDetails} />}
               >
-                <Route path="internship" element={<StudentInternship BASE_URL={BASE_URL} studentDetails={studentDetails} {...setAlertProps} />} />
+                <Route path="dashboard" element={<StudentDashbaord BASE_URL={BASE_URL} studentDetails={studentDetails} {...setAlertProps} />} />
+                <Route path="trial" element={<Trial BASE_URL={BASE_URL} studentDetails={studentDetails} {...setAlertProps} />} />
                 <Route
                   path="account"
                   element={

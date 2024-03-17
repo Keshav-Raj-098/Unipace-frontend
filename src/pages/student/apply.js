@@ -16,15 +16,8 @@ export default function Apply({ BASE_URL, studentDetails, setShowAlert, setAlert
 
   const getStartUpDetails = async (startUpId) => {
     setLoading2(true);
-    const requestOptions = {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-    const url = `${BASE_URL}/api/startUp/register/${startUpId}`;
     try {
-      await fetch(url, requestOptions)
+      await fetch(`${BASE_URL}/api/startUp/register/${startUpId}`)
         .then((response) => response.json())
         .then((data) => {
           if (data.status === 200) {

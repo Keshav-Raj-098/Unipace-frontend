@@ -3,7 +3,7 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import ResponsiveAppBar from '../../components/student/responsiveAppBar';
 import { Box, CircularProgress } from '@mui/material';
 
-export default function Index({ mode, setMode, studentDetails, setStudentDetails }) {
+export default function Index({ studentDetails, setStudentDetails }) {
   const navigate = useNavigate();
   const [studentName, setStudentName] = useState('');
   const [loading, setLoading] = useState(true);
@@ -19,7 +19,7 @@ export default function Index({ mode, setMode, studentDetails, setStudentDetails
 
   return (
     <>
-      <ResponsiveAppBar studentName={studentName} mode={mode} setMode={setMode} setStudentDetails={setStudentDetails} />
+      <ResponsiveAppBar studentName={studentName} setStudentDetails={setStudentDetails} />
       <div
         style={{
           overflowY: 'auto',

@@ -156,7 +156,7 @@ export default function OTPVerify({ BASE_URL, setStartUpDetails, setStudentDetai
             setAlertMessage('Sign in successfully.');
             setAlertSeverity('success');
             setShowAlert(true);
-            navigate('../student/internship', {
+            navigate('../student/dashboard', {
               state: { type: 'Internship' },
             });
           } else if (data.status === 401) {
