@@ -1,6 +1,6 @@
 {
-  "short_name": "UniPace",
-  "name": "UniPace",
+  "short_name": "Inplace",
+  "name": "Inplace",
   "icons": [
     {
       "src": "favicon.jpg",
@@ -8,7 +8,7 @@
       "type": "image/jpg"
     },
     {
-      "src": "UNI.png",
+      "src": "NAV-INPLACE.png",
       "type": "image/png",
       "sizes": "500x500",
       "purpose": "maskable"

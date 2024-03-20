@@ -1,5 +1,5 @@
 {
-  "name": "unipace-client",
+  "name": "inplace-client",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

@@ -139,7 +139,7 @@ export default function Footer() {
           </ul> */}
 
           {/* Copyrights note */}
-          <div className="text-sm text-gray-600 mr-4">&copy; Unipace.in. All rights reserved.</div>
+          <div className="text-sm text-gray-600 mr-4">&copy; Inplace.co.in. All rights reserved.</div>
 
         </div>
 
