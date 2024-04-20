@@ -30,7 +30,10 @@ export default function Hero() {
 
           {/* Section header */}
           <div className="text-center pb-12 md:pb-16">
-            <h1 className="text-5xl md:text-6xl font-extrabold leading-tighter tracking-tighter mb-4" data-aos="zoom-y-out" style={{ fontSize: "100px" }}>Unlocking Opportunities <br /><span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-teal-400">Connecting Futures</span></h1>
+            <h1 className="text-5xl md:text-6xl font-extrabold leading-tighter tracking-tighter mb-4" data-aos="zoom-y-out">
+              Unlocking Opportunities <br />
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-teal-400">Connecting Futures</span>
+            </h1>
             <div className="max-w-3xl mx-auto">
               <p className="text-xl text-gray-600 mb-8" data-aos="zoom-y-out" data-aos-delay="150">Bridging the gap between talented graduates and innovative companies <br />Your partner in navigating the world of on-campus placements</p>
               <div className="max-w-xs mx-auto sm:max-w-none sm:flex sm:justify-center" data-aos="zoom-y-out" data-aos-delay="300">

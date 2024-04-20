@@ -2,7 +2,7 @@ import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import { Container, Box} from '@mui/material';
-import Logo from '../assets/NAV-INPLACE.png';
+import Logo from '../assets/NAV-UNIPACE.png';
 import { useNavigate } from 'react-router-dom';
 
 export default function ResponsiveAppBar({ mode, setMode }) {

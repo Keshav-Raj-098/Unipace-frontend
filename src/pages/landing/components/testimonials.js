@@ -84,7 +84,7 @@ export default function Testimonials() {
                     <img className="relative rounded-full" src={TestimonialImage1} width={96} height={96} alt="Testimonial 01" />
                   </div>
                   <blockquote className="text-xl font-medium mb-4">
-                    “Inplace helped me find great job opportunities through their user-friendly onboarding and matchmaking. Highly recommend for students looking to kickstart their careers!“
+                    “Unipace helped me find great job opportunities through their user-friendly onboarding and matchmaking. Highly recommend for students looking to kickstart their careers!“
                   </blockquote>
                   <cite className="block font-bold text-lg not-italic mb-1">Anushka Chowdhary</cite>
                   <div className="text-gray-600">
