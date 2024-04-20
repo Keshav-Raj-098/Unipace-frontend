@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Transition } from "@headlessui/react";
-import FeaturesBg from "../../../assets/features-bg.png";
-import FeaturesElement from "../../../assets/features-element.png";
+import BlogsScreenshot from "../../../assets/blog_screenshot.jpg"
+import TrainingScreenshot from "../../../assets/training_screenshot.jpg"
 
 export default function Features() {
   const [tab, setTab] = useState(1);
@@ -28,17 +28,7 @@ export default function Features() {
 
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6">
         <div className="pt-12 md:pt-20">
-          {/* Section header */}
-          <div className="max-w-3xl mx-auto text-center pb-12 md:pb-16">
-            <h1 className="h2 mb-4">
-              Customized Placement Solutions for Growth and Success
-            </h1>
-            <p className="text-xl text-gray-600">
-              Tailor-made solutions for effective college placements and startup
-              hiring. Connect with a network primed for professional success and
-              growth
-            </p>
-          </div>
+
 
           {/* Section content */}
           <div className="md:grid md:grid-cols-12 md:gap-6">
@@ -66,12 +56,10 @@ export default function Features() {
                 >
                   <div>
                     <div className="font-bold leading-snug tracking-tight mb-1">
-                      Scouting Top Talent for Start-Up Innovation
+                    Discover Hiring Trends: Blog Insights
                     </div>
                     <div className="text-gray-600">
-                      Access a curated pool of graduates primed to drive your
-                      startup's success. Simplify your hiring with our efficient
-                      matchmaking platform.
+                      Stay informed and gain valuable insights into the latest industry trends and news with our regularly updated blog, written by experts in the field.
                     </div>
                   </div>
                   <div className="flex justify-center items-center w-8 h-8 bg-white rounded-full shadow flex-shrink-0 ml-3">
@@ -96,12 +84,10 @@ export default function Features() {
                 >
                   <div>
                     <div className="font-bold leading-snug tracking-tight mb-1">
-                      Elevate Your Placement Outcomes
+                    Master Top Skills: Training Programs
                     </div>
                     <div className="text-gray-600">
-                      Enhance your placement rates with our vast network of
-                      eager employers. Ensure your graduates stand out and
-                      secure promising career paths.
+                    Boost your expertise through our specialized training programs, tailored to equip you with the most sought-after industry skills.
                     </div>
                   </div>
                   <div className="flex justify-center items-center w-8 h-8 bg-white rounded-full shadow flex-shrink-0 ml-3">
@@ -154,20 +140,12 @@ export default function Features() {
                       <a href="https://blogs.unipace.in/">
                         <img
                           className="md:max-w-none mx-auto rounded"
-                          src={FeaturesBg}
+                          src={BlogsScreenshot}
                           width={500}
                           height="462"
                           alt="Features bg"
                         />
                       </a>
-                      <img
-                        className="md:max-w-none absolute w-full left-0 transform animate-float"
-                        src={FeaturesElement}
-                        width={500}
-                        height="44"
-                        alt="Element"
-                        style={{ top: "30%" }}
-                      />
                     </div>
                   </Transition>
                   {/* Item 2 */}
@@ -188,20 +166,12 @@ export default function Features() {
                       <a href="https://training.unipace.in/">
                         <img
                           className="md:max-w-none mx-auto rounded"
-                          src={FeaturesBg}
+                          src={TrainingScreenshot}
                           width={500}
                           height="462"
                           alt="Features bg"
                         />
                       </a>
-                      <img
-                        className="md:max-w-none absolute w-full left-0 transform animate-float"
-                        src={FeaturesElement}
-                        width={500}
-                        height="44"
-                        alt="Element"
-                        style={{ top: "30%" }}
-                      />
                     </div>
                   </Transition>
                   {/* Item 3 */}

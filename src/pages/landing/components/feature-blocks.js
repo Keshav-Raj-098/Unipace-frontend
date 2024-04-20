@@ -13,8 +13,8 @@ export default function FeaturesBlocks() {
 
           {/* Section header */}
           <div className="max-w-3xl mx-auto text-center pb-12 md:pb-20">
-            <h2 className="h2 mb-4" style={{fontWeight : "bolder"}}>Feature Highlights</h2>
-            <p className="text-xl text-gray-600">Powering Your Placement Success</p>
+            <h2 className="h2 mb-4" style={{fontWeight : "bolder"}}>Customized Placement Solutions for Growth and Success</h2>
+            <p className="text-xl text-gray-600">Tailor-made solutions for effective college placements and startup hiring. Connect with a network primed for professional success and growth</p>
           </div>
 
           {/* Items */}
