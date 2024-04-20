@@ -19,14 +19,14 @@ export default function ResponsiveAppBar({ mode, setMode }) {
               display: 'flex',
               justifyContent: 'start',
               alignItems: 'center',
-              flexGrow: 1,
+              flexGrow: 1
             }}
           >
             <img
               src={Logo}
               alt="Logo"
               loading="lazy"
-              width={60}
+              width={150}
               style={{ cursor: 'pointer' }}
               onClick={() => {
                 navigate('/');
