@@ -213,7 +213,7 @@ export default function AddNew({ BASE_URL, setShowAlert, setAlertMessage, setAle
                   <TextField
                     variant="standard"
                     label="Designation"
-                    placeholder={type === 'Cofounder' ? 'CEO, CTO, CFO, etc.' : 'SDE'}
+                    placeholder='SDE'
                     fullWidth
                     value={designation}
                     onChange={(e) => {
@@ -282,7 +282,7 @@ export default function AddNew({ BASE_URL, setShowAlert, setAlertMessage, setAle
                     </Grid>
                   </>
                 )}
-                {type !== 'Cofounder' && type !== 'Project' && (
+                {type !== 'Project' && (
                   <>
                     <Grid item xs={12} md={6}>
                       <TextField
@@ -381,80 +381,78 @@ export default function AddNew({ BASE_URL, setShowAlert, setAlertMessage, setAle
             )}
           </CardContent>
         </Card>
-        {type !== 'Cofounder' && (
-          <Card sx={{ my: 2 }}>
-            <CardContent>
-              <Typography variant="h5" sx={{ mb: 2 }}>
-                Deadline and Selection Process
-              </Typography>
-              {loading2 ? (
-                <Box
-                  sx={{
-                    height: 300,
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}
-                >
-                  <CircularProgress />
-                </Box>
-              ) : (
-                <Grid container spacing={2}>
-                  <Grid item xs={12} md={6} sx={{ mb: 2 }}>
-                    <TextField
-                      variant="standard"
-                      label="Assignment And Submission Details"
-                      fullWidth
-                      value={assignment}
-                      placeholder="Add assignment link ( Optional )"
-                      onChange={(e) => {
-                        setAssignment(e.target.value);
-                      }}
-                    />
-                  </Grid>
-                  {/* <TextField
-                    type="datetime-local"
+        <Card sx={{ my: 2 }}>
+          <CardContent>
+            <Typography variant="h5" sx={{ mb: 2 }}>
+              Deadline and Selection Process
+            </Typography>
+            {loading2 ? (
+              <Box
+                sx={{
+                  height: 300,
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                <CircularProgress />
+              </Box>
+            ) : (
+              <Grid container spacing={2}>
+                <Grid item xs={12} md={6} sx={{ mb: 2 }}>
+                  <TextField
                     variant="standard"
+                    label="Assignment And Submission Details"
+                    fullWidth
+                    value={assignment}
+                    placeholder="Add assignment link ( Optional )"
+                    onChange={(e) => {
+                      setAssignment(e.target.value);
+                    }}
+                  />
+                </Grid>
+                {/* <TextField
+                  type="datetime-local"
+                  variant="standard"
+                  label="Application Deadline"
+                  fullWidth
+                  value={deadline}
+                  onChange={(e) => {
+                    setDeadline(e.target.value);
+                  }}
+                  required
+                /> */}
+                <Grid item xs={12} md={6} sx={{ mb: 2 }}>
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DatePicker 
                     label="Application Deadline"
                     fullWidth
-                    value={deadline}
+                    value={dayjs(deadline)}
                     onChange={(e) => {
                       setDeadline(e.target.value);
                     }}
-                    required
-                  /> */}
-                  <Grid item xs={12} md={6} sx={{ mb: 2 }}>
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                      <DatePicker 
-                      label="Application Deadline"
-                      fullWidth
-                      value={dayjs(deadline)}
-                      onChange={(e) => {
-                        setDeadline(e.target.value);
-                      }}
-                      />
-                    </LocalizationProvider>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      variant="standard"
-                      label="Selection Process"
-                      multiline
-                      fullWidth
-                      minRows={3}
-                      value={selectionProcess}
-                      placeholder="1. Resume Shortlist&#10;2. Online Test&#10;3. Interview"
-                      onChange={(e) => {
-                        setSelectionProcess(e.target.value);
-                      }}
-                      required
                     />
-                  </Grid>
+                  </LocalizationProvider>
                 </Grid>
-              )}
-            </CardContent>
-          </Card>
-        )}
+                <Grid item xs={12}>
+                  <TextField
+                    variant="standard"
+                    label="Selection Process"
+                    multiline
+                    fullWidth
+                    minRows={3}
+                    value={selectionProcess}
+                    placeholder="1. Resume Shortlist&#10;2. Online Test&#10;3. Interview"
+                    onChange={(e) => {
+                      setSelectionProcess(e.target.value);
+                    }}
+                    required
+                  />
+                </Grid>
+              </Grid>
+            )}
+          </CardContent>
+        </Card>
         <Card>
           <CardContent>
             <Typography variant="h5" sx={{ mb: 2 }}>

@@ -5,7 +5,6 @@ import { Container, Typography, Grid, CardContent, Card, Box, Button, CircularPr
 // import PendingIcon from '@mui/icons-material/Pending';
 import React, { useState, useEffect } from 'react';
 import InternshipImage from '../../assets/internshipImage.svg';
-import CofounderImage from '../../assets/cofounderImage.svg';
 import ProjectImgage from '../../assets/projectImage.svg';
 import JobImage from '../../assets/jobImage.svg';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -50,9 +49,6 @@ export default function Internship({ BASE_URL, startUpDetails, setShowAlert, set
     } else if (type === 'Job') {
       setTypeImage(JobImage);
       setTypeDescription('Need employee to work in a fast paced environment for your startup.');
-    } else if (type === 'Cofounder') {
-      setTypeImage(CofounderImage);
-      setTypeDescription('Need a right people as cofounder to kickstart your startup journey.');
     } else {
       setTypeImage(ProjectImgage);
       setTypeDescription('Need the right freelancer for your work.');

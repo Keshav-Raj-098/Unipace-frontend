@@ -708,7 +708,7 @@ export default function Details({ BASE_URL, startUpDetails }) {
                           <TextField variant="standard" label="Type" fullWidth value={jobDetails.type} InputProps={{ disableUnderline: true, readOnly: true }} />
                         </Grid>
                       )}
-                  {jobDetails.type !== 'Cofounder' && jobDetails.type !== 'Project' && (
+                  {jobDetails.type !== 'Project' && (
                     <>
                       {jobDetails.stipend && (
                         <Grid item xs={12} md={6}>
@@ -735,7 +735,6 @@ export default function Details({ BASE_URL, startUpDetails }) {
       </Card>
       {jobStartUpDetails &&
         jobDetails &&
-        jobDetails.type !== 'Cofounder' &&
         ((jobDetails.assignment && jobDetails.assignment !== undefined && jobDetails.assignment !== '') ||
           (jobDetails.deadline && jobDetails.deadline !== undefined && jobDetails.deadline !== '') ||
           (jobDetails.selectionProcess && jobDetails.selectionProcess !== undefined && jobDetails.selectionProcess !== '')) && (

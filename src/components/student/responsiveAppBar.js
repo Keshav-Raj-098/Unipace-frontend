@@ -26,10 +26,6 @@ const pages = [
     route: 'dashboard',
   },
   {
-    page: 'Cofounder',
-    route: 'dashboard',
-  },
-  {
     page: 'Project',
     route: 'dashboard',
   },

@@ -26,10 +26,6 @@ const pages = [
     route: 'internship',
   },
   {
-    page: 'Cofounder',
-    route: 'internship',
-  },
-  {
     page: 'Project',
     route: 'internship',
   },

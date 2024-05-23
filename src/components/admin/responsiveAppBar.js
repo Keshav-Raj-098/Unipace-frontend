@@ -23,10 +23,6 @@ import LogoutIcon from '@mui/icons-material/Logout';
 //     page: "Job",
 //     route: "internship"
 //   },
-//   {
-//     page: "Cofounder",
-//     route: "internship"
-//   }
 // ]
 
 function ResponsiveAppBar({ mode, setMode }) {

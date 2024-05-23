@@ -42,10 +42,10 @@ function JobListing({ salary, deadline, type, detailsButtonClick, designation, s
 
         </Grid>
         <Grid item>
-          {(type !== "Cofounder")&&<Container variant="body1" component="div" sx={{ display: "flex", flexDirection: "column" }}>
+          <Container variant="body1" component="div" sx={{ display: "flex", flexDirection: "column" }}>
             <Typography variant="body1" component="div">Salary:</Typography>
             <Typography variant="body1" component="div">{salary||"-"}</Typography>
-          </Container>}
+          </Container>
         </Grid>
         <Grid item>
           <Container variant="body1" component="div" sx={{ display: "flex", flexDirection: "column" }}>

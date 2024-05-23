@@ -1,7 +1,6 @@
 import { Container, Typography, Grid, CardContent, Card, Box, CircularProgress } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import InternshipImage from '../../../assets/internshipImage.svg';
-import CofounderImage from '../../../assets/cofounderImage.svg';
 import JobImage from '../../../assets/jobImage.svg';
 import ProjectImage from '../../../assets/projectImage.svg';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -16,9 +15,6 @@ const setHeader = (type, setTypeImage, setTypeDescription) => {
   } else if (type === 'Job') {
     setTypeImage(JobImage);
     setTypeDescription('Work in a fast paced enviourment and experience the thrill of a startup.');
-  } else if (type === 'Cofounder') {
-    setTypeImage(CofounderImage);
-    setTypeDescription('Wanted to be a cofounder meet the right people and kickstart your startup journey.');
   } else {
     setTypeImage(ProjectImage);
     setTypeDescription('Learn your way up the ladder by appling to the right projects and finding right people on the way.');
