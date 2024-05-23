@@ -63,6 +63,7 @@ export default function StudentsApplied({ BASE_URL, setShowAlert, setAlertMessag
         name: oneJsonData.name,
         email: oneJsonData.email,
         course: oneJsonData.course,
+        college : oneJsonData.college,
         department: oneJsonData.department,
         year: oneJsonData.year,
         cgpa: oneJsonData.cgpa,
@@ -97,6 +98,11 @@ export default function StudentsApplied({ BASE_URL, setShowAlert, setAlertMessag
     {
       field: 'course',
       headerName: 'Course',
+      flex: 1,
+    },
+    {
+      field: 'college',
+      headerName: 'College',
       flex: 1,
     },
     {

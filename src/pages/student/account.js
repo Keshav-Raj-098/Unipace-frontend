@@ -5,11 +5,13 @@ import { useNavigate } from 'react-router-dom';
 
 export default function Account({ BASE_URL, studentDetails, setStudentDetails, setShowAlert, setAlertMessage, setAlertSeverity }) {
   const navigate = useNavigate();
+  console.log(studentDetails)
   const [loading, setLoading] = useState(false);
   const [resumeFile, setResumeFile] = useState(null);
   const name = studentDetails.name;
   const email = studentDetails.email;
   const [course, setCourse] = useState(studentDetails.course);
+  const [college, setCollege] = useState(studentDetails.college);
   const [department, setDepartment] = useState(studentDetails.department);
   const [year, setYear] = useState(studentDetails.year);
   const [cgpa, setCgpa] = useState(studentDetails.cgpa);
@@ -26,6 +28,7 @@ export default function Account({ BASE_URL, studentDetails, setStudentDetails, s
     const formData = new FormData();
 
     formData.append('course', course);
+    formData.append('college', college);
     formData.append('department', department);
     formData.append('year', year);
     formData.append('cgpa', cgpa);
@@ -180,6 +183,25 @@ export default function Account({ BASE_URL, studentDetails, setStudentDetails, s
                   <MenuItem value={'8.5+'}>8.5+</MenuItem>
                   <MenuItem value={'9.0+'}>9.0+</MenuItem>
                   <MenuItem value={'9.5+'}>9.5+</MenuItem>
+                </TextField>
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <TextField
+                  variant="standard"
+                  fullWidth
+                  required
+                  select
+                  label="College"
+                  value={college}
+                  onChange={(e) => {
+                    setCollege(e.target.value);
+                  }}
+                >
+                  <MenuItem value={'College1'}>College1</MenuItem>
+                  <MenuItem value={'College2'}>College2</MenuItem>
+                  <MenuItem value={'College3'}>College3</MenuItem>
+                  <MenuItem value={'College4'}>College4</MenuItem>
+                  <MenuItem value={'College5'}>College5</MenuItem>
                 </TextField>
               </Grid>
               <Grid item xs={12}>

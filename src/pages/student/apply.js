@@ -64,6 +64,7 @@ export default function Apply({ BASE_URL, studentDetails, setShowAlert, setAlert
       name: studentDetails.name,
       email: studentDetails.email,
       course: studentDetails.course,
+      college: studentDetails.college,
       department: studentDetails.department,
       year: studentDetails.year,
       cgpa: studentDetails.cgpa,
