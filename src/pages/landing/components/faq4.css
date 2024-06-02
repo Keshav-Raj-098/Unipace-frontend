@@ -1,0 +1,118 @@
+.faq4-faq12 {
+  width: 100%;
+  height: auto;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  align-items: center;
+  flex-shrink: 0;
+  flex-direction: column;
+  justify-content: center;
+}
+.faq4-max-width {
+  gap: var(--dl-space-space-threeunits);
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+}
+.faq4-section-title {
+  align-items: flex-start;
+}
+.faq4-text {
+  text-align: center;
+}
+.faq4-text1 {
+  text-align: center;
+}
+.faq4-list-item1 {
+  gap: var(--dl-space-space-unit);
+  display: flex;
+  align-self: stretch;
+  align-items: flex-start;
+  flex-direction: column;
+}
+.faq4-faq1-question {
+  font-style: normal;
+  text-align: center;
+  font-weight: 600;
+}
+.faq4-faq2-question {
+  font-style: normal;
+  text-align: center;
+  font-weight: 600;
+}
+.faq4-list-item2 {
+  gap: var(--dl-space-space-unit);
+  display: flex;
+  align-self: stretch;
+  align-items: flex-start;
+  flex-direction: column;
+}
+.faq4-list-item3 {
+  gap: var(--dl-space-space-unit);
+  display: flex;
+  align-self: stretch;
+  align-items: flex-start;
+  flex-direction: column;
+}
+.faq4-faq3-question {
+  font-style: normal;
+  text-align: center;
+  font-weight: 600;
+}
+.faq4-list-item4 {
+  gap: var(--dl-space-space-unit);
+  display: flex;
+  align-self: stretch;
+  align-items: flex-start;
+  flex-direction: column;
+}
+.faq4-faq4-question {
+  font-style: normal;
+  text-align: center;
+  font-weight: 600;
+}
+.faq4-list-item5 {
+  gap: var(--dl-space-space-unit);
+  display: flex;
+  align-self: stretch;
+  align-items: flex-start;
+  flex-direction: column;
+}
+.faq4-faq5-question {
+  font-style: normal;
+  text-align: center;
+  font-weight: 600;
+}
+.faq4-list1 {
+  border: 2px dashed rgba(120, 120, 120, 0.4);
+}
+.faq4-content1 {
+  align-items: flex-start;
+}
+.faq4-content2 {
+  gap: var(--dl-space-space-unit);
+  display: flex;
+  align-self: stretch;
+  flex-direction: column;
+}
+@media(max-width: 1600px) {
+  .faq4-faq2-question {
+    align-self: flex-start;
+    text-align: left;
+  }
+}
+@media(max-width: 479px) {
+  .faq4-max-width {
+    gap: var(--dl-space-space-oneandhalfunits);
+  }
+  .faq4-content1 {
+    align-items: center;
+  }
+  .faq4-text2 {
+    text-align: center;
+  }
+  .faq4-text3 {
+    text-align: center;
+  }
+}

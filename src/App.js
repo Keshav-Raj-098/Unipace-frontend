@@ -24,7 +24,7 @@ import AdminSignInRedirect from './pages/admin/AdminSignInRedirect';
 import AdminDashboard from './pages/admin/dashboard';
 import AdminIndex from './pages/admin/index';
 import ReactGA from 'react-ga';
-import Landing from './pages/landing';
+import TeleportLanding from './pages/landing';
 import StudentDashbaord from "./pages/student/dashboard"
 import Trial from "./pages/student/dashboard/opportunityTable"
 
@@ -159,7 +159,7 @@ export default function App() {
                 }
               >
                 {/* <Route path="/" element={<StudentOrStartUp BASE_URL={BASE_URL} {...setAlertProps} />} /> */}
-                <Route path="/" element={<Landing BASE_URL={BASE_URL} {...setAlertProps} />} />
+                <Route path="/" element={<TeleportLanding BASE_URL={BASE_URL} {...setAlertProps} />} />
                 <Route path="details" element={<JobDetails BASE_URL={BASE_URL} startUpDetails={null} />} />{' '}
                 {/* TODO check if  shouldn't there be an alert property here also? */}
                 <Route path="signIn" element={<SignIn BASE_URL={BASE_URL} {...setAlertProps} />} />
