@@ -22,8 +22,8 @@ const Landing = (props) => {
         <meta property="og:title" content="Finbest" />
         <meta property="og:description" content="Description of the website" />
       </Helmet>
-      <div className="home-header">
-        <div className="home-heading">
+      <div className="home-header ">
+        <div className="home-heading ">
           <div id="notifcation" className="home-notification"></div>
           <Navbar></Navbar>
         </div>
@@ -204,18 +204,19 @@ const Landing = (props) => {
       <div className="home-banner-container">
         <div className="home-banner">
           <div className="home-pasted-image5">
-            <span className="home-text16">
+            {/* <span className="home-text16">
               Apply for 2024 Internship Season Today 
             </span>
             <div className="home-book-btn">
               <span className="home-text17">Book a demo</span>
             </div>
-          </div>
+            */}
+          </div> 
           <span className="home-text18">
             Apply for 2024 Internship Season Today 
           </span>
-          <div className="home-book-btn1">
-            <span className="home-text19">Book a demo</span>
+          <div className="home-book-btn1 ">
+            <span className="home-text19 ">Book a demo</span>
           </div>
         </div>
       </div>
