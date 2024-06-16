@@ -119,7 +119,7 @@ function JobListing({ logo, companyName, mission, role, salary, deadline, type, 
   };
 
   return (
-    <Card sx={{ borderRadius: '20px', boxShadow: '0px 3px 20px 0px rgba(0, 0, 0, 0.25)' }}>
+    <Card sx={{ borderRadius: '30px',marginBottom: '14px', boxShadow: '0px 3px 20px 0px rgba(0, 0, 0, 0.25)' }}>
       <Grid container alignItems="center" justifyContent="space-between" gap={2} sx={{ paddingBlock: '1vh', paddingInline: '2vw', '@media (max-width: 768px)': { gap: '0' } }}>
         {!isMobile && (
           <Grid item>
@@ -132,7 +132,7 @@ function JobListing({ logo, companyName, mission, role, salary, deadline, type, 
               {companyName}
             </Typography>
             {!isMobile && (
-              <Typography variant="body1" sx={{ color: 'black' }}>
+              <Typography variant="body1" sx={{ color: 'black',marginBottom:"10px" ,fontWeight:'450'}}>
                 Our mission is to create a world where everyone has access to the food they love{mission}
               </Typography>
             )}
@@ -145,17 +145,17 @@ function JobListing({ logo, companyName, mission, role, salary, deadline, type, 
               </Grid>
    
               <Grid item>
-                <Typography variant="body1" component="div" color="black">
+                <Typography variant="body1" component="div" color="black" >
                   Salary:{salary}
                 </Typography>
               </Grid>
               <Grid item>
-                <Typography variant="body1" component="div" color="black">
+                <Typography variant="body1" component="div" color="red">
                   Deadline:{deadline}
                 </Typography>
               </Grid>
               <Grid item xs={12} maxWidth="100%">
-                <Typography variant="body1" component="div" sx={{ fontFamily: 'Poppins, sans-serif', alignSelf: 'start', color: 'black' }}>
+                <Typography variant="body1" component="div" sx={{ fontFamily: 'Poppins, sans-serif', alignSelf: 'start', color: 'black'  }}>
                   {type}
                 </Typography>
               </Grid>
