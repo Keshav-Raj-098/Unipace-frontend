@@ -1,11 +1,9 @@
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import { Container, Box, Button, TextField} from '@mui/material';
+import { Container, Box} from '@mui/material';
+// import Logo from '../assets/NAV-UNIPACE.png';
 import Logo from '../assets/Asset 4.svg';
-import stlogo from "../assets/student.svg"
-import busslogo from "../assets/business.svg"
-import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 
