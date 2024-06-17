@@ -377,8 +377,8 @@ export default function Details({ BASE_URL, startUpDetails }) {
                             variant="standard"
                             label="LinkedIn"
                             fullWidth
-                            value={jobStartUpDetails}     
-                            // value={jobStartUpDetails.linkedIn}     
+                            
+                            value={jobStartUpDetails.linkedIn}     
                             InputProps={{ disableUnderline: true, readOnly: true }}
                             sx={{ input: { cursor: 'pointer', color: '#1976d2' } }}
                           />
