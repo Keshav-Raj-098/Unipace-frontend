@@ -135,23 +135,25 @@ export default function Apply({ BASE_URL, studentDetails, setShowAlert, setAlert
             <Grid container spacing={2}>
               <Grid item xs={12} md={6}>
                 <TextField
-                  variant="standard"
+                  variant="filled"
                   label="Company Name"
                   fullWidth
                   value={jobStartUpDetails.companyName}
-                  InputProps={{ disableUnderline: true, readOnly: true }}
+                  InputProps={{ disableUnderline: true, readOnly: true,style:{paddingTop:"10px"} }}
+                  InputLabelProps={{style: {fontSize: '20px',fontWeight:"bold", color:"black",fontFamily:"sans-serif", fontStretch:"expanded" }}}
                 />
               </Grid>
               <Grid item xs={12} md={6}>
                 <TextField
-                  variant="standard"
+                  variant="filled"
                   label="Email"
                   fullWidth
                   value={jobStartUpDetails.email}
-                  InputProps={{ disableUnderline: true, readOnly: true }}
+                  InputProps={{ disableUnderline: true, readOnly: true,style:{paddingTop:"10px"} }}
+                  InputLabelProps={{style: {fontSize: '20px',fontWeight:"bold", color:"black",fontFamily:"sans-serif", fontStretch:"expanded" }}}
                 />
               </Grid>
-              {jobStartUpDetails.linkedIn !== '' && jobStartUpDetails.linkedIn !== undefined ? (
+              {jobStartUpDetails.linkedIn !== null && jobStartUpDetails.linkedIn !== undefined ? (
                 <Grid item xs={12} md={6}>
                   <a
                     href={jobStartUpDetails.linkedIn}
@@ -164,53 +166,89 @@ export default function Apply({ BASE_URL, studentDetails, setShowAlert, setAlert
                   >
                     <TextField
                       color="primary"
-                      variant="standard"
+                      variant="filled"
                       label="LinkedIn"
                       fullWidth
-                      value={jobStartUpDetails.linkedIn}
-                      InputProps={{ disableUnderline: true, readOnly: true }}
-                      sx={{ input: { cursor: 'pointer', color: '#1976d2' } }}
+                      value={
+                        jobStartUpDetails.linkedIn
+                      ?  jobStartUpDetails.linkedIn : "Unavailable"
+                      }
+                      InputProps={{ disableUnderline: true, readOnly: true,style:{paddingTop:"10px"} }}
+                      sx={{ 
+                        input: { cursor: 'pointer', color: '#1976d2' } }}
+                      InputLabelProps={{style: {fontSize: '20px',fontWeight:"bold", color:"black",fontFamily:"sans-serif", fontStretch:"expanded" }}}
                     />
                   </a>
                 </Grid>
               ) : (
-                <></>
+                <>
+                  <Grid item xs={12} md={6}>
+
+                <TextField
+                      color="primary"
+                      variant="filled"
+                      label="LinkedIn"
+                      fullWidth
+                      value={
+                        jobStartUpDetails.linkedIn
+                        ?  jobStartUpDetails.linkedIn : "Unavailable"
+                        }
+                      InputProps={{ disableUnderline: true, readOnly: true,style:{paddingTop:"10px"} }}
+                      sx={{ 
+                        input: { cursor: 'pointer', color: 'black' } }}
+                      InputLabelProps={{style: {fontSize: '20px',fontWeight:"bold", color:"black",fontFamily:"sans-serif", fontStretch:"expanded" }}}
+                      />
+                
+                      </Grid>
+                </>
               )}
               <Grid item xs={12} md={6}>
                 <TextField
-                  variant="standard"
+                  variant="filled"
                   label="Sector"
                   fullWidth
-                  value={jobStartUpDetails.sector}
-                  InputProps={{ disableUnderline: true, readOnly: true }}
+                  value={
+                    jobStartUpDetails.sector 
+                    ? jobStartUpDetails.sector : "Unavailable" 
+                  }
+                  InputProps={{ disableUnderline: true, readOnly: true ,style:{paddingTop:"10px"}}}
+                  InputLabelProps={{style: {fontSize: '20px',fontWeight:"bold", color:"black",fontFamily:"sans-serif", fontStretch:"expanded" }}}
                 />
               </Grid>
               <Grid item xs={12} md={6}>
                 <TextField
-                  variant="standard"
+                  variant="filled"
                   label="Location"
+
                   fullWidth
-                  value={jobStartUpDetails.location}
-                  InputProps={{ disableUnderline: true, readOnly: true }}
+                  value={
+                    jobStartUpDetails.location ?
+                    jobStartUpDetails.location : "Unavailable"
+
+                  }
+                  InputProps={{ disableUnderline: true, readOnly: true,style:{paddingTop:"10px"} }}
+                  InputLabelProps={{style: {fontSize: '20px', fontWeight:"bold", color:"black",fontFamily:"sans-serif", fontStretch:"expanded", }}}
                 />
               </Grid>
               <Grid item xs={12} md={6}>
                 <TextField
-                  variant="standard"
+                  variant="filled"
                   label="No Of Employees"
                   fullWidth
                   value={jobStartUpDetails.noOfEmployees}
-                  InputProps={{ disableUnderline: true, readOnly: true }}
+                  InputProps={{ disableUnderline: true, readOnly: true,style:{paddingTop:"10px"} }}
+                  InputLabelProps={{style: {fontSize: '20px',fontWeight:"bold", color:"black",fontFamily:"sans-serif", fontStretch:"expanded" }}}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} md={6}>
                 <TextField
-                  variant="standard"
+                  variant="filled"
                   label="Company Vision"
                   multiline
                   fullWidth
                   value={jobStartUpDetails.companyVision}
                   InputProps={{ disableUnderline: true, readOnly: true }}
+                  InputLabelProps={{style: {fontSize: '20px',fontWeight:"bold", color:"black",fontFamily:"sans-serif", fontStretch:"expanded" }}}
                 />
               </Grid>
             </Grid>
@@ -228,36 +266,61 @@ export default function Apply({ BASE_URL, studentDetails, setShowAlert, setAlert
               {jobStartUpDetails.hrName !== undefined && (
                 <Grid item xs={12} md={6}>
                   <TextField
-                    variant="standard"
+                    variant="filled"
                     label="Name"
                     placeholder=""
                     fullWidth
-                    value={jobStartUpDetails.hrName}
-                    InputProps={{ disableUnderline: true, readOnly: true }}
+                    value={
+                      jobStartUpDetails.hrName
+                      ? jobStartUpDetails.hrName : "Unavailable"
+
+                    }
+                    InputProps={{ disableUnderline: true, readOnly: true,style:{paddingTop:"10px"} }}
+                    InputLabelProps={{style: {fontSize: '20px', fontWeight:"bold", color:"black",fontFamily:"sans-serif", fontStretch:"expanded", }}}
+                    
                   />
                 </Grid>
               )}
               {jobStartUpDetails.hrEmail !== undefined && (
                 <Grid item xs={12} md={6}>
                   <TextField
-                    variant="standard"
+                    variant="filled"
                     label="Personal Email"
                     placeholder=""
                     fullWidth
-                    value={jobStartUpDetails.hrEmail}
-                    InputProps={{ disableUnderline: true, readOnly: true }}
+                    value={
+                      jobStartUpDetails.hrEmail 
+                      ? jobStartUpDetails.hrEmail : "Unavailable" 
+
+                    }
+                    InputProps={{ disableUnderline: true, readOnly: true,style:{paddingTop:"10px"} }}
+                    InputLabelProps={{style: {fontSize: '20px', fontWeight:"bold", color:"black",fontFamily:"sans-serif", fontStretch:"expanded", }}}
+                   
                   />
                 </Grid>
               )}
               {jobStartUpDetails.hrDesignation !== undefined && (
                 <Grid item xs={12} md={6}>
                   <TextField
-                    variant="standard"
+                    variant="filled"
+
                     label="Designation"
                     placeholder=""
+                
+
                     fullWidth
-                    value={jobStartUpDetails.hrDesignation}
-                    InputProps={{ disableUnderline: true, readOnly: true }}
+                    value={jobStartUpDetails.hrDesignation ? jobStartUpDetails.hrDesignation :
+                      "Unavailable"
+                    }
+                    InputProps={{ disableUnderline: true, readOnly: true,style:{paddingTop:"10px"} }}
+                    InputLabelProps={{style: {fontSize: '20px', fontWeight:"bold", color:"black",fontFamily:"sans-serif", fontStretch:"expanded", }}} 
+                                   
+          sx={{
+            '& .MuiInputBase-input::placeholder': {
+              fontSize: '17px',fontWeight:"500", color:"black",opacity: "1" 
+            },
+          }}
+                    
                   />
                 </Grid>
               )}
@@ -295,10 +358,8 @@ export default function Apply({ BASE_URL, studentDetails, setShowAlert, setAlert
                             sx={{ mb: { xs: 2, md: 0 } }}
                             fullWidth
                             value={value.name}
-                            InputProps={{
-                              disableUnderline: true,
-                              readOnly: true,
-                            }}
+                            InputProps={{ disableUnderline: true,readOnly: true,style:{paddingTop:"10px"}}}
+                            InputLabelProps={{style: {fontSize: '20px',fontWeight:"bold", color:"black",fontFamily:"sans-serif", fontStretch:"expanded" }}}
                           />
                         </Grid>
                         <Grid item xs={12} md={6}>
@@ -311,8 +372,9 @@ export default function Apply({ BASE_URL, studentDetails, setShowAlert, setAlert
                             value={value.linkedIn || '-'}
                             InputProps={{
                               disableUnderline: true,
-                              readOnly: true,
+                              readOnly: true,style:{paddingTop:"10px"}
                             }}
+                            InputLabelProps={{style: {fontSize: '20px',fontWeight:"bold", color:"black",fontFamily:"sans-serif", fontStretch:"expanded" }}}
                           />
                         </Grid>
                         <Grid item xs={12}>
@@ -325,8 +387,9 @@ export default function Apply({ BASE_URL, studentDetails, setShowAlert, setAlert
                             value={value.bio}
                             InputProps={{
                               disableUnderline: true,
-                              readOnly: true,
+                              readOnly: true
                             }}
+                            InputLabelProps={{style: {fontSize: '20px',fontWeight:"bold", color:"black",fontFamily:"sans-serif", fontStretch:"expanded" }}}
                           />
                         </Grid>
                       </Grid>
@@ -365,6 +428,7 @@ export default function Apply({ BASE_URL, studentDetails, setShowAlert, setAlert
                   fullWidth
                   value={jobDetails.designation}
                   InputProps={{ disableUnderline: true, readOnly: true }}
+                  InputLabelProps={{style: {fontSize: '20px',fontWeight:"bold", color:"black",fontFamily:"sans-serif", fontStretch:"expanded" }}}
                 />
               </Grid>
               {jobDetails.type === 'Internship' ? (
@@ -375,6 +439,7 @@ export default function Apply({ BASE_URL, studentDetails, setShowAlert, setAlert
                     fullWidth
                     value={jobDetails.duration}
                     InputProps={{ disableUnderline: true, readOnly: true }}
+                    InputLabelProps={{style: {fontSize: '20px',fontWeight:"bold", color:"black",fontFamily:"sans-serif", fontStretch:"expanded" }}}
                   />
                 </Grid>
               ) : (
@@ -385,6 +450,7 @@ export default function Apply({ BASE_URL, studentDetails, setShowAlert, setAlert
                     fullWidth
                     value={jobDetails.type}
                     InputProps={{ disableUnderline: true, readOnly: true }}
+                    InputLabelProps={{style: {fontSize: '20px',fontWeight:"bold", color:"black",fontFamily:"sans-serif", fontStretch:"expanded" }}}
                   />
                 </Grid>
               )}
@@ -395,6 +461,7 @@ export default function Apply({ BASE_URL, studentDetails, setShowAlert, setAlert
                   fullWidth
                   value={jobDetails.stipend}
                   InputProps={{ disableUnderline: true, readOnly: true }}
+                  InputLabelProps={{style: {fontSize: '20px',fontWeight:"bold", color:"black",fontFamily:"sans-serif", fontStretch:"expanded" }}}
                 />
               </Grid>
               <Grid item xs={12} md={6}>
@@ -404,6 +471,7 @@ export default function Apply({ BASE_URL, studentDetails, setShowAlert, setAlert
                   fullWidth
                   value={jobDetails.noOfOffers}
                   InputProps={{ disableUnderline: true, readOnly: true }}
+                  InputLabelProps={{style: {fontSize: '20px',fontWeight:"bold", color:"black",fontFamily:"sans-serif", fontStretch:"expanded" }}}
                 />
               </Grid>
               <Grid item xs={12} md={6}>
@@ -414,6 +482,7 @@ export default function Apply({ BASE_URL, studentDetails, setShowAlert, setAlert
                   fullWidth
                   value={jobDetails.skillsRequired}
                   InputProps={{ disableUnderline: true, readOnly: true }}
+                  InputLabelProps={{style: {fontSize: '20px',fontWeight:"bold", color:"black",fontFamily:"sans-serif", fontStretch:"expanded" }}}
                 />
               </Grid>
               <Grid item xs={12} md={6}>
@@ -424,6 +493,7 @@ export default function Apply({ BASE_URL, studentDetails, setShowAlert, setAlert
                   fullWidth
                   value={jobDetails.responsibilities}
                   InputProps={{ disableUnderline: true, readOnly: true }}
+                  InputLabelProps={{style: {fontSize: '20px',fontWeight:"bold", color:"black",fontFamily:"sans-serif", fontStretch:"expanded" }}}
                 />
               </Grid>
               <Grid item xs={12} md={6}>
@@ -433,6 +503,7 @@ export default function Apply({ BASE_URL, studentDetails, setShowAlert, setAlert
                   fullWidth
                   value={jobDetails.jobLocation}
                   InputProps={{ disableUnderline: true, readOnly: true }}
+                  InputLabelProps={{style: {fontSize: '20px',fontWeight:"bold", color:"black",fontFamily:"sans-serif", fontStretch:"expanded" }}}
                 />
               </Grid>
             </Grid>
@@ -475,7 +546,8 @@ export default function Apply({ BASE_URL, studentDetails, setShowAlert, setAlert
                 label="Deadline"
                 fullWidth
                 value={moment(jobDetails.deadline).format('MMMM Do YYYY, h:mm:ss a')}
-                InputProps={{ disableUnderline: true, readOnly: true }}
+                InputProps={{ disableUnderline: true, readOnly: true, style: { color: 'red' } }}
+                 InputLabelProps={{style: {fontSize: '20px',fontWeight:"bold", color:"black",fontFamily:"sans-serif", fontStretch:"expanded" }}}
               />
               <TextField
                 variant="standard"
@@ -483,7 +555,9 @@ export default function Apply({ BASE_URL, studentDetails, setShowAlert, setAlert
                 multiline
                 fullWidth
                 value={jobDetails.selectionProcess}
-                InputProps={{ disableUnderline: true, readOnly: true }}
+                InputProps={{ disableUnderline: true, readOnly: true,style: { color: 'green' }   }}
+                InputLabelProps={{style: {fontSize: '20px',fontWeight:"bold", color:"black",fontFamily:"sans-serif", fontStretch:"expanded" }}}
+                
               />
             </Box>
           )}
@@ -529,3 +603,8 @@ export default function Apply({ BASE_URL, studentDetails, setShowAlert, setAlert
     </Container>
   );
 }
+
+
+
+
+

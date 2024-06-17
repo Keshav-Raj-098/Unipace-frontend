@@ -222,7 +222,7 @@ export default function Details({ BASE_URL, startUpDetails }) {
                       />
                     </Grid>
                     <Box sx={{ display: 'flex', padding: 1, gap: 1, flexDirection: ['row', 'column', 'row'] }}>
-                      <Grid item xs={12} md={6} sx={{ border: '1px solid #FFF', borderRadius: '10px', textAlign: 'center', flex: 1 }}>
+                      <Grid item xs={12} md={6} sx={{ border: '1px solid  #fff', borderRadius: '10px', textAlign: 'center', flex: 1 }}>
                         <TextField
                           color="primary"
                           variant="standard"
@@ -241,13 +241,13 @@ export default function Details({ BASE_URL, startUpDetails }) {
                             ),
                           }}
                           sx={{
-                            '& input': { cursor: 'pointer', color: '#FFF', textAlign: 'center' },
+                            '& input': { cursor: 'pointer', color: 'black', textAlign: 'left' },
                             '& label': { textAlign: 'center' },
                             root: { textAlign: 'center' },
                           }}
                         />
                       </Grid>
-                      <Grid item xs={12} md={6} sx={{ border: '1px solid #FFF', borderRadius: '10px', textAlign: 'center', flex: 1 }}>
+                      <Grid item xs={12} md={6} sx={{ border: '1px solid  #fff', borderRadius: '10px', textAlign: 'center', flex: 1 }}>
                         <TextField
                           color="primary"
                           variant="standard"
@@ -267,7 +267,7 @@ export default function Details({ BASE_URL, startUpDetails }) {
                             ),
                           }}
                           sx={{
-                            '& input': { cursor: 'pointer', color: '#FFF', textAlign: 'center' },
+                            '& input': { cursor: 'pointer', color: 'black', textAlign: 'left' },
                             '& label': { textAlign: 'center' },
                             root: { textAlign: 'center' },
                           }}
@@ -275,7 +275,7 @@ export default function Details({ BASE_URL, startUpDetails }) {
                       </Grid>
                     </Box>
                     <Box sx={{ display: 'flex', padding: 1, gap: 1, flexDirection: ['row', 'column', 'row'] }}>
-                      <Grid item xs={12} md={6} sx={{ border: '1px solid #FFF', borderRadius: '10px', textAlign: 'center', flex: 1 }}>
+                      <Grid item xs={12} md={6} sx={{ border: '1px solid  #fff', borderRadius: '10px', textAlign: 'center', flex: 1 }}>
                         <TextField
                           color="primary"
                           variant="standard"
@@ -294,16 +294,15 @@ export default function Details({ BASE_URL, startUpDetails }) {
                             ),
                           }}
                           sx={{
-                            '& input': { cursor: 'pointer', color: '#FFF', textAlign: 'center' },
+                            '& input': { cursor: 'pointer', color: 'black', textAlign: 'left' },
                             '& label': { textAlign: 'center' },
                             root: { textAlign: 'center' },
                           }}
                         />
                       </Grid>
-                      <Grid item xs={12} md={6} sx={{ border: '1px solid #FFF', borderRadius: '10px', textAlign: 'center', flex: 1 }}>
+                      <Grid item xs={12} md={6} sx={{ border: '1px solid  #fff', borderRadius: '10px', textAlign: 'center', flex: 1 }}>
                         <TextField
                           variant="standard"
-                          // label="Company Vision"
                           fullWidth
                           value={jobStartUpDetails.location ? jobStartUpDetails.location : 'India'}
                           InputProps={{
@@ -318,7 +317,7 @@ export default function Details({ BASE_URL, startUpDetails }) {
                             ),
                           }}
                           sx={{
-                            '& input': { cursor: 'pointer', color: '#FFF', textAlign: 'center' },
+                            '& input': { cursor: 'pointer', color: 'black', textAlign: 'left' },
                             '& label': { textAlign: 'center' },
                             root: { textAlign: 'center' },
                           }}
@@ -331,7 +330,7 @@ export default function Details({ BASE_URL, startUpDetails }) {
                       // Right one
                       alignContent: 'center',
                       alignItems: 'center',
-                      border: '1px solid #FFF',
+                      border: '1px solid #fff',
                       borderRadius: '10px',
                       textAlign: 'center',
                       padding: 2,
@@ -347,14 +346,17 @@ export default function Details({ BASE_URL, startUpDetails }) {
                       sx={{
                         '& input': {
                           fontSize: '16px', // Set the desired font size
-                          color: '#1976d2', // Set the desired text color
+                          color: 'Black', // Set the desired text color
                           cursor: 'pointer',
                         },
                       }}
                     />
                     {!isadmin && (
                       <Grid item xs={12} md={6}>
-                        <TextField variant="standard" label="Email" fullWidth value={jobStartUpDetails.email} InputProps={{ disableUnderline: true, readOnly: true }} />
+                        <TextField variant="outlined" label="Email" fullWidth value={jobStartUpDetails.email} InputProps={{ disableUnderline: true, readOnly: true }} 
+                         InputLabelProps={{style: {fontSize: '20px',fontWeight:"bold", color:"black",fontFamily:"sans-serif", fontStretch:"expanded" }}}
+                        
+                        />
                       </Grid>
                     )}
                     {!isadmin && jobStartUpDetails.linkedIn && jobStartUpDetails.linkedIn !== '' && jobStartUpDetails.linkedIn !== undefined ? (
@@ -375,7 +377,8 @@ export default function Details({ BASE_URL, startUpDetails }) {
                             variant="standard"
                             label="LinkedIn"
                             fullWidth
-                            value={jobStartUpDetails.linkedIn}
+                            value={jobStartUpDetails}     
+                            // value={jobStartUpDetails.linkedIn}     
                             InputProps={{ disableUnderline: true, readOnly: true }}
                             sx={{ input: { cursor: 'pointer', color: '#1976d2' } }}
                           />
@@ -601,138 +604,236 @@ export default function Details({ BASE_URL, startUpDetails }) {
             >
               <CircularProgress />
             </Box>
-          ) : (
-            <Grid container spacing={0}>
+          ) :
+          
+          
+
+
+
+
+
+
+
+
+
+
+
+          
+          
+          (
+            <Grid container spacing={0} >
               <Box
                 sx={{
                   display: 'flex',
-                  flexDirection: 'row',
+                  flexDirection: 'column',
                   justifyContent: 'center',
-                  alignItems: 'center',
+                  alignItems: "flex-start",
+                  // border:"1px solid black",
                   flex: 1,
                 }}
               >
                 <Box
                   sx={{
                     display: 'flex',
-                    flexDirection: 'column',
+                    flexDirection: 'row',
+                    flexWrap:"wrap",
                     justifyContent: 'left',
                     alignItems: 'left',
                     width: '100%',
-                    flex: 1,
+                    // border:"1px solid red",
+                    flex:1,
+                    flexGrow:'',
                     padding: '2px 1px 1px 20px',
                   }}
-                >
+                >  
                   {jobDetails.designation && (
-                    <Grid item xs={12} md={6}>
+                    <Grid item  xs={12} sm={6} md={4} mb={5} >
                       <TextField
                         variant="standard"
+                        label={"Designation"}
                         fullWidth
+                       
                         value={jobDetails.designation}
-                        InputProps={{ disableUnderline: true, readOnly: true }}
-                        sx={{
-                          '& input': { cursor: 'pointer', color: '#FFF', fontSize: 20 },
-                        }}
+                        InputProps={{ disableUnderline: true, readOnly: true,
+                          style:{marginBottom:'5px' } }} 
+                         InputLabelProps={{style: {fontSize: '20px',fontWeight:"bold", color:"black",fontFamily:"sans-serif", fontStretch:"expanded"}}}
+                       
                       />
                     </Grid>
                   )}
                   {jobDetails.type !== 'Project' && jobDetails.responsibilities && (
-                    <Grid item xs={12} md={6}>
-                      <TextField variant="standard" multiline fullWidth value={jobDetails.responsibilities} InputProps={{ disableUnderline: true, readOnly: true }} />
+                    <Grid item xs={12} sm={6} md={4} mb={5}>
+                      <TextField variant="standard" multiline 
+                      fullWidth 
+                      label={"Responsibilities"}
+                      value={jobDetails.responsibilities} 
+                     
+
+                      InputProps={{ disableUnderline: true, readOnly: true }}
+                       InputLabelProps={{style: {fontSize: '20px',fontWeight:"bold", color:"black",fontFamily:"sans-serif", fontStretch:"expanded"}}}
+                       sx={{
+                        '& input': { fontWeight:"bold",cursor: 'pointer', color: 'black', fontSize: "15px" }}}
+                       />
                     </Grid>
                   )}
                   {jobDetails.type === 'Internship' && jobDetails.hoursType && (
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12} sm={6} md={4} mb={5}>
                       <TextField
                         variant="standard"
                         multiline
                         fullWidth
+                        label={"Type"}
                         value={jobDetails.hoursType || '( PartTime )'}
                         InputProps={{ disableUnderline: true, readOnly: true }}
+                        InputLabelProps={{style: {fontSize: '20px',fontWeight:"bold", color:"black",fontFamily:"sans-serif", fontStretch:"expanded"}}}
                         padding="4px 0px 0px 0px"
+                        sx={{
+                          '& input': { fontWeight:"bold",cursor: 'pointer', color: 'black', fontSize: "15px" }}}
                       />
                     </Grid>
-                  )}
+                  )} 
                   {jobDetails.type === 'Project' && (
                     <>
-                      {jobDetails.skillsRequired && (
+                      {/* {jobDetails.skillsRequired && (
                         <Grid item xs={12} md={6}>
-                          <TextField variant="standard" label="Skills Required" multiline fullWidth value={jobDetails.skillsRequired} InputProps={{ disableUnderline: true, readOnly: true }} />
+                          <TextField variant="standard" label="Skills Required" multiline fullWidth
+                           value={jobDetails.skillsRequired}
+                          
+                           
+                           InputProps={{ disableUnderline: true, readOnly: true }}
+                           InputLabelProps={{style: {fontSize: '20px',fontWeight:"bold", color:"black",fontFamily:"sans-serif", fontStretch:"expanded"}}}
+                           sx={{
+                            '& input': { fontWeight:"bold",cursor: 'pointer', color: 'red', fontSize: "15px" }}}
+                           
+                           />
                         </Grid>
-                      )}
+                      )} */}
                       {jobDetails.responsibilities && (
-                        <Grid item xs={12}>
-                          <TextField variant="standard" label="Project Description" multiline fullWidth value={jobDetails.responsibilities} InputProps={{ disableUnderline: true, readOnly: true }} />
+                        <Grid item xs={12} sm={6} md={4} mb={5}>
+                          <TextField variant="standard" label="Project Description" multiline fullWidth 
+                       
+                          value={jobDetails.responsibilities || 'Unavailable'} 
+                          
+                          InputProps={{ disableUnderline: true, readOnly: true }} 
+                           InputLabelProps={{style: {fontSize: '20px',fontWeight:"bold", color:"black",fontFamily:"sans-serif", fontStretch:"expanded"}}}
+                           sx={{
+                            '& input': { fontWeight:"bold",cursor: 'pointer', color: 'black', fontSize: "15px" }}}
+                           />
                         </Grid>
                       )}
                     </>
                   )}
-                </Box>
-                <Box
-                  sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'left',
-                    alignItems: 'left',
-                    width: '100%',
-                    flex: 1,
-                    padding: '2px 1px 1px 20px',
-                  }}
-                >
-                  {jobDetails.skillsRequired && (
-                    <Grid item xs={12} md={6}>
-                      <TextField variant="standard" label="Skills Required" multiline fullWidth value={jobDetails.skillsRequired} InputProps={{ disableUnderline: true, readOnly: true }} />
-                    </Grid>
-                  )}
-                </Box>
+              
 
-                <Box
-                  sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'left',
-                    alignItems: 'left',
-                    width: '100%',
-                    flex: 1,
-                    padding: '2px 1px 1px 20px',
-                  }}
-                >
+              
                   {jobDetails.type === 'Internship'
                     ? jobDetails.duration && (
-                        <Grid item xs={12} md={6}>
-                          <TextField variant="standard" label="Internship Duration" fullWidth value={jobDetails.duration} InputProps={{ disableUnderline: true, readOnly: true }} />
+                        <Grid item xs={12} sm={6} md={4} mb={5}>
+                          <TextField variant="standard" label="Internship Duration" fullWidth value={jobDetails.duration} InputProps={{ disableUnderline: true, readOnly: true,
+                            style:{marginBottom:'5px'} }}
+                           InputLabelProps={{style: {fontSize: '20px',fontWeight:"bold", color:"black",fontFamily:"sans-serif", fontStretch:"expanded"}}} />
                         </Grid>
                       )
                     : jobDetails.type && (
-                        <Grid item xs={12} md={6}>
-                          <TextField variant="standard" label="Type" fullWidth value={jobDetails.type} InputProps={{ disableUnderline: true, readOnly: true }} />
+                        <Grid item xs={12} sm={6} md={4} mb={5}>
+                          <TextField variant="standard" label="Type" fullWidth value={jobDetails.type} InputProps={{ disableUnderline: true, readOnly: true,
+                            style:{marginBottom:'5px'} }} 
+                           InputLabelProps={{style: {fontSize: '20px',fontWeight:"bold", color:"black",fontFamily:"sans-serif", fontStretch:"expanded"}}}/>
                         </Grid>
                       )}
+
+
                   {jobDetails.type !== 'Project' && (
                     <>
                       {jobDetails.stipend && (
-                        <Grid item xs={12} md={6}>
-                          <TextField variant="standard" label="Stipend" fullWidth value={jobDetails.stipend} InputProps={{ disableUnderline: true, readOnly: true }} />
+                        <Grid item xs={12} sm={6} md={4} mb={5}>
+                          <TextField variant="standard" label="Stipend" fullWidth value={jobDetails.stipend} 
+                          InputProps={{ disableUnderline: true, readOnly: true,
+                            style:{marginBottom:'5px'} }}  
+                            InputLabelProps={{style: {fontSize: '20px',fontWeight:"bold", color:"black",fontFamily:"sans-serif", fontStretch:"expanded"}}}
+                          
+                          />
                         </Grid>
                       )}
+
                       {jobDetails.noOfOffers && (
-                        <Grid item xs={12} md={6}>
-                          <TextField variant="standard" label="No of Offers" fullWidth value={jobDetails.noOfOffers} InputProps={{ disableUnderline: true, readOnly: true }} />
+                        <Grid item xs={12} sm={6} md={4} mb={5}>
+                          <TextField variant="standard" label="No of Offers" fullWidth value={jobDetails.noOfOffers} InputProps={{ disableUnderline: true, readOnly: true,
+                            style:{marginBottom:'5px'}
+                           }} 
+                           InputLabelProps={{style: {fontSize: '20px',fontWeight:"bold", color:"black",fontFamily:"sans-serif", fontStretch:"expanded"}}}/>
                         </Grid>
                       )}
                       {jobDetails.jobLocation && (
-                        <Grid item xs={12} md={6}>
-                          <TextField variant="standard" label="Job Location" multiline fullWidth value={jobDetails.jobLocation} InputProps={{ disableUnderline: true, readOnly: true }} />
+                        <Grid item xs={12} sm={6} md={4} mb={5}>
+                          <TextField variant="standard" label="Job Location" multiline fullWidth value={jobDetails.jobLocation} InputProps={{ disableUnderline: true, readOnly: true,
+                            style:{marginBottom:'5px'} }} 
+                          
+                          InputLabelProps={{style: {fontSize: '20px',fontWeight:"bold", color:"black",fontFamily:"sans-serif", fontStretch:"expanded"}}}/>
                         </Grid>
                       )}
                     </>
                   )}
                 </Box>
+
+
+
+
+
+
+                <Box
+                
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  justifyContent: 'left',
+                  alignItems: 'left',
+                  width: '100%',
+                  flex:1,
+                  flexGrow:'',
+                  padding: '2px 1px 1px 20px',
+                }}
+                >
+
+                  {jobDetails.skillsRequired && (
+                    <Grid item xs={12} md={6}>
+                      <TextField variant="standard" label="Skills Required" multiline fullWidth value={jobDetails.skillsRequired} InputProps={{ disableUnderline: true, readOnly: true }}
+                       InputLabelProps={{style: {fontSize: '20px',fontWeight:"bold", color:"black",fontFamily:"sans-serif", fontStretch:"expanded"}}}
+                       />
+                    </Grid>
+                  )}
+                </Box>
+                
+
               </Box>
             </Grid>
           )}
         </CardContent>
       </Card>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       {jobStartUpDetails &&
         jobDetails &&
         ((jobDetails.assignment && jobDetails.assignment !== undefined && jobDetails.assignment !== '') ||
@@ -766,11 +867,14 @@ export default function Details({ BASE_URL, startUpDetails }) {
                       label="Application Deadline"
                       fullWidth
                       value={moment(jobDetails.deadline).format('MMMM Do YYYY, h:mm:ss a')}
-                      InputProps={{ disableUnderline: true, readOnly: true }}
+                      InputProps={{ disableUnderline: true, readOnly: true,style: { color: 'red' } }}
+                      InputLabelProps={{style: {fontSize: '20px',fontWeight:"bold", color:"black",fontFamily:"sans-serif", fontStretch:"expanded"}}}
                     />
                   )}
                   {jobDetails.selectionProcess && jobDetails.selectionProcess !== undefined && jobDetails.selectionProcess !== '' && (
-                    <TextField variant="standard" label="Selection Process" multiline fullWidth value={jobDetails.selectionProcess} InputProps={{ disableUnderline: true, readOnly: true }} />
+                    <TextField variant="standard" label="Selection Process" multiline fullWidth value={jobDetails.selectionProcess} InputProps={{ disableUnderline: true, readOnly: true,style: { color: 'green' } }}
+                    InputLabelProps={{style: {fontSize: '20px',fontWeight:"bold", color:"black",fontFamily:"sans-serif", fontStretch:"expanded" }}}
+                    />
                   )}
                 </Box>
               )}
@@ -823,3 +927,6 @@ export default function Details({ BASE_URL, startUpDetails }) {
     </Container>
   );
 }
+
+
+
