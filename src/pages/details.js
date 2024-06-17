@@ -353,7 +353,9 @@ export default function Details({ BASE_URL, startUpDetails }) {
                     />
                     {!isadmin && (
                       <Grid item xs={12} md={6}>
-                        <TextField variant="outlined" label="Email" fullWidth value={jobStartUpDetails.email} InputProps={{ disableUnderline: true, readOnly: true }} 
+                        <TextField variant="standard"
+                        //  label="Email"
+                          fullWidth value={jobStartUpDetails.email} InputProps={{ disableUnderline: true, readOnly: true }} 
                          InputLabelProps={{style: {fontSize: '20px',fontWeight:"bold", color:"black",fontFamily:"sans-serif", fontStretch:"expanded" }}}
                         
                         />
@@ -362,6 +364,7 @@ export default function Details({ BASE_URL, startUpDetails }) {
                     {!isadmin && jobStartUpDetails.linkedIn && jobStartUpDetails.linkedIn !== '' && jobStartUpDetails.linkedIn !== undefined ? (
                       <Grid item xs={12} md={6}>
                         <div
+                        
                           onClick={() => {
                             openLink(jobStartUpDetails.linkedIn);
                           }}
@@ -375,10 +378,9 @@ export default function Details({ BASE_URL, startUpDetails }) {
                           <TextField
                             color="primary"
                             variant="standard"
-                            label="LinkedIn"
-                            fullWidth
-                            value={jobStartUpDetails}     
-                            // value={jobStartUpDetails.linkedIn}     
+                            // label="LinkedIn"
+                            fullWidth   
+                            value={jobStartUpDetails.linkedIn}     
                             InputProps={{ disableUnderline: true, readOnly: true }}
                             sx={{ input: { cursor: 'pointer', color: '#1976d2' } }}
                           />
