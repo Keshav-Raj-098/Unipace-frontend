@@ -16,7 +16,7 @@ const Highlight = (props) => {
 Highlight.defaultProps = {
   description:
     'Sed do eiusmod tempor incididunt ut labore et dolore magna aliquat enim ad minim veniam, quis nostrud',
-  title: 'Everything you get with Finbest',
+  title: 'Everything you get with Unipace',
 }
 
 Highlight.propTypes = {

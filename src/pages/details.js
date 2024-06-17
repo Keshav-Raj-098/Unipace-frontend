@@ -378,8 +378,10 @@ export default function Details({ BASE_URL, startUpDetails }) {
                           <TextField
                             color="primary"
                             variant="standard"
-                            // label="LinkedIn"
-                            fullWidth   
+   
+//                             label="LinkedIn"
+                            fullWidth
+
                             value={jobStartUpDetails.linkedIn}     
                             InputProps={{ disableUnderline: true, readOnly: true }}
                             sx={{ input: { cursor: 'pointer', color: '#1976d2' } }}

@@ -62,7 +62,7 @@ Footer.defaultProps = {
   link7: 'News',
   link2: 'Design to Code',
   link5: 'About',
-  text: '© 2022 finbest. All Rights Reserved.',
+  text: 'Unipace. All Rights Reserved.',
   header: 'Solutions',
   link6: 'Team',
   link4: 'Static Website Generator',

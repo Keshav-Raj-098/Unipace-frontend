@@ -17,9 +17,9 @@ const Landing = (props) => {
   return (
     <div className="home-container">
       <Helmet>
-        <title>Finbest</title>
+        <title>Unipace</title>
         <meta name="description" content="Description of the website" />
-        <meta property="og:title" content="Finbest" />
+        <meta property="og:title" content="Unipace" />
         <meta property="og:description" content="Description of the website" />
       </Helmet>
       <div className="home-header ">
