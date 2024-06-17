@@ -120,12 +120,12 @@ function JobListing({ logo, companyName, mission, role, salary, deadline, type, 
 
   return (
     <Card sx={{ borderRadius: '30px',marginBottom: '14px', boxShadow: '0px 3px 20px 0px rgba(0, 0, 0, 0.25)' }}>
-      <Grid container alignItems="center" justifyContent="space-between" gap={2} sx={{ paddingBlock: '1vh', paddingInline: '2vw', '@media (max-width: 768px)': { gap: '0' } }}>
-        {!isMobile && (
+      <Grid container alignItems="center" justifyContent="space-between" gap={15} sx={{ paddingBlock: '1vh', paddingInline: '2vw', '@media (max-width: 900px)': { gap: '0' } }}>
+        {/* {!isMobile && (
           <Grid item>
-            <CardMedia component="img" src={logo} loading="lazy" alt="Company Logo" sx={{ aspectRatio: '0.94', objectFit: 'contain', objectPosition: 'center', width: '7vw', overflow: 'hidden' }} />
+            <CardMedia component="img" src={''} loading="lazy" alt="Company Logo" sx={{ aspectRatio: '0.94', objectFit: 'contain', objectPosition: 'center', width: '7vw', overflow: 'hidden' }} />
           </Grid>
-        )}
+        )} */}
         <Grid item xs={12} md={8} lg={7} display="flex" flexDirection="column">
           <CardContent sx={{ color: 'black' }}>
             <Typography variant="h6" component="div" fontWeight="bold">
@@ -163,7 +163,7 @@ function JobListing({ logo, companyName, mission, role, salary, deadline, type, 
           </CardContent>
         </Grid>
         <Grid item sx={{ margin: 'auto' }}>
-          <Grid container flexDirection="column" gap={1} alignItems="center" sx={{ '@media (max-width: 768px)': { flexDirection: 'row' } }}>
+          <Grid container flexDirection="column" gap={1} alignItems="center" sx={{ '@media (max-width:900px)': { flexDirection: 'row' } }}>
             <Grid item sx={{ margin: 'auto' }}>
               {renderActionButton()}
             </Grid>
