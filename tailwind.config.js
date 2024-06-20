@@ -1,9 +1,19 @@
+
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/pages/landing/**/*.{html,js}"],
+  content: [
+  
+    ,  "./src/components/timer.js",
+    ,  "./src/pages/student/dashboard/index.js",
+  ],
   theme: {
     extend: {},
   },
-  plugins: [],
-}
+  plugins: [require('daisyui'),],
 
+  daisyui: {
+    themes: ["light"],
+  },
+
+}
