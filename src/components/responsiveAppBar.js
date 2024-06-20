@@ -45,6 +45,8 @@ export default function ResponsiveAppBar({ mode, setMode }) {
               src={Logo}
               alt="Logo"
               loading="lazy"
+              height={100}
+              width={150}
              
               style={{ cursor: 'pointer',marginTop:"28px", }}
               onClick={() => {
