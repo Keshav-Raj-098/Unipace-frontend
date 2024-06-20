@@ -43,13 +43,13 @@ const Timer = (props) => {
     let x = parseInt(12 - currentmonth) + parseInt(month) + parseInt(yearremaining - 1) * 12;
     yearremaining = Math.floor(x / 12);
     monthremaining = x % 12;
-    if (yearremaining == 0) { yearremaining = null; }
+    if (yearremaining === 0) { yearremaining = null; }
   }
 
 
 
 
-  else if (yearremaining == 0) {
+  else if (yearremaining === 0) {
 
     yearremaining = null;
     monthremaining = null;
@@ -66,7 +66,7 @@ const Timer = (props) => {
         a = (getDaysInMonth(currentmonth, currentyear) - parseInt(currentdate)) + parseInt(deadlinedate) + z;
       }
 
-      else if (month == currentmonth) {
+      else if (parseInt(month) === currentmonth) {
         a = daysremaining
       }
 
@@ -112,7 +112,7 @@ const Timer = (props) => {
     
     <div className='flex justify-center'>
 
-    {(FinalDate == true) ? 
+    {(FinalDate === true) ? 
       
      (
 <div className='flex flex-col  p-5  

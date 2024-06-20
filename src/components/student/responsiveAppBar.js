@@ -12,7 +12,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { useNavigate } from 'react-router-dom';
-import Logo from '../../assets/NAV-UNIPACE.png';
+import Logo from "../../assets/Asset 4.svg";
 import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
 
@@ -83,8 +83,10 @@ function ResponsiveAppBar({ studentName, setStudentDetails }) {
               src={Logo}
               alt="Logo"
               loading="lazy"
-              width={60}
-              style={{ cursor: 'pointer' }}
+              height={100}
+              width={150}
+             
+              style={{ cursor: 'pointer',position:"relative", top:"20px" }}
               onClick={() => {
                 navigate('dashboard', { state: { type: 'Internship' } });
               }}
