@@ -1,15 +1,32 @@
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import { Container, Box} from '@mui/material';
-// import Logo from '../assets/NAV-UNIPACE.png';
+import { Container, Box, Button, TextField} from '@mui/material';
 import Logo from '../assets/Asset 4.svg';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+
 
 
 export default function ResponsiveAppBar({ mode, setMode }) {
   const navigate = useNavigate();
 
+  const [hover, sethover] = useState(false);
+  const [hover2, sethover2] = useState(false);
+   
+  const styles = {
+    
+    container1: {
+      backgroundColor: hover && "#3e88d2fa",
+     
+      padding:"12px 25px", borderRadius:"5px ",border:"none",fontWeight:"bold", cursor:"pointer",fontSize:"15px",color:"black"
+},
+    container2: {
+      backgroundColor: hover2 && "#3e88d2fa", 
+    
+      padding:"12px 25px", borderRadius:"5px ",border:"none",fontWeight:"bold", cursor:"pointer",fontSize:"15px",color:"black"
+}
+  }
 
   return (
     <AppBar position="fixed" >
@@ -29,12 +46,11 @@ export default function ResponsiveAppBar({ mode, setMode }) {
               alt="Logo"
               loading="lazy"
              
-              width={150}
-              height={40}
-              style={{ cursor: 'pointer',marginTop:"28px",transform: "scale(1.5)" }}
+              style={{ cursor: 'pointer',marginTop:"28px", }}
               onClick={() => {
                 navigate('/');
               }}
+
             />
             <Box
             
@@ -47,26 +63,21 @@ export default function ResponsiveAppBar({ mode, setMode }) {
             >
            
 
-          <button 
-           
-           style={{padding:"5px 10px", borderRadius:"15px ",border:"none",fontWeight:"bold", cursor:"pointer"
-
-            ,backgroundColor:"whitesmoke",color:"#1976d2"
-           }}
-           
-          onClick={() => {
-                navigate('/signin',{ state: { user: 'Student'}})}} >Student</button>
-          <button 
-           
-           style={{padding:"5px 10px", borderRadius:"15px ",border:"none",fontWeight:"bold", cursor:"pointer"
-
-            ,backgroundColor:"whitesmoke",color:"#1976d2"
-           }}
-           
-          onClick={() => {
-                navigate('/signin', { state: { user: 'Startup'}})}} >StartUp</button>
+          <Button  variant='text'
+          style={styles.container1}
+          onMouseEnter={()=>sethover(true)}
+          onMouseLeave={()=>sethover(false)}
+          onClick={() => {navigate('/signin',{ state: { user: 'Student'}})}}>
+            Student</Button>
 
 
+
+          <Button  className='hover'
+          style={styles.container2}
+          onMouseEnter={()=>sethover2(true)}
+          onMouseLeave={()=>sethover2(false)}
+          onClick={() => {navigate('/signin', { state: { user: 'Startup'}})}}
+           >StartUp</Button>
 
 
             </Box>
