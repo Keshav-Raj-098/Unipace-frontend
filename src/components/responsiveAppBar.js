@@ -19,12 +19,12 @@ export default function ResponsiveAppBar({ mode, setMode }) {
     container1: {
       backgroundColor: hover && "#3e88d2fa",
      
-      padding:"12px 25px", borderRadius:"5px ",border:"none",fontWeight:"bold", cursor:"pointer",fontSize:"15px",color:"black"
+      padding:"8px 15px", borderRadius:"5px ",border:"none",fontWeight:"bold", cursor:"pointer",fontSize:"14px",color:"black"
 },
     container2: {
       backgroundColor: hover2 && "#3e88d2fa", 
     
-      padding:"12px 25px", borderRadius:"5px ",border:"none",fontWeight:"bold", cursor:"pointer",fontSize:"15px",color:"black"
+      padding:"8px 15px", borderRadius:"5px ",border:"none",fontWeight:"bold", cursor:"pointer",fontSize:"14px",color:"black"
 }
   }
 
@@ -48,7 +48,7 @@ export default function ResponsiveAppBar({ mode, setMode }) {
               height={100}
               width={150}
              
-              style={{ cursor: 'pointer',marginTop:"28px", }}
+              style={{ cursor: 'pointer',position:"relative", top:"20px" }}
               onClick={() => {
                 navigate('/');
               }}
