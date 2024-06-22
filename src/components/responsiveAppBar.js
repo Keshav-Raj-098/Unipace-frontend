@@ -60,7 +60,6 @@ export default function ResponsiveAppBar({ mode, setMode }) {
               padding:"5px",
               display:"flex",
               gap:"15px"
-              // backgroundColor:"red"
             }}
             >
            

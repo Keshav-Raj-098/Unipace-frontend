@@ -201,30 +201,7 @@ function ResponsiveAppBar({ studentName, setStudentDetails }) {
                   <LogoutIcon sx={{ mr: 1 }} /> {'Logout'}
                 </Box>
               </MenuItem>
-              {/* <MenuItem onClick={changeMode}>
-                {mode === 'dark' ? (
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                    }}
-                  >
-                    <WbSunnyIcon sx={{ mr: 1 }} /> {'Light'}
-                  </Box>
-                ) : (
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                    }}
-                  >
-                    <Brightness2Icon sx={{ mr: 1 }} />
-                    {'Dark'}
-                  </Box>
-                )}
-              </MenuItem> */}
+        
             </Menu>
           </Box>
         </Toolbar>
