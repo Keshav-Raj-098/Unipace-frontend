@@ -11,6 +11,7 @@ import Feature from '../components/feature'
 import Check from '../components/check'
 import FAQ141 from '../components/faq141'
 import Footer from '../components/footer'
+import img1 from "../../../assets/1new.png"
 import './home.css'
 
 const Landing = (props) => {
@@ -58,35 +59,8 @@ const Landing = (props) => {
               </a>
             </div>
           </div>
-          <div className="home-images">
-            <div className="home-column1">
-              <img
-                alt="pastedImage"
-                src="/pastedimage-v31-700h.png"
-                className="home-pasted-image1"
-              />
-              <img
-                alt="pastedImage"
-                src="/pastedimage-c39.svg"
-                className="home-pasted-image2"
-              />
-            </div>
-            <div className="home-column2">
-              <img
-                alt="pastedImage"
-                src="/pastedimage-iqnj.svg"
-                className="home-pasted-image3"
-              />
-              <img
-                alt="pastedImage"
-                src="/pastedimage-06e.svg"
-                className="home-pasted-image4"
-              />
-            </div>
-          </div>
         </div>
       </div>
-      <div className="home-video"></div>
       <div className="home-stats">
         <div className="home-stat">
           <span className="home-caption3">40+</span>
@@ -103,7 +77,7 @@ const Landing = (props) => {
                 }}
               />
             </span>
-            <br></br>
+           
             <span>unpaid and paid Internships</span>
           </span>
         </div>
@@ -204,13 +178,7 @@ const Landing = (props) => {
       <div className="home-banner-container">
         <div className="home-banner">
           <div className="home-pasted-image5">
-            {/* <span className="home-text16">
-              Apply for 2024 Internship Season Today 
-            </span>
-            <div className="home-book-btn">
-              <span className="home-text17">Book a demo</span>
-            </div>
-            */}
+         
           </div> 
           <span className="home-text18">
             Apply for 2024 Internship Season Today 
