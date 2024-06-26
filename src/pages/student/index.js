@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import ResponsiveAppBar from '../../components/student/responsiveAppBar';
 import { Box, CircularProgress } from '@mui/material';
+import Sidebar from "../../components/student/sidebar"
 
 export default function Index({ studentDetails, setStudentDetails }) {
   const navigate = useNavigate();
@@ -19,31 +20,38 @@ export default function Index({ studentDetails, setStudentDetails }) {
 
   return (
     <>
+    <div className='flex flex-row'>
+
+   <Sidebar studentName={studentName} setStudentDetails={setStudentDetails}  />
+    <div className='flex flex-col'>
+
       <ResponsiveAppBar studentName={studentName} setStudentDetails={setStudentDetails} />
       <div
         style={{
           overflowY: 'auto',
           position: 'absolute',
-          width: '100%',
+          width: '87vw',
           height: '100%',
         }}
-      >
+        >
         {loading ? (
           <Box
-            sx={{
-              height: '100vh',
-              width: '100%',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
+          sx={{
+            height: '100vh',
+            width: '80%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
           >
             <CircularProgress />
           </Box>
         ) : (
           <Outlet />
         )}
+        </div>
       </div>
+        </div>
     </>
   );
 }

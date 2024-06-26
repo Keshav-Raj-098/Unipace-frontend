@@ -90,7 +90,7 @@ export default function Dashboard({ BASE_URL, studentDetails, setShowAlert, setA
 
   const loaderfunction = ()=>{
     return(
-      <Container sx={{ py: 2, mt: 9 }}>
+      <Container sx={{ py: 2, mt: 9 ,}}>
       <Card sx={{ mb: 2 }}>
         <CardContent>
           <Grid container spacing={2}>
@@ -179,7 +179,7 @@ export default function Dashboard({ BASE_URL, studentDetails, setShowAlert, setA
   return (
     <> 
        {/* put hr in 24-hr format */}
-      <Timer deadlinedate={1} month={7} year={2024} hour={12} minutes={0}
+      <Timer deadlinedate={1} month={6} year={2024} hour={12} minutes={0}
              newscript={loaderfunction()} />
       
         

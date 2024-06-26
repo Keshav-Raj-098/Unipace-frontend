@@ -6,6 +6,7 @@ module.exports = {
   
     ,  "./src/components/timer.js",
     ,  "./src/pages/student/dashboard/index.js",
+    "./src/components/student/sidebar.js",
   ],
   theme: {
     extend: {},
