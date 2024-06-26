@@ -27,6 +27,7 @@ import ReactGA from 'react-ga';
 import TeleportLanding from './pages/landing';
 import StudentDashbaord from "./pages/student/dashboard"
 import Trial from "./pages/student/dashboard/opportunityTable"
+import Blogs from "./pages/student/blogpage"
 
 
 const trackingId = 'G-1D3RFBNRQV';
@@ -177,6 +178,10 @@ export default function App() {
                 path="student"
                 element={<StudentIndex mode={mode} setMode={setMode} studentDetails={studentDetails} setStudentDetails={setStudentDetails} />}
               >
+                <Route 
+                 path='blog'
+                 element={<Blogs/>}/>
+
                 <Route path="dashboard" element={<StudentDashbaord BASE_URL={BASE_URL} studentDetails={studentDetails} {...setAlertProps} />} />
                 <Route path="trial" element={<Trial BASE_URL={BASE_URL} studentDetails={studentDetails} {...setAlertProps} />} />
                 <Route

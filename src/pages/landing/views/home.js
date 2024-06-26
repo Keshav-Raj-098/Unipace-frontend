@@ -11,7 +11,6 @@ import Feature from '../components/feature'
 import Check from '../components/check'
 import FAQ141 from '../components/faq141'
 import Footer from '../components/footer'
-import img1 from "../../../assets/1new.png"
 import './home.css'
 
 const Landing = (props) => {

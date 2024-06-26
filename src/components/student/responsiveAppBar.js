@@ -16,21 +16,6 @@ import Logo from "../../assets/Asset 4.svg";
 import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
 
-const pages = [
-  {
-    page: 'Internship',
-    route: 'dashboard',
-  },
-  {
-    page: 'Job',
-    route: 'dashboard',
-  },
-  {
-    page: 'Project',
-    route: 'dashboard',
-  },
-];
-
 function ResponsiveAppBar({ studentName, setStudentDetails }) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -68,9 +53,11 @@ function ResponsiveAppBar({ studentName, setStudentDetails }) {
   };
 
   return (
-    <AppBar position="fixed">
+    <AppBar position="fixed" style={{width:"100vw",height:"70px",backgroundColor:"white",
+      // boxShadow:"black -4px -7px 5px 10px"
+    }}>
       <Container>
-        <Toolbar disableGutters>
+        <Toolbar disableGutters style={{justifyContent:"space-between"}}>
           <Box
             sx={{
               height: '100%',
@@ -83,8 +70,8 @@ function ResponsiveAppBar({ studentName, setStudentDetails }) {
               src={Logo}
               alt="Logo"
               loading="lazy"
-              height={100}
-              width={150}
+              height={90}
+              width={120}
              
               style={{ cursor: 'pointer',position:"relative", top:"20px" }}
               onClick={() => {
@@ -122,11 +109,6 @@ function ResponsiveAppBar({ studentName, setStudentDetails }) {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((value, key) => (
-                <MenuItem onClick={() => moveToNavPage(value)} key={key}>
-                  <Typography textAlign="center">{value.page}</Typography>
-                </MenuItem>
-              ))}
             </Menu>
           </Box>
           <Box
@@ -149,13 +131,13 @@ function ResponsiveAppBar({ studentName, setStudentDetails }) {
               }}
             />
           </Box>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          {/* <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((value, key) => (
               <Button onClick={() => moveToNavPage(value)} sx={{ my: 2, color: 'white', display: 'block' }} key={key}>
                 {value.page}
               </Button>
             ))}
-          </Box>
+          </Box> */}
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
