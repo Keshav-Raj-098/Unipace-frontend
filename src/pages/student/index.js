@@ -27,11 +27,14 @@ export default function Index({ studentDetails, setStudentDetails }) {
 
       <ResponsiveAppBar studentName={studentName} setStudentDetails={setStudentDetails} />
       <div
+        id='maincontent'
         style={{
           overflowY: 'auto',
           position: 'absolute',
-          width: '87vw',
+          backgroundColor:"white",
+          width: '86vw',
           height: '100%',
+          
         }}
         >
         {loading ? (
