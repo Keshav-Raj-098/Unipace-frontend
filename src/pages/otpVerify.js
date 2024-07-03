@@ -1,13 +1,14 @@
 import { Card, CardContent, CardHeader, Container, Typography, TextField, CardActions, Button, CircularProgress } from '@mui/material';
 import React, { useState, useEffect, useCallback } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import useCountDown from 'react-countdown-hook';
 
-export default function OTPVerify({ BASE_URL, setStartUpDetails, setStudentDetails, setShowAlert, setAlertMessage, setAlertSeverity }) {
-  const { user, signInOrSignUp, email, name } = useLocation().state;
+export default function OTPVerify({ BASE_URL, setStartUpDetails, 
+  setStudentDetails,setShowAlert, setAlertMessage, setAlertSeverity ,user, signInOrSignUp, email, name ,setx}) {
+  const navigate = useNavigate();
   const [otp, setOtp] = useState('');
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
+
   const initialTime = 99 * 1000;
   const interval = 1000;
 
@@ -66,7 +67,7 @@ export default function OTPVerify({ BASE_URL, setStartUpDetails, setStudentDetai
             setAlertMessage('Sign in successfully.');
             setAlertSeverity('success');
             setShowAlert(true);
-            navigate('../startUp/internship', {
+            navigate('../startUp/internship',{
               state: { type: 'Internship' },
             });
           } else if (data.status === 401) {
@@ -79,7 +80,7 @@ export default function OTPVerify({ BASE_URL, setStartUpDetails, setStudentDetai
             setAlertMessage(data);
             setAlertSeverity('error');
             setShowAlert(true);
-            // console.log(data)
+            console.log(data)
           }
         });
     } catch (error) {
@@ -143,19 +144,22 @@ export default function OTPVerify({ BASE_URL, setStartUpDetails, setStudentDetai
       },
       body: JSON.stringify(formData),
     };
+    
     const url = `${BASE_URL}/api/student/login/otp/verify`;
     try {
       await fetch(url, requestOptions)
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.status === 200) {
-            localStorage.setItem('localStorageStudentId', data.studentDetails.id);
-            localStorage.setItem('localStorageStudentToken', data.token);
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data.status);
+        
+        if (data.status === 200) {
+          localStorage.setItem('localStorageStudentId', data.studentDetails.id);
+          localStorage.setItem('localStorageStudentToken', data.token);
             setStudentDetails(data.studentDetails);
             setLoading(false);
             setAlertMessage('Sign in successfully.');
             setAlertSeverity('success');
-            setShowAlert(true);
+            setx(false)
             navigate('../student/dashboard', {
               state: { type: 'Internship' },
             });
@@ -203,7 +207,7 @@ export default function OTPVerify({ BASE_URL, setStartUpDetails, setStudentDetai
             navigate('../student/account');
           } else if (data.status === 401) {
             setLoading(false);
-            setAlertMessage('Wrong OTP.');
+            setAlertMessage('Wrong OTP');
             setAlertSeverity('error');
             setShowAlert(true);
           } else {
@@ -310,7 +314,7 @@ export default function OTPVerify({ BASE_URL, setStartUpDetails, setStudentDetai
   };
 
   return (
-    <Container maxWidth="sm" sx={{ py: 2, mt: 9 }}>
+    <Container maxWidth="sm">
       <form onSubmit={submitOTP}>
         <Card>
           <CardHeader title={'Email Verification'} subheader="Please enter the 6-digit OTP that was sent to the email" />
@@ -322,7 +326,6 @@ export default function OTPVerify({ BASE_URL, setStartUpDetails, setStudentDetai
               value={email}
               fullWidth
               required
-              sx={{ mb: 2 }}
               InputProps={{ readOnly: true }}
               disabled={true}
             />
@@ -333,7 +336,7 @@ export default function OTPVerify({ BASE_URL, setStartUpDetails, setStudentDetai
               {loading ? <CircularProgress sx={{ color: 'white' }} size={25} /> : <Typography>Verify</Typography>}
             </Button>
           </CardActions>
-          <CardActions sx={{ ml: 1, mb: 1 }}>
+          <CardActions sx={{ ml: 1,}}>
             <Typography>
               Didn't receive the OTP?{' '}
               {timeLeft === 0 ? (

@@ -2,10 +2,9 @@ import { Card, CardContent, CardHeader, Container, Typography, TextField, CardAc
 import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-export default function SignUp({ BASE_URL, setShowAlert, setAlertMessage, setAlertSeverity }) {
-  const { user } = useLocation().state;
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+export default function SignUp({ user, BASE_URL, setShowAlert, setAlertMessage, setAlertSeverity,setpassotp,setsignin ,setName,setEmail}) {
+  const [name1, setName1] = useState('');
+  const [email1, setEmail1] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -13,8 +12,8 @@ export default function SignUp({ BASE_URL, setShowAlert, setAlertMessage, setAle
     e.preventDefault();
     setLoading(true);
       const formData = {
-        name: name,
-        email: email,
+        name: name1,
+        email: email1,
       };
       const requestOptions = {
         method: 'POST',
@@ -30,14 +29,9 @@ export default function SignUp({ BASE_URL, setShowAlert, setAlertMessage, setAle
           .then((data) => {
             if (data.status === 200) {
               setLoading(false);
-              navigate('../otpVerify', {
-                state: {
-                  user: 'Student',
-                  signInOrSignUp: 'SignUp',
-                  email: data.studentDetails.email,
-                  name: data.studentDetails.name,
-                },
-              });
+              setpassotp(true)
+              setName(data.studentDetails.name)
+              setEmail(data.studentDetails.email)
             } else if (data.status === 401) {
               setLoading(false);
               setAlertMessage('Account already exist. Please signin.');
@@ -56,8 +50,8 @@ export default function SignUp({ BASE_URL, setShowAlert, setAlertMessage, setAle
     e.preventDefault();
     setLoading(true);
     const formData = {
-      companyName: name,
-      email: email,
+      companyName: name1,
+      email: email1,
     };
     const requestOptions = {
       method: 'POST',
@@ -73,14 +67,10 @@ export default function SignUp({ BASE_URL, setShowAlert, setAlertMessage, setAle
         .then((data) => {
           if (data.status === 200) {
             setLoading(false);
-            navigate('../otpVerify', {
-              state: {
-                user: 'Startup',
-                signInOrSignUp: 'SignUp',
-                email: data.startUpDetails.email,
-                name: data.startUpDetails.companyName,
-              },
-            });
+            setpassotp(true)
+            setName(data.startUpDetails.companyName)
+            setEmail(data.startUpDetails.email)
+            
           } else if (data.status === 401) {
             setLoading(false);
             setAlertMessage('Account already exist. Please signin.');
@@ -96,7 +86,7 @@ export default function SignUp({ BASE_URL, setShowAlert, setAlertMessage, setAle
   };
 
   return (
-    <Container maxWidth="sm" sx={{ py: 2, mt: 9 }}>
+    <Container maxWidth="sm">
       <form onSubmit={user === 'Student' ? registerStudent : registerStartUp}>
         <Card>
           <CardHeader title={user + ' Sign Up'} subheader="Enter your details to create account" />
@@ -105,8 +95,8 @@ export default function SignUp({ BASE_URL, setShowAlert, setAlertMessage, setAle
               type="text"
               label={user === 'Student' ? 'Name' : 'Company Name'}
               variant="outlined"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              value={name1}
+              onChange={(e) => setName1(e.target.value)}
               fullWidth
               required
             />
@@ -115,8 +105,8 @@ export default function SignUp({ BASE_URL, setShowAlert, setAlertMessage, setAle
               label={'Email'}
               variant="outlined"
               fullWidth
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={email1}
+              onChange={(e) => setEmail1(e.target.value)}
               sx={{ mt: 2 }}
               required
             />
@@ -138,6 +128,7 @@ export default function SignUp({ BASE_URL, setShowAlert, setAlertMessage, setAle
                   textUnderlineOffset: 2,
                 }}
                 onClick={() => {
+                  setsignin(true)
                   navigate('../signIn', { state: { user: user } });
                 }}
               >

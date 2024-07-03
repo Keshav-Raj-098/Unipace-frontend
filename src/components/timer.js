@@ -129,13 +129,15 @@ const Timer = (props) => {
 
      <span  className='text-white mb-2 mt-4 font-bold text-xl flex justify-center'>
      Get ready to land your dream internship!
+   
      </span>
      <div className='flex flex-row align-middle'>
 
      <span  className='text-white mb-10 mt-4  font-bold' style={{fontSize:"14px"}}>
      Complete your profile today to be seen by top companies 
+  
      </span>
-     <img src={rocket} height="55px" width="30px" 
+     <img src={rocket} alt="" height="55px" width="30px" 
      style={{position:"relative", top:"-15px"}}></img>
 
      </div>

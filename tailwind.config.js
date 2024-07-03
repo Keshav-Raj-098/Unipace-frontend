@@ -7,6 +7,8 @@ module.exports = {
     ,  "./src/components/timer.js",
     ,  "./src/pages/student/dashboard/index.js",
     "./src/components/student/sidebar.js",
+    "./src/components/student/popupwindow.js",
+    "./src/components/responsiveAppBar.js"
   ],
   theme: {
     extend: {},

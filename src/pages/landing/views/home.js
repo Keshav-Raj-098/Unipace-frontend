@@ -11,6 +11,7 @@ import Feature from '../components/feature'
 import Check from '../components/check'
 import FAQ141 from '../components/faq141'
 import Footer from '../components/footer'
+import {Popup} from "reactjs-popup"
 import './home.css'
 
 const Landing = (props) => {
@@ -76,7 +77,6 @@ const Landing = (props) => {
                 }}
               />
             </span>
-           
             <span>unpaid and paid Internships</span>
           </span>
         </div>
