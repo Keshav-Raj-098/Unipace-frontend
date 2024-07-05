@@ -27,7 +27,7 @@
   -webkit-animation-name: fade;
   -webkit-animation-duration: 1.5s;
   animation-name: fade;
-  animation-duration:2s;
+  animation-duration:5s;
   animation-timing-function: cubic-bezier(1, 0.34, 0.3, 0.86);
   animation-delay:0ms;
 }

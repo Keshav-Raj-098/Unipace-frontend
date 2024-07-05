@@ -23,13 +23,13 @@ const Slideshow = () => {
   }, []);
 
   return (
-    <div className="slideshow-container">
+    <div className="slideshow-container" style={{width:"100%"}}>
       {images.map((image, index) => (
         <div
           key={index}
           className={`mySlides fade ${index === currentIndex ? 'active' : ''}`}
         >
-          <img src={image} alt="" style={{ width: '600px',height:"400px",}} />
+          <img src={image} alt="" style={{ width: '350px',height:"400px",}} />
         </div>
       ))}
     </div>

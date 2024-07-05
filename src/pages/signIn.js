@@ -1,31 +1,19 @@
 import { Card, CardContent, CardHeader, Container, Typography, TextField, CardActions, Button, CircularProgress } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import React, {  useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import OTPVerify from './otpVerify';
-import AlertSnackbar from "../components/snackbar.js"
-import Signup from "./signUp.js"
 
-const BASE_URL = process.env.REACT_APP_BACKEND_URL_PRODUCTION || process.env.REACT_APP_BACKEND_URL;
 
-export default function SignIn({ user,setx }) 
+
+export default function SignIn({ BASE_URL,user,setAlertMessage,setAlertSeverity,setShowAlert,setstate,setName,setEmail,setsignInOrSignUp,email,}) 
 
 {
   const navigate = useNavigate();
-  const [email, setEmail] = useState('');
-  const [passotp, setpassotp] = useState(false);
   const [adminUsername, setAdminUsername] = useState('');
   const [adminPassword, setAdminPassword] = useState('');
-  const [startUpDetails, setStartUpDetails] = useState(null);
-  const [studentDetails, setStudentDetails] = useState(null);
-  const [showAlert, setShowAlert] = useState(false);
-  const [alertMessage, setAlertMessage] = useState('Showing alert!');
-  const [alertSeverity, setAlertSeverity] = useState('info');
   const [loading, setLoading] = useState(false);
-  const [signin, setsignin] = useState(true);
-
-
-  const [name, setName] = useState("");
-  const [signInOrSignUp, setsignInOrSignUp] = useState("");
+  
+  
+ 
 
   const loginAdmin = async (e) => {
     e.preventDefault();
@@ -43,6 +31,7 @@ export default function SignIn({ user,setx })
       if (data.status === 200) {
         setAlertMessage('Approved');
         setAlertSeverity('success');
+
         setShowAlert(true);
         localStorage.adminCode = data1.token;
         localStorage.userID = data1.userID;
@@ -83,8 +72,8 @@ export default function SignIn({ user,setx })
         .then((data) => {
           if (data.status === 200) {
             setLoading(false);
-            setpassotp(true);
             setsignInOrSignUp("SignIn");
+            setstate("otp");
             setName(data.studentDetails.name);
             setEmail(data.studentDetails.email);
           } else if (data.status === 401) {
@@ -121,14 +110,10 @@ export default function SignIn({ user,setx })
         .then((data) => {
           if (data.status === 200) {
             setLoading(false);
-            navigate('../otpVerify', {
-              state: {
-                user: 'Startup',
-                signInOrSignUp: 'SignIn',
-                email: data.startUpDetails.email,
-                name: data.startUpDetails.companyName,
-              },
-            });
+            setsignInOrSignUp("SignIn");
+            setstate("otp");
+            setName(data.studentDetails.name);
+            setEmail(data.studentDetails.email);
           } else if (data.status === 401) {
             setLoading(false);
             setAlertMessage("Account doesn't exist. Please signup.");
@@ -144,64 +129,10 @@ export default function SignIn({ user,setx })
 
   };
 
-    const getStudentAccountDetails = async () => {
-      setLoading(true);
-      const requestOptions = {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
-      };
-      const url = `${BASE_URL}/api/student/register/${localStorage.getItem('localStorageStudentId')}`;
-      try {
-        await fetch(url, requestOptions)
-          .then((response) => response.json())
-          .then((data) => {
-            if (data.status === 200) {
-              setStudentDetails(data.studentDetails);
-              setLoading(false);
-            } else {
-              console.log(data);
-            }
-          });
-      } catch (error) {
-        console.log(error);
-      }
-    };
-  
-    const getStartUpAccountDetails = async () => {
-      setLoading(true);
-      const requestOptions = {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
-      };
-      const url = `${BASE_URL}/api/startUp/register/${localStorage.getItem('localStorageStartUpId')}`;
-      try {
-        await fetch(url, requestOptions)
-          .then((response) => response.json())
-          .then((data) => {
-            if (data.status === 200) {
-              setStartUpDetails(data.startUpDetails);
-              setLoading(false);
-            } 
-            else {
-              console.log(data);
-            }
-          });
-      } catch (error) {
-        console.log(error);
-      }
-    };
-  
-    useEffect(() => {
-      if (localStorage.getItem('localStorageStudentId')) getStudentAccountDetails();
-      else if (localStorage.getItem('localStorageStartUpId')) getStartUpAccountDetails();
-      else setLoading(false);
-    }, []);
-  
-
 
 
   return (
-    <Container maxWidth="sm">
+    <Container style={{width:"100%"}}>
       
       {
       user === 'Admin' ? (
@@ -219,6 +150,7 @@ export default function SignIn({ user,setx })
                 required
               />
             </CardContent>
+            
             <CardContent>
               <TextField
                 type="password"
@@ -246,14 +178,13 @@ export default function SignIn({ user,setx })
       
       
       : 
-      (passotp === false ? (
+       (
 
 
-        signin ? (
         
         <form onSubmit={user === 'Student' ? loginStudent : loginStartUp}>
-          <Card>
-            <CardHeader title={user + ' Sign In'} subheader="Enter your email ID to sign in" />
+          <Card sx={{p:2}}>
+            <CardHeader className='text-center'  subheader="Enter your email ID to sign in" />
             <TextField
               type="email"
               label={'Email'}
@@ -262,13 +193,14 @@ export default function SignIn({ user,setx })
               onChange={(e) => setEmail(e.target.value)}
               fullWidth
               required
+              sx={{ml:1}}
             />
-            <CardActions sx={{ ml: 1 }}>
+            <CardActions>
               <Button type="submit" variant="contained" sx={{ width: 120, height: 40 }}>
                 {loading ? <CircularProgress sx={{ color: 'white' }} size={25} /> : <Typography>Sign In</Typography>}
               </Button>
             </CardActions>
-            <CardActions sx={{ ml: 1, }}>
+            <CardActions>
               <Typography>
                 Don't have an Account?{' '}
                 <Typography
@@ -280,35 +212,35 @@ export default function SignIn({ user,setx })
                     textUnderlineOffset: 2,
                   }}
                   onClick={() => {
-                    setsignin(false)
+                    setstate("signup")
                   }}
                 >
                   Sign Up
                 </Typography>
+                
               </Typography>
+              
             </CardActions>
           </Card>
-        </form>) :
-        <Signup user={user} BASE_URL={BASE_URL} setShowAlert={setShowAlert} setAlertSeverity={setAlertSeverity} setAlertMessage={setAlertMessage} setpassotp={setpassotp}
-        setsignin={setsignin} setName={setName} setEmail={setEmail}
-        />
-      ) : (
-        <OTPVerify
-          BASE_URL={BASE_URL}
-          setStartUpDetails={setStartUpDetails}
-          setStudentDetails={setStudentDetails}
-          setShowAlert={setShowAlert} 
-          setAlertSeverity={setAlertSeverity} 
-          setAlertMessage={setAlertMessage}
-          user={user}
-          email={email}
-          name={name}
-          signInOrSignUp={signInOrSignUp}
-          setx={setx}
-        />
-      ))
+        </form>
+      //  
+      // : (
+      //   <OTPVerify
+      //     BASE_URL={BASE_URL}
+      //     setStartUpDetails={setStartUpDetails}
+      //     setStudentDetails={setStudentDetails}
+      //     setShowAlert={setShowAlert} 
+      //     setAlertSeverity={setAlertSeverity} 
+      //     setAlertMessage={setAlertMessage}
+      //     user={user}
+      //     email={email}
+      //     name={name}
+      //     signInOrSignUp={signInOrSignUp}
+      //   />
+      // )
+    )
     }
-      {showAlert ? <AlertSnackbar message={alertMessage} severity={alertSeverity} timer={3000} setShowAlert={setShowAlert} /> : <></>}
+      
     </Container>
   );
 }

@@ -1,9 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 // import StudentOrStartUp from './pages/studentOrStartUp';
 import Error404 from './pages/error404';
-import SignIn from './pages/signIn';
-import OTPVerify from './pages/otpVerify';
-import SignUp from './pages/signUp';
 import StudentIndex from './pages/student/index';
 import StudentApply from './pages/student/apply';
 import StartUpIndex from './pages/startUp/index';
@@ -29,6 +26,8 @@ import StudentDashbaord from "./pages/student/dashboard"
 import Trial from "./pages/student/dashboard/opportunityTable"
 import Blogs from "./pages/student/blogpage"
 import Community from "./pages/student/community"
+import Popup from "./components/Loadpopup.js"
+
 
 
 const trackingId = 'G-1D3RFBNRQV';
@@ -48,7 +47,11 @@ export default function App() {
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState('Showing alert!');
   const [alertSeverity, setAlertSeverity] = useState('info');
+  const [loadPopup, setloadPopup] = useState(false)
 
+   
+
+   
   const colorTheme = createTheme({
     components: {
       MuiCssBaseline: {
@@ -145,6 +148,7 @@ export default function App() {
         </Box>
       ) : (
         <>
+       {  }
           <BrowserRouter>
             <Routes>
               {/* TODO IF i WRITE http://localhost:3000/signIn or http://localhost:3000/signUp, etc than teh site crashes, we need to add a redirect in such cases*/}
@@ -156,23 +160,32 @@ export default function App() {
                     setMode={setMode}
                     startUpDetails={startUpDetails}
                     studentDetails={studentDetails}
+                    setloadPopup={setloadPopup}
+                    loadPopup={loadPopup}
                   />
                   
                 }
               >
                 {/* <Route path="/" element={<StudentOrStartUp BASE_URL={BASE_URL} {...setAlertProps} />} /> */}
-                <Route path="/" element={<TeleportLanding BASE_URL={BASE_URL} {...setAlertProps} />} />
-                <Route path="details" element={<JobDetails BASE_URL={BASE_URL} startUpDetails={null} />} />{' '}
-                {/* TODO check if  shouldn't there be an alert property here also? */}
-                <Route path="signIn" element={<SignIn BASE_URL={BASE_URL} {...setAlertProps} />} />
-                <Route path="signUp" element={<SignUp BASE_URL={BASE_URL} {...setAlertProps} />} />
-                <Route
-                  path="otpVerify"
-                  element={
-                    <OTPVerify BASE_URL={BASE_URL} setStartUpDetails={setStartUpDetails} setStudentDetails={setStudentDetails} {...setAlertProps} />
-                  }
-                />
-              </Route>
+                <Route path="/" element={
+                  <>
+                  <TeleportLanding BASE_URL={BASE_URL} {...setAlertProps} />
+                  
+                  {/* {loadPopup &&  */}
+                  <Popup
+                  BASE_URL={BASE_URL}
+                   setStartUpDetails={setStartUpDetails}
+                    setStudentDetails={setStudentDetails}
+                    {...setAlertProps}
+                    setloadPopup={setloadPopup}
+                    loadPopup={loadPopup}
+                     />
+                     {/* } */}
+                     </> } />
+
+
+                <Route path="details" element={<JobDetails BASE_URL={BASE_URL} startUpDetails={null} />} />{' '}</Route>
+      
               
 
               <Route

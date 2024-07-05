@@ -4,7 +4,8 @@ import ResponsiveAppBar from '../components/responsiveAppBar';
 import { useEffect, useState } from 'react';
 import { Box, CircularProgress } from '@mui/material';
 
-export default function Index({ mode, setMode, startUpDetails, studentDetails }) {
+export default function Index({ mode, setMode, startUpDetails, studentDetails,
+  loadPopup,setloadPopup }) {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
 
@@ -22,7 +23,8 @@ export default function Index({ mode, setMode, startUpDetails, studentDetails })
 
   return (
     <>
-      <ResponsiveAppBar mode={mode} setMode={setMode} />
+      <ResponsiveAppBar mode={mode} setMode={setMode} loadPopup={loadPopup} 
+      setloadPopup={setloadPopup}/>
       <div
         style={{
           overflowY: 'auto',

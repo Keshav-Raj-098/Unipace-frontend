@@ -1,12 +1,12 @@
 import { Card, CardContent, CardHeader, Container, Typography, TextField, CardActions, Button, CircularProgress } from '@mui/material';
 import { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
 
-export default function SignUp({ user, BASE_URL, setShowAlert, setAlertMessage, setAlertSeverity,setpassotp,setsignin ,setName,setEmail}) {
+
+export default function SignUp({ user, BASE_URL, setShowAlert, setAlertMessage, setAlertSeverity,setName,setEmail,setstate,setsignInOrSignUp}) {
   const [name1, setName1] = useState('');
   const [email1, setEmail1] = useState('');
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
+
 
   const registerStudent = async (e) => {
     e.preventDefault();
@@ -29,7 +29,8 @@ export default function SignUp({ user, BASE_URL, setShowAlert, setAlertMessage, 
           .then((data) => {
             if (data.status === 200) {
               setLoading(false);
-              setpassotp(true)
+              setstate("otp")
+              setsignInOrSignUp("SignUp")
               setName(data.studentDetails.name)
               setEmail(data.studentDetails.email)
             } else if (data.status === 401) {
@@ -67,7 +68,8 @@ export default function SignUp({ user, BASE_URL, setShowAlert, setAlertMessage, 
         .then((data) => {
           if (data.status === 200) {
             setLoading(false);
-            setpassotp(true)
+            setstate("otp")
+            setsignInOrSignUp("SignUp")
             setName(data.startUpDetails.companyName)
             setEmail(data.startUpDetails.email)
             
@@ -86,11 +88,12 @@ export default function SignUp({ user, BASE_URL, setShowAlert, setAlertMessage, 
   };
 
   return (
-    <Container maxWidth="sm">
+    <Container style={{width:"100%"}}>
+
       <form onSubmit={user === 'Student' ? registerStudent : registerStartUp}>
-        <Card>
-          <CardHeader title={user + ' Sign Up'} subheader="Enter your details to create account" />
-          <CardContent>
+        <Card >
+          <CardHeader className='text-center' subheader="Enter your details to create account" />
+          <CardContent >
             <TextField
               type="text"
               label={user === 'Student' ? 'Name' : 'Company Name'}
@@ -128,8 +131,8 @@ export default function SignUp({ user, BASE_URL, setShowAlert, setAlertMessage, 
                   textUnderlineOffset: 2,
                 }}
                 onClick={() => {
-                  setsignin(true)
-                  navigate('../signIn', { state: { user: user } });
+                  setstate("signin")
+                  // navigate('../signIn', { state: { user: user } });
                 }}
               >
                 Sign In

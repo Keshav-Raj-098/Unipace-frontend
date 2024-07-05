@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import Logo from "../../assets/Asset 4.svg";
 
 
-function ResponsiveAppBar({ studentName, setStudentDetails }) {
+function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const navigate = useNavigate();

@@ -2,15 +2,23 @@ import { Card, CardContent, CardHeader, Container, Typography, TextField, CardAc
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useCountDown from 'react-countdown-hook';
+import OtpBox from "../components/otpBox/otpBox.js"
 
-export default function OTPVerify({ BASE_URL, setStartUpDetails, 
-  setStudentDetails,setShowAlert, setAlertMessage, setAlertSeverity ,user, signInOrSignUp, email, name ,setx}) {
+export default function OTPVerify({ BASE_URL, setStartUpDetails,
+  setStudentDetails, setShowAlert, setAlertMessage, setAlertSeverity, user, signInOrSignUp, email, name }) {
   const navigate = useNavigate();
+
+
+
   const [otp, setOtp] = useState('');
   const [loading, setLoading] = useState(false);
 
   const initialTime = 99 * 1000;
   const interval = 1000;
+
+  const handleOtpChange = (otp,length) => {
+    
+    if(length===6){ setOtp(otp)}};
 
   const [timeLeft, { start }] = useCountDown(initialTime, interval);
 
@@ -67,7 +75,7 @@ export default function OTPVerify({ BASE_URL, setStartUpDetails,
             setAlertMessage('Sign in successfully.');
             setAlertSeverity('success');
             setShowAlert(true);
-            navigate('../startUp/internship',{
+            navigate('../startUp/internship', {
               state: { type: 'Internship' },
             });
           } else if (data.status === 401) {
@@ -144,25 +152,25 @@ export default function OTPVerify({ BASE_URL, setStartUpDetails,
       },
       body: JSON.stringify(formData),
     };
-    
+
     const url = `${BASE_URL}/api/student/login/otp/verify`;
     try {
       await fetch(url, requestOptions)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data.status);
-        
-        if (data.status === 200) {
-          localStorage.setItem('localStorageStudentId', data.studentDetails.id);
-          localStorage.setItem('localStorageStudentToken', data.token);
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data.status);
+
+          if (data.status === 200) {
+            localStorage.setItem('localStorageStudentId', data.studentDetails.id);
+            localStorage.setItem('localStorageStudentToken', data.token);
             setStudentDetails(data.studentDetails);
             setLoading(false);
             setAlertMessage('Sign in successfully.');
             setAlertSeverity('success');
-            setx(false)
             navigate('../student/dashboard', {
               state: { type: 'Internship' },
             });
+
           } else if (data.status === 401) {
             setLoading(false);
             setAlertMessage('Wrong OTP.');
@@ -314,29 +322,27 @@ export default function OTPVerify({ BASE_URL, setStartUpDetails,
   };
 
   return (
-    <Container maxWidth="sm">
+    <Container style={{width:"100%"}}>
       <form onSubmit={submitOTP}>
         <Card>
           <CardHeader title={'Email Verification'} subheader="Please enter the 6-digit OTP that was sent to the email" />
-          <CardContent>
-            <TextField
-              type="email"
-              label={'Email'}
-              variant="outlined"
-              value={email}
-              fullWidth
-              required
-              InputProps={{ readOnly: true }}
-              disabled={true}
-            />
-            <TextField type="text" label="OTP" variant="outlined" value={otp} onChange={(e) => setOtp(e.target.value)} fullWidth required />
+          <CardContent  className='flex flex-row justify-center'>
+            
+            <OtpBox length={6} onChange={handleOtpChange} />
+
+
+
+
+
           </CardContent>
           <CardActions sx={{ ml: 1 }}>
             <Button type="submit" variant="contained" sx={{ width: 120, height: 40 }}>
               {loading ? <CircularProgress sx={{ color: 'white' }} size={25} /> : <Typography>Verify</Typography>}
             </Button>
+
+
           </CardActions>
-          <CardActions sx={{ ml: 1,}}>
+          <CardActions sx={{ ml: 1, }}>
             <Typography>
               Didn't receive the OTP?{' '}
               {timeLeft === 0 ? (
