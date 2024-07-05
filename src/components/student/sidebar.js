@@ -40,21 +40,8 @@ const Sidebar = ({ studentName, setStudentDetails }) => {
       justifyContent: "start",
       alignItems: "center"
     },
-
-    // logout: {
-    //   color: "black",
-    //   fontSize: "17px",
-    //   width: "100%",
-    //   height: "40px",
-    //   padding: "5px 10px",
-    //   display: "flex",
-    //   justifyContent: "start",
-    //   alignItems: "center",
-    //   position: "relative",
-    //   bottom: "5px",
-    // },
     box:{
-      height:"100vh",width:"14vw",backgroundColor:"white",paddingTop:"90px",
+      height:"100vh",width:"14vw",backgroundColor:"white",paddingTop:"100px",
       display:"flex",flexDirection:"column",justifyContent:"space-between"
 
     }
@@ -119,13 +106,42 @@ const Sidebar = ({ studentName, setStudentDetails }) => {
 
           <FaPenNib /> Blogs </div>
 
-      <div onClick={logOut} className='hover:bg-red-600 text-white cursor-pointer '
+        <div className=" hover:bg-blue-600 cursor-pointer" style={styles.tab}
+          onClick={() => { navigate("/student/community") }}>
+
+          <FaPenNib /> Community </div>
+
+  <div>
+  
+  
+
+
+
+  </div>
+
+
+
+          </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <div onClick={logOut} className='mb-2 hover:bg-red-600 text-white cursor-pointer '
         style={styles.tab}>
 
         <LogoutIcon  /> {'Logout'}
 
 
-      </div>
           </div>
 
     </div>

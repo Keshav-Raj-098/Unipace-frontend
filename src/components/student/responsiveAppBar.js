@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import Logo from "../../assets/Asset 4.svg";
 
 
-function ResponsiveAppBar({ studentName, setStudentDetails }) {
+function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const navigate = useNavigate();
@@ -29,7 +29,7 @@ function ResponsiveAppBar({ studentName, setStudentDetails }) {
   
     }}>
       <Container>
-        <Toolbar disableGutters sx ={{justifyContent:{md:'space-between',
+        <Toolbar disableGutters sx ={{justifyContent:{md:'start',
           sm:"space-between"
         }}}>
 
@@ -93,7 +93,7 @@ function ResponsiveAppBar({ studentName, setStudentDetails }) {
               height: '100%',
               alignItems: 'center',
               display: { xs: 'flex', md: 'none' },
-              justifyContent:"space-between",
+              justifyContent:"start",
               flexGrow: 1,
             }}
           >
@@ -108,21 +108,7 @@ function ResponsiveAppBar({ studentName, setStudentDetails }) {
                 navigate('dashboard', { state: { type: 'Internship' } });
               }}
             />
-            {/* <IconButton
-            edge="start"
-            color="black"
-            aria-label="open drawer"
-            // onClick={toggleDrawer(true)}
-            sx={{
-              mr: 2,
-              display: {
-                sm: "block",
-                md: "none"
-              }
-            }}
-          >
-            <MenuIcon />
-          </IconButton> */}
+           
           </Box>
         </Toolbar>
       </Container>

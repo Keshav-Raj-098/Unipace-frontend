@@ -76,7 +76,6 @@ const Landing = (props) => {
                 }}
               />
             </span>
-           
             <span>unpaid and paid Internships</span>
           </span>
         </div>

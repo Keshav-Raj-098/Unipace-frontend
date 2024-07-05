@@ -1,14 +1,19 @@
 import { Card, CardContent, CardHeader, Container, Typography, TextField, CardActions, Button, CircularProgress } from '@mui/material';
-import React, { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import React, {  useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-export default function SignIn({ BASE_URL, setShowAlert, setAlertMessage, setAlertSeverity }) {
-  const { user } = useLocation().state;
-  const [email, setEmail] = useState('');
+
+
+export default function SignIn({ BASE_URL,user,setAlertMessage,setAlertSeverity,setShowAlert,setstate,setName,setEmail,setsignInOrSignUp,email,}) 
+
+{
+  const navigate = useNavigate();
   const [adminUsername, setAdminUsername] = useState('');
   const [adminPassword, setAdminPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
+  
+  
+ 
 
   const loginAdmin = async (e) => {
     e.preventDefault();
@@ -26,6 +31,7 @@ export default function SignIn({ BASE_URL, setShowAlert, setAlertMessage, setAle
       if (data.status === 200) {
         setAlertMessage('Approved');
         setAlertSeverity('success');
+
         setShowAlert(true);
         localStorage.adminCode = data1.token;
         localStorage.userID = data1.userID;
@@ -66,14 +72,10 @@ export default function SignIn({ BASE_URL, setShowAlert, setAlertMessage, setAle
         .then((data) => {
           if (data.status === 200) {
             setLoading(false);
-            navigate('../otpVerify', {
-              state: {
-                user: 'Student',
-                signInOrSignUp: 'SignIn',
-                email: data.studentDetails.email,
-                name: data.studentDetails.name,
-              },
-            });
+            setsignInOrSignUp("SignIn");
+            setstate("otp");
+            setName(data.studentDetails.name);
+            setEmail(data.studentDetails.email);
           } else if (data.status === 401) {
             setLoading(false);
             setAlertMessage("Account doesn't exist. Please signup.");
@@ -108,14 +110,10 @@ export default function SignIn({ BASE_URL, setShowAlert, setAlertMessage, setAle
         .then((data) => {
           if (data.status === 200) {
             setLoading(false);
-            navigate('../otpVerify', {
-              state: {
-                user: 'Startup',
-                signInOrSignUp: 'SignIn',
-                email: data.startUpDetails.email,
-                name: data.startUpDetails.companyName,
-              },
-            });
+            setsignInOrSignUp("SignIn");
+            setstate("otp");
+            setName(data.studentDetails.name);
+            setEmail(data.studentDetails.email);
           } else if (data.status === 401) {
             setLoading(false);
             setAlertMessage("Account doesn't exist. Please signup.");
@@ -128,11 +126,16 @@ export default function SignIn({ BASE_URL, setShowAlert, setAlertMessage, setAle
     } catch (error) {
       console.log(error);
     }
+
   };
 
-  if (user === 'Admin')
-    return (
-      <Container maxWidth="sm" sx={{ py: 2, mt: 9 }}>
+
+
+  return (
+    <Container style={{width:"100%"}}>
+      
+      {
+      user === 'Admin' ? (
         <form onSubmit={loginAdmin}>
           <Card>
             <CardHeader title={user + ' Sign In'} subheader="Kindly enter the code" />
@@ -147,6 +150,7 @@ export default function SignIn({ BASE_URL, setShowAlert, setAlertMessage, setAle
                 required
               />
             </CardContent>
+            
             <CardContent>
               <TextField
                 type="password"
@@ -165,15 +169,22 @@ export default function SignIn({ BASE_URL, setShowAlert, setAlertMessage, setAle
             </CardActions>
           </Card>
         </form>
-      </Container>
-    );
+     
+    
+    
+    
+    ) 
+      
+      
+      
+      : 
+       (
 
-  return (
-    <Container maxWidth="sm" sx={{ py: 2, mt: 9 }}>
-      <form onSubmit={user === 'Student' ? loginStudent : loginStartUp}>
-        <Card>
-          <CardHeader title={user + ' Sign In'} subheader="Enter your email ID to sign in" />
-          <CardContent>
+
+        
+        <form onSubmit={user === 'Student' ? loginStudent : loginStartUp}>
+          <Card sx={{p:2}}>
+            <CardHeader className='text-center'  subheader="Enter your email ID to sign in" />
             <TextField
               type="email"
               label={'Email'}
@@ -182,34 +193,54 @@ export default function SignIn({ BASE_URL, setShowAlert, setAlertMessage, setAle
               onChange={(e) => setEmail(e.target.value)}
               fullWidth
               required
+              sx={{ml:1}}
             />
-          </CardContent>
-          <CardActions sx={{ ml: 1 }}>
-            <Button type="submit" variant="contained" sx={{ width: 120, height: 40 }}>
-              {loading ? <CircularProgress sx={{ color: 'white' }} size={25} /> : <Typography>Sign In</Typography>}
-            </Button>
-          </CardActions>
-          <CardActions sx={{ ml: 1, mb: 1 }}>
-            <Typography>
-              Don't have an Account?{' '}
-              <Typography
-                color="primary"
-                display="inline"
-                sx={{
-                  cursor: 'pointer',
-                  textDecoration: 'underline',
-                  textUnderlineOffset: 2,
-                }}
-                onClick={() => {
-                  navigate('../signUp', { state: { user: user } });
-                }}
-              >
-                Sign Up
+            <CardActions>
+              <Button type="submit" variant="contained" sx={{ width: 120, height: 40 }}>
+                {loading ? <CircularProgress sx={{ color: 'white' }} size={25} /> : <Typography>Sign In</Typography>}
+              </Button>
+            </CardActions>
+            <CardActions>
+              <Typography>
+                Don't have an Account?{' '}
+                <Typography
+                  color="primary"
+                  display="inline"
+                  sx={{
+                    cursor: 'pointer',
+                    textDecoration: 'underline',
+                    textUnderlineOffset: 2,
+                  }}
+                  onClick={() => {
+                    setstate("signup")
+                  }}
+                >
+                  Sign Up
+                </Typography>
+                
               </Typography>
-            </Typography>
-          </CardActions>
-        </Card>
-      </form>
+              
+            </CardActions>
+          </Card>
+        </form>
+      //  
+      // : (
+      //   <OTPVerify
+      //     BASE_URL={BASE_URL}
+      //     setStartUpDetails={setStartUpDetails}
+      //     setStudentDetails={setStudentDetails}
+      //     setShowAlert={setShowAlert} 
+      //     setAlertSeverity={setAlertSeverity} 
+      //     setAlertMessage={setAlertMessage}
+      //     user={user}
+      //     email={email}
+      //     name={name}
+      //     signInOrSignUp={signInOrSignUp}
+      //   />
+      // )
+    )
+    }
+      
     </Container>
   );
 }

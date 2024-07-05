@@ -1,0 +1,15 @@
+.otp-field {
+    width: 40px;
+    height: 40px;
+    margin: 0 5px;
+    font-size: 20px;
+    text-align: center;
+    border-bottom: 2px solid #c4c4c4;
+    /* border-radius: 5px; */
+}
+
+.otp-field:focus {
+    
+    /* border-bottom: 2px solid black; */
+    outline: none;
+  }
