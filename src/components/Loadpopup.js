@@ -66,7 +66,8 @@ function Loadpopup({ BASE_URL, setStudentDetails, setStartUpDetails, setShowAler
   }
 
   return (
-    <Popup open={loadPopup} container={window} position="fixed">
+    <Popup open={loadPopup} container={window} 
+    position="fixed" closeOnDocumentClick={false}>
 
       <Box 
       sx={{

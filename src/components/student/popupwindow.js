@@ -1,11 +1,8 @@
 import React from 'react'
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-import { Carousel } from 'react-responsive-carousel';
 import a from "../../assets/popup/1.png"
 import b from "../../assets/popup/2.png"
 import c from "../../assets/popup/3.png"
 import d from "../../assets/popup/4.png"
-import { height } from '@mui/system';
 import { useState, useEffect } from 'react';
 import './slideshow.css';
 
