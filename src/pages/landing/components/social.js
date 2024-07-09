@@ -11,7 +11,7 @@ const Social = (props) => {
         alt={props.insiderAlt}
         src={props.insiderSrc}
         className="social-insider"
-      />
+              />
     </div>
   )
 }

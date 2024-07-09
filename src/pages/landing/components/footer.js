@@ -4,6 +4,9 @@ import PropTypes from 'prop-types'
 
 import Social from './social'
 import './footer.css'
+import insta from "../../../assets/insta.svg"
+import whatsapp from "../../../assets/whatsapp.svg"
+import linkedin from "../../../assets/linkedin.svg"
 
 const Footer = (props) => {
   return (
@@ -24,10 +27,36 @@ const Footer = (props) => {
               target="_blank"
               rel="noreferrer noopener"
               className="footer-link"
+              >
+              <Social
+                rootClassName="social-root-class-name"
+                className="footer-component"
+                insiderSrc={linkedin}
+              ></Social>
+            </a>
+            <a
+              href="https://www.instagram.com/unipace2024/"
+              target="_blank"
+              rel="noreferrer noopener"
+              className="footer-link"
             >
               <Social
                 rootClassName="social-root-class-name"
                 className="footer-component"
+                insiderSrc={insta}
+
+              ></Social>
+            </a>
+            <a
+              href="http://wa.me/9717538010"
+              target="_blank"
+              rel="noreferrer noopener"
+              className="footer-link"
+            >
+              <Social
+                rootClassName="social-root-class-name"
+                className="footer-component"
+                insiderSrc={whatsapp}
               ></Social>
             </a>
           </div>
