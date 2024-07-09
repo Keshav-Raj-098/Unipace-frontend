@@ -27,6 +27,7 @@ import Trial from "./pages/student/dashboard/opportunityTable"
 import Blogs from "./pages/student/blogpage"
 import Community from "./pages/student/community"
 import Popup from "./components/Loadpopup.js"
+import Apply from "./pages/student/Applied.js"
 
 
 
@@ -194,6 +195,7 @@ export default function App() {
               >
                 <Route path='blog'element={<Blogs/>}/>
                 <Route path='community'element={<Community/>}/>
+                <Route path='applied'element={<Apply BASE_URL={BASE_URL} studentDetails={studentDetails} {...setAlertProps} />}/>
 
                 <Route path="dashboard" element={<StudentDashbaord BASE_URL={BASE_URL} studentDetails={studentDetails} {...setAlertProps} />} />
                 <Route path="trial" element={<Trial BASE_URL={BASE_URL} studentDetails={studentDetails} {...setAlertProps} />} />

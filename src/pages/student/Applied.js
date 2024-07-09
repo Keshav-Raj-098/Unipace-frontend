@@ -1,13 +1,13 @@
 import { Container, Typography, Grid, CardContent, Card, Box, CircularProgress } from '@mui/material';
 import React, { useState, useEffect } from 'react';
-import InternshipImage from '../../../assets/internshipImage.svg';
-import JobImage from '../../../assets/jobImage.svg';
-import ProjectImage from '../../../assets/projectImage.svg';
+import InternshipImage from "../../assets/internshipImage.svg";
+import JobImage from '../../assets/jobImage.svg';
+import ProjectImage from '../../assets/projectImage.svg';
 import { useNavigate, useLocation } from 'react-router-dom';
-import JobListing from '../../../components/student/JobListing';
-import logo from './../logo.png';
+import JobListing from '../../components/student/JobListing';
+import logo from './logo.png';
 import { useQuery } from '@tanstack/react-query';
-import Timer from "../../../components/timer"
+
 
 
 const setHeader = (type, setTypeImage, setTypeDescription) => {
@@ -35,6 +35,7 @@ const checkStatus = (studentsApplied, studentId) => {
   }
   return 'Not Applied';
 };
+
 
 const convertToTableRows = (jsonData, studentId) => {
   const jsonDataArray = [];
@@ -90,42 +91,11 @@ export default function Dashboard({ BASE_URL, studentDetails, setShowAlert, setA
 
   const loaderfunction = ()=>{
     return(
-      <Container sx={{ py: 2, mt: 9 ,}}>
-      <Card sx={{ mb: 2 }}>
-        <CardContent>
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={7} md={9}>
-              <Box
-                sx={{
-                  width: '100%',
-                  height: '100%',
-                  display: 'flex',
-                  alignItems: 'center',
-                }}
-                >
-                <Typography variant="h5">{typeDescription}</Typography>
-              </Box>
-            </Grid>
-            <Grid item xs={0} sm={5} md={3} display={{ xs: 'none', sm: 'grid' }}>
-              <Box
-                sx={{
-                  width: '100%',
-                  height: '100%',
-                  display: 'flex',
-                  justifyContent: 'end',
-                  alignItems: 'center',
-                }}
-              >
-                <img src={typeImage} alt={type} loading="lazy" width={200} height={200} />
-              </Box>
-            </Grid>
-          </Grid>
-        </CardContent>
-      </Card>
+      <Container sx={{ py: 2, mt: 9}}>
       <Card>
-        <CardContent>
+        <CardContent sx={{height:"100vh"}}>
           <Typography variant="h5" sx={{ mb: 2 }}>
-            {type} Opportunities
+            Applied Opportunities
           </Typography>
           {isLoading ? (
             <Box
@@ -141,13 +111,10 @@ export default function Dashboard({ BASE_URL, studentDetails, setShowAlert, setA
           ) : (
             <>
               {data.map((internship) => (
+
                 <Grid item xs={12} key={internship.id}>
 
-
-
-                 { 
-                 
-                 (!['Applied', 'Shortlisted', 'Selected', 'Not Shortlisted', 'Not Selected'].includes(internship.status))  &&
+                 { ['Applied', 'Shortlisted', 'Selected', 'Not Shortlisted', 'Not Selected'].includes(internship.status) &&
 
                     <JobListing
                     logo={logo}
@@ -162,17 +129,7 @@ export default function Dashboard({ BASE_URL, studentDetails, setShowAlert, setA
                     detailsButtonClick={() => {
                       navigate('../details', { state: { jobId: internship.details } });
                     }}
-                    applyButtonClick={() => {
-                      // Handle the apply button click
-                      if (internship.status in ['Applied', 'Shortlisted', 'Selected', 'Not Shortlisted', 'Not Selected']) {
-                        setShowAlert(true);
-                        setAlertMessage('You have already applied for this job');
-                        setAlertSeverity('warning');
-                        navigate('../dashboard', { state: { type: type } });
-                      } else {
-                        navigate('../apply', { state: { jobId: internship.details, type: type } });
-                      }
-                    }}
+                 
                     />
   }
                 </Grid>
@@ -186,10 +143,10 @@ export default function Dashboard({ BASE_URL, studentDetails, setShowAlert, setA
 
   return (
     <> 
-       {/* put hr in 24-hr format */}
-      <Timer deadlinedate={1} month={6} year={2024} hour={12} minutes={0}
-             newscript={loaderfunction()} />
+      {loaderfunction()  ? loaderfunction() :
+      <div>You haven't applied for any oppurtunity yet</div> 
       
+      }
         
     </>
   );

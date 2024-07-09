@@ -1,7 +1,7 @@
 import React from 'react';
 import { useMediaQuery, Typography, Button, Grid, Card, CardContent} from '@mui/material';
 
-function JobListing({ logo, companyName, mission, role, salary, deadline, type, detailsButtonClick, applyButtonClick, status }) {
+function ApplyListing({ logo, companyName, mission, role, salary, deadline, type, detailsButtonClick, status }) {
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down('md'));
 
   const renderActionButton = () => {
@@ -97,25 +97,8 @@ function JobListing({ logo, companyName, mission, role, salary, deadline, type, 
           Not Shortlisted
         </Button>
       );
-    } else {
-      return (
-        <Button
-          onClick={applyButtonClick}
-          sx={{
-            borderRadius: '6px',
-            backgroundColor: '#1d8bf8',
-            padding: '1.2vh 2.2vw',
-            color: 'white',
-            '@media (max-width: 768px)': { paddingBlock: '1.1vh' },
-            ':hover': {
-              backgroundColor: '#176ec4',
-            },
-          }}
-        >
-          Apply Now
-        </Button>
-      );
-    }
+    } 
+    
   };
 
   return (
@@ -179,4 +162,4 @@ function JobListing({ logo, companyName, mission, role, salary, deadline, type, 
   );
 }
 
-export default JobListing;
+export default ApplyListing;
