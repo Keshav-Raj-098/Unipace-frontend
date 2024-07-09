@@ -9,6 +9,7 @@ module.exports = {
     "./src/components/student/sidebar.js",
     "./src/components/student/popupwindow.js",
     "./src/components/Loadpopup.js",
+    "./src/components/responsiveAppBar.js",
     "./src/components/otpBox/otpBox.js",
     "./src/pages/signIn.js",
     "./src/pages/signUp.js"
