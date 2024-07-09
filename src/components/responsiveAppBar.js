@@ -4,6 +4,8 @@ import Toolbar from '@mui/material/Toolbar';
 import { Container, Box, Button } from '@mui/material';
 import Logo from '../assets/Asset 4.svg';
 import { useNavigate } from 'react-router-dom';
+import LoginIcon from '@mui/icons-material/Login';
+
 
 
 export default function ResponsiveAppBar({ mode, setMode,loadPopup,setloadPopup }) {
@@ -14,7 +16,15 @@ export default function ResponsiveAppBar({ mode, setMode,loadPopup,setloadPopup 
   
 
   return (
-    <AppBar position="fixed" sx={{backgroundColor:"white"}}>
+    <AppBar position="fixed"
+    sx={{
+      backgroundColor:"white",
+      height:"65px",
+      boxShadow:"0px 0px 5px 0px rgba(0,0,0,0.2)"
+    }}
+  
+    
+    >
       <Container>
         <Toolbar disableGutters>
           <Box
@@ -30,10 +40,10 @@ export default function ResponsiveAppBar({ mode, setMode,loadPopup,setloadPopup 
               src={Logo}
               alt="Logo"
               loading="lazy"
-              height={100}
+              height={90}
               width={150}
 
-              style={{ cursor: 'pointer', position: "relative", top: "20px" }}
+              style={{ cursor: 'pointer', position: "relative", top: "17px" }}
               onClick={() => {
                 navigate('/');
               }}
@@ -48,18 +58,23 @@ export default function ResponsiveAppBar({ mode, setMode,loadPopup,setloadPopup 
               }}
             >
 
+        
 
+              <Button
+  variant="outlined"
+  sx={{color:"#1976d2", borderColor:"black",color:"black",fontWeight:"bold",borderRadius:"7px",
+    position: "relative", top: "-6px" }}
+  onClick={() => {
 
-              <Button className="hover"
-                style={{ padding: "8px 15px", borderRadius: "5px ", border: "none", fontWeight: "bold", cursor: "pointer", fontSize: "14px", color: "black" }}
+    if (loadPopup === false) { setloadPopup(true) }
+    else { setloadPopup(false) }
 
-                onClick={() => {
-
-                  if (loadPopup === false) { setloadPopup(true) }
-                  else { setloadPopup(false) }
-
-                }}
-              >Login</Button>
+  }}
+  
+  startIcon={<LoginIcon />}
+>
+  Login/ Signup
+</Button>
 
             </Box>
           </Box>
