@@ -1,27 +1,15 @@
 import { Container, Typography, Grid, CardContent, Card, Box, CircularProgress } from '@mui/material';
-import React, { useState, useEffect } from 'react';
-import InternshipImage from "../../assets/internshipImage.svg";
-import JobImage from '../../assets/jobImage.svg';
-import ProjectImage from '../../assets/projectImage.svg';
+import React, { useState } from 'react';
+
 import { useNavigate, useLocation } from 'react-router-dom';
 import JobListing from '../../components/student/JobListing';
 import logo from './logo.png';
 import { useQuery } from '@tanstack/react-query';
+import frame from "../../assets/Frame 68 (1).png"
 
 
 
-const setHeader = (type, setTypeImage, setTypeDescription) => {
-  if (type === 'Internship') {
-    setTypeImage(InternshipImage);
-    setTypeDescription('Witness a 0-1 jouney of a startup and get first hand experience of working in a startup.');
-  } else if (type === 'Job') {
-    setTypeImage(JobImage);
-    setTypeDescription('Work in a fast paced enviourment and experience the thrill of a startup.');
-  } else {
-    setTypeImage(ProjectImage);
-    setTypeDescription('Learn your way up the ladder by appling to the right projects and finding right people on the way.');
-  }
-};
+
 
 // TODO : security and performance issue in the way student is varified if he/she has applied
 // TODO : error handling
@@ -71,18 +59,12 @@ const getOpportunityList = async (BASE_URL, type, studentId) => {
 export default function Dashboard({ BASE_URL, studentDetails, setShowAlert, setAlertMessage, setAlertSeverity }) {
   const type = useLocation().state?.type || "Internship";
   const navigate = useNavigate();
-  const [typeImage, setTypeImage] = useState([]);
-  const [typeDescription, setTypeDescription] = useState([]);
   const { isLoading, data } = useQuery(
     {
       queryKey: [`opportunites`, type], 
       queryFn: () => getOpportunityList(BASE_URL, type, studentDetails.id)
     }
   );
-
-  useEffect(() => {
-    setHeader(type, setTypeImage, setTypeDescription);
-  }, [type]);
 
 
 
@@ -92,6 +74,19 @@ export default function Dashboard({ BASE_URL, studentDetails, setShowAlert, setA
   const loaderfunction = ()=>{
     return(
       <Container sx={{ py: 2, mt: 9}}>
+   
+   <Box
+                sx={{
+                  width: '100%',
+                  height: '100%',
+                  mb: 2,
+                }}
+                >
+                  <img src={frame} alt="frame" 
+                  className='rounded-lg'
+                  style={{width:"100%",height:"100%"}}
+                  />
+                  </Box>
       <Card>
         <CardContent sx={{height:"100vh"}}>
           <Typography variant="h5" sx={{ mb: 2 }}>

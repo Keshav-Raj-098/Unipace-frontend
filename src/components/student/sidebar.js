@@ -3,7 +3,7 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { FaUser, FaBriefcase, FaFileAlt, FaPenNib, } from "react-icons/fa";
+import { FaUser, FaBriefcase, FaFileAlt } from "react-icons/fa";
 import userimg from "../../assets/user.svg"
 import { FaDiscord } from "react-icons/fa";
 import { FaRegHourglassHalf } from "react-icons/fa6";
@@ -143,13 +143,7 @@ const Sidebar = ({ studentName, setStudentDetails }) => {
           <FaFileAlt /> Resume </div>
 
 
-        <div className=" hover:bg-blue-600 cursor-pointer text-black hover:text-white"
-          style={(applyColor==="Blogs") ? styles.click : styles.tab}
-          onClick={() => { 
-            setapplyColor("Blogs")
-            navigate("/student/blog") }}>
-
-          <FaPenNib /> Blogs </div>
+       
 
         <div className=" hover:bg-blue-600 cursor-pointer text-black hover:text-white" 
           style={(applyColor==="Community") ? styles.click : styles.tab}
