@@ -8,6 +8,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import { useNavigate } from 'react-router-dom';
 import Logo from "../../assets/Asset 4.svg";
+import { Button } from '@mui/material';
 
 
 function ResponsiveAppBar() {
@@ -24,14 +25,19 @@ function ResponsiveAppBar() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
   return (
-    <AppBar position="fixed" style={{width:"100vw",height:"70px",backgroundColor:"white",
-  
+    <AppBar position="fixed" style={{
+      width: "100vw", height: "70px", backgroundColor: "white",
+
     }}>
       <Container>
-        <Toolbar disableGutters sx ={{justifyContent:{md:'start',
-          sm:"space-between"
-        }}}>
+        <Toolbar disableGutters sx={{
+          justifyContent: {
+            md: 'space-between',
+            sm: "space-between"
+          }
+        }}>
 
           <Box
             sx={{
@@ -39,6 +45,7 @@ function ResponsiveAppBar() {
               alignItems: 'center',
               display: { xs: 'none', md: 'flex' },
               mr: 2,
+              // backgroundColor:"red"
             }}
           >
             <img
@@ -47,12 +54,14 @@ function ResponsiveAppBar() {
               loading="lazy"
               height={90}
               width={120}
-             
-              style={{ cursor: 'pointer',position:"relative", top:"20px" }}
+
+              style={{ cursor: 'pointer', position: "relative", top: "20px" }}
               onClick={() => {
                 navigate('dashboard', { state: { type: 'Internship' } });
               }}
             />
+
+
           </Box>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -87,13 +96,13 @@ function ResponsiveAppBar() {
             </Menu>
           </Box>
 
-          
+
           <Box
             sx={{
               height: '100%',
               alignItems: 'center',
               display: { xs: 'flex', md: 'none' },
-              justifyContent:"start",
+              justifyContent: "start",
               flexGrow: 1,
             }}
           >
@@ -108,8 +117,21 @@ function ResponsiveAppBar() {
                 navigate('dashboard', { state: { type: 'Internship' } });
               }}
             />
-           
+
           </Box>
+
+          <Button 
+          variant='text'
+          
+              sx={{
+                color:"black",
+
+              }}>
+
+            <a href="http://blogs.unipace.in" target='_blank'>Blogs</a>
+            </Button>
+
+
         </Toolbar>
       </Container>
     </AppBar>

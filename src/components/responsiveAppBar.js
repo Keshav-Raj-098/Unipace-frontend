@@ -8,22 +8,22 @@ import LoginIcon from '@mui/icons-material/Login';
 
 
 
-export default function ResponsiveAppBar({ mode, setMode,loadPopup,setloadPopup }) {
+export default function ResponsiveAppBar({ mode, setMode, loadPopup, setloadPopup }) {
 
   const navigate = useNavigate();
 
- 
-  
+
+
 
   return (
     <AppBar position="fixed"
-    sx={{
-      backgroundColor:"white",
-      height:"65px",
-      boxShadow:"0px 0px 5px 0px rgba(0,0,0,0.2)"
-    }}
-  
-    
+      sx={{
+        backgroundColor: "white",
+        height: "65px",
+        boxShadow: "0px 0px 5px 0px rgba(0,0,0,0.2)"
+      }}
+
+
     >
       <Container>
         <Toolbar disableGutters>
@@ -36,6 +36,9 @@ export default function ResponsiveAppBar({ mode, setMode,loadPopup,setloadPopup 
               flexGrow: 1
             }}
           >
+            <Box sx={{
+              display:"flex",flexDirection:"row",gap:"15px"
+            }}>
             <img
               src={Logo}
               alt="Logo"
@@ -49,6 +52,21 @@ export default function ResponsiveAppBar({ mode, setMode,loadPopup,setloadPopup 
               }}
 
             />
+             <Button
+                variant='text'
+
+                sx={{
+                  color: "black",
+                  position: "relative", top: "-6px",
+                  height:"fit-content",
+                  width:"fit-content",
+                  alignSelf:"center"
+
+                }}>
+
+                <a href="http://blogs.unipace.in" target='_blank'>Blogs</a>
+              </Button>
+              </Box>
             <Box
 
               sx={{
@@ -58,23 +76,26 @@ export default function ResponsiveAppBar({ mode, setMode,loadPopup,setloadPopup 
               }}
             >
 
-        
+             
+
 
               <Button
-  variant="outlined"
-  sx={{color:"#1976d2", borderColor:"black",color:"black",fontWeight:"bold",borderRadius:"7px",
-    position: "relative", top: "-6px" }}
-  onClick={() => {
+                variant="outlined"
+                sx={{
+                  color: "#1976d2", borderColor: "black", color: "black", fontWeight: "bold", borderRadius: "7px",
+                  position: "relative", top: "-6px"
+                }}
+                onClick={() => {
 
-    if (loadPopup === false) { setloadPopup(true) }
-    else { setloadPopup(false) }
+                  if (loadPopup === false) { setloadPopup(true) }
+                  else { setloadPopup(false) }
 
-  }}
-  
-  startIcon={<LoginIcon />}
->
-  Login/ Signup
-</Button>
+                }}
+
+                startIcon={<LoginIcon />}
+              >
+                Login/ Signup
+              </Button>
 
             </Box>
           </Box>
