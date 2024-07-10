@@ -3,8 +3,10 @@ import { Container } from '@mui/material'
 
 const Community = () => {
   return (
-    <Container  sx={{mt: 9,height:"100vh"}}>
-    <iframe title="Community" src="" height="100%" width="100%" ></iframe>
+    <Container  sx={{mt: 9,height:"86vh"}}>
+    <iframe src="https://organizations.minnit.chat/111407441485264/c/Main?embed&nickname=" style={{border:"1px solid white",width:"100%",height:"100%"}} allowTransparency="true">
+    
+    </iframe>
      
      </Container>
   )
