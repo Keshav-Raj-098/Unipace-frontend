@@ -1,5 +1,5 @@
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -7,11 +7,15 @@ import { FaUser, FaBriefcase, FaFileAlt } from "react-icons/fa";
 import userimg from "../../assets/user.svg"
 import { FaDiscord } from "react-icons/fa";
 import { FaRegHourglassHalf } from "react-icons/fa6";
+import "./sidebar.css"
+import { maxWidth } from '@mui/system';
 
 
-const Sidebar = ({ studentName, setStudentDetails }) => {
+
+const Sidebar = ({ studentName, setStudentDetails,sidebar }) => {
 
   const [applyColor, setapplyColor] = useState("Intern")
+  const [className,setClassName ] = useState("nothing")
   
 
   const navigate = useNavigate()
@@ -22,6 +26,7 @@ const Sidebar = ({ studentName, setStudentDetails }) => {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  
   };
 
 
@@ -61,25 +66,45 @@ const Sidebar = ({ studentName, setStudentDetails }) => {
 
     },
     box: {
-      height: "100vh", width: "14vw", backgroundColor: "white", paddingTop: "100px",
-      display: "flex", flexDirection: "column", justifyContent: "space-between",
-      overflowY:"scroll",scrollbarWidth:"none"
+      height: "100vh",  
+      backgroundColor: "white",
+       paddingTop: "100px",
+      display: "flex", flexDirection: "column", 
+      justifyContent: "space-between",
+      overflowY:"scroll",scrollbarWidth:"none",position:"relative",zIndex:"15000",
+      minWidth:"180px",
+      
+      
       
 
     }
 
   }
-
+    
+  
+  useEffect(() => {
+    if(sidebar===true){setClassName("slideRight")}
+    else if(sidebar===false) {setClassName("slideLeft")}
+       
+         return () => {
+           setClassName("")
+         }
+       }, [sidebar])
+       
+       
 
 
   return (
-    <div style={styles.box}>
+    <div style={styles.box} 
+    className={className}
+ 
+    >
 
 
         <div className='flex flex-col gap-5'>
       <div>
 
-        <div style={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "center", marginBottom: "8px" }}>
+        <div style={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "center", marginBottom: "8px", }}>
 
           {/* user profile img */}
 
