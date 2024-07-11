@@ -11,7 +11,7 @@ import Logo from "../../assets/Asset 4.svg";
 import { Button } from '@mui/material';
 
 
-function ResponsiveAppBar() {
+function ResponsiveAppBar({setSidebar,sidebar}) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const navigate = useNavigate();
@@ -28,7 +28,7 @@ function ResponsiveAppBar() {
 
   return (
     <AppBar position="fixed" style={{
-      width: "100vw", height: "70px", backgroundColor: "white",
+      width: "100vw", height: "70px", backgroundColor: "white", zIndex:"15001"
 
     }}>
       <Container>
@@ -42,12 +42,22 @@ function ResponsiveAppBar() {
           <Box
             sx={{
               height: '100%',
+              width:"50%",
               alignItems: 'center',
-              display: { xs: 'none', md: 'flex' },
+              display:"flex",
               mr: 2,
-              // backgroundColor:"red"
+              justifyContent:"space-between"
             }}
           >
+            <IconButton
+            onClick={()=>{
+
+              if(sidebar===null){setSidebar(false)}
+              else {(sidebar===true) ? setSidebar(false) : setSidebar(true)}
+            }}>
+              <MenuIcon/>
+            </IconButton>
+
             <img
               src={Logo}
               alt="Logo"
@@ -64,61 +74,7 @@ function ResponsiveAppBar() {
 
           </Box>
 
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: 'block', md: 'none' },
-              }}
-            >
-            </Menu>
-          </Box>
-
-
-          <Box
-            sx={{
-              height: '100%',
-              alignItems: 'center',
-              display: { xs: 'flex', md: 'none' },
-              justifyContent: "start",
-              flexGrow: 1,
-            }}
-          >
-            <img
-              src={Logo}
-              alt="Logo"
-              loading="lazy"
-              width={100}
-              height={90}
-              style={{ cursor: 'pointer' }}
-              onClick={() => {
-                navigate('dashboard', { state: { type: 'Internship' } });
-              }}
-            />
-
-          </Box>
+  
 
           <Button 
           variant='text'

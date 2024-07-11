@@ -1,0 +1,72 @@
+/* MOVEMENT FOR LEFT-PART */
+@keyframes slideright {
+    from {
+        right:180px;
+    }
+    
+    to {
+        right: 0vw;
+    }
+}
+
+@keyframes slideleft {
+    from {
+        right: 0px;
+    }
+
+    to {
+        right:180px;
+    }
+}
+
+
+.slideRight {
+    animation: slideright 200ms linear 0s 1;
+    animation-fill-mode: forwards;
+}
+.slideLeft {
+    animation: slideleft 200ms linear 0s 1;
+    animation-fill-mode: forwards;
+}
+.nothing{
+    right:180px;
+}
+
+
+
+
+
+/* MOVEMENT FOR RIGHT-PART */
+
+@keyframes Increase {
+    from {
+        width:86vw;
+    }
+    
+    to {
+        width:100vw;
+    }
+}
+
+@keyframes Decrease {
+    from {
+        width:100vw;
+    }
+    
+    to {
+        width:86vw;
+    }
+}
+
+
+.widthIncrease {
+    animation: Increase 200ms linear 0s 1;
+    animation-fill-mode: forwards;
+}
+.widthDecrease {
+    animation: Decrease 200ms linear 0s 1;
+    animation-fill-mode: forwards;
+}
+.Initial{
+    width:100vw;
+}
