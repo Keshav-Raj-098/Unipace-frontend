@@ -93,7 +93,10 @@ export default function Dashboard({ BASE_URL, studentDetails, setShowAlert, setA
         
       <Card>
         <CardContent>
-          <Typography variant="h5" sx={{ mb: 2 }}>
+          <Typography  sx={{ mb: 2,fontSize:{
+            xs : "18px",
+            sm:"27px"
+            } }}>
             {type} Opportunities
           </Typography>
           {isLoading ? (

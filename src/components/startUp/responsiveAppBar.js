@@ -71,7 +71,7 @@ function ResponsiveAppBar({ companyName, mode, setMode, setStartUpDetails }) {
 
 
   return (
-    <AppBar position="fixed">
+    <AppBar position="fixed" style={{zIndex:'40'}}>
       <Container>
         <Toolbar disableGutters>
           <Box

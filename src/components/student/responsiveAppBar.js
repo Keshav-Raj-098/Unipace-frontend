@@ -1,14 +1,13 @@
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
-import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import { useNavigate } from 'react-router-dom';
 import Logo from "../../assets/Asset 4.svg";
 import { Button } from '@mui/material';
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 
 
 function ResponsiveAppBar({setSidebar,sidebar}) {
@@ -33,30 +32,21 @@ function ResponsiveAppBar({setSidebar,sidebar}) {
     }}>
       <Container>
         <Toolbar disableGutters sx={{
-          justifyContent: {
-            md: 'space-between',
-            sm: "space-between"
-          }
-        }}>
+          justifyContent: "space-between"}}>
 
-          <Box
-            sx={{
-              height: '100%',
-              width:"50%",
-              alignItems: 'center',
-              display:"flex",
-              mr: 2,
-              justifyContent:"space-between"
-            }}
-          >
-            <IconButton
+
+            
+
+           <IconButton
             onClick={()=>{
 
               if(sidebar===null){setSidebar(false)}
               else {(sidebar===true) ? setSidebar(false) : setSidebar(true)}
             }}>
-              <MenuIcon/>
+               { sidebar ? <CloseOutlinedIcon/>  : <MenuIcon/>}
             </IconButton>
+
+         
 
             <img
               src={Logo}
@@ -68,13 +58,7 @@ function ResponsiveAppBar({setSidebar,sidebar}) {
               style={{ cursor: 'pointer', position: "relative", top: "20px" }}
               onClick={() => {
                 navigate('dashboard', { state: { type: 'Internship' } });
-              }}
-            />
-
-
-          </Box>
-
-  
+              }}/>
 
           <Button 
           variant='text'

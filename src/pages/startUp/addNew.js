@@ -19,8 +19,9 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
+import { useContext } from 'react';
 
-export default function AddNew({ BASE_URL, setShowAlert, setAlertMessage, setAlertSeverity }) {
+export default function AddNew({ BASE_URL, setShowAlert, setAlertMessage, setAlertSeverity,IsOpen,setIsOpen,loading3,setloading3,newJD }) {
   const navigate = useNavigate();
   const { type, companyName, startUpId, jobId } = useLocation().state;
   const [designation, setDesignation] = useState('');
@@ -185,11 +186,68 @@ export default function AddNew({ BASE_URL, setShowAlert, setAlertMessage, setAle
     }
   }, []);
 
+  function makeList(arr){
+
+    if((arr!==undefined)&&(arr!==null)){
+
+      return arr.join('\n')
+    }
+    else{return arr}
+   
+  }
+  
+
+
+  useEffect(() => {
+    setDesignation(newJD.designation)
+    setDuration(newJD.duration)
+    setStipend(newJD.stipend)
+    setNoOfOffers(newJD.noOfOffers)
+    setSkillsRequired(makeList(newJD.skillsRequired))
+    setResponsibilities( makeList(newJD.responsibilitie))
+    setAssignment(makeList(newJD.assignment))
+    setDeadline(newJD.deadline)
+    setSelectionProcess(makeList(newJD.selectionProcess))
+    if(newJD.hoursType=="true"){setHoursType("fulltime")}
+      else{setHoursType("parttime")}
+    setJobLocation(  newJD.jobLocation)
+    setloading3(false)
+    setIsOpen(false)
+        
+    return () => {
+      setDesignation("")
+      setDuration("")
+      setStipend("")
+      setNoOfOffers("")
+      setSkillsRequired("")
+      setResponsibilities("")
+      setAssignment("")
+      setDeadline("")
+      setSelectionProcess("")
+      setHoursType("")
+      setJobLocation("")
+    }
+  }, [newJD])
+  
+
+
+
   return (
-    <Container sx={{ py: 2, mt: 9 }}>
+    <Container sx={{ py: 2, mt: 9,}} >
+      <Box sx={{display:"flex",justifyContent:"space-between" }}>
+
       <Typography variant="h5" sx={{ mb: 2 }}>
         {updateOrAdd} {type} Opportunity
       </Typography>
+      <button
+        onClick={() => {
+          IsOpen ? setIsOpen(false) : setIsOpen(true)}}
+        className=" text-white font-medium px-4 py-2 rounded hover:opacity-90 transition-opacity text-sm" 
+        style={{backgroundColor:"#1976d2"}}
+        >
+        Build with AI
+      </button>
+        </Box>
       <form onSubmit={addorUpdateOpportunity}>
         <Card>
           <CardContent>
@@ -220,6 +278,7 @@ export default function AddNew({ BASE_URL, setShowAlert, setAlertMessage, setAle
                       setDesignation(e.target.value);
                     }}
                     required
+                    InputLabelProps={{ shrink: !!designation }}
                   />
                 </Grid>
                 {type === 'Internship' ? (
@@ -234,6 +293,7 @@ export default function AddNew({ BASE_URL, setShowAlert, setAlertMessage, setAle
                         setDuration(e.target.value);
                       }}
                       required
+                      InputLabelProps={{ shrink: !!duration }}
                     />
                   </Grid>
                 ) : (
@@ -245,6 +305,7 @@ export default function AddNew({ BASE_URL, setShowAlert, setAlertMessage, setAle
                       value={type}
                       required
                       InputProps={{ disableUnderline: true, readOnly: true }}
+                      InputLabelProps={{ shrink: !!type }}
                     />
                   </Grid>
                 )}
@@ -263,6 +324,7 @@ export default function AddNew({ BASE_URL, setShowAlert, setAlertMessage, setAle
                           setSkillsRequired(e.target.value);
                         }}
                         required
+                        InputLabelProps={{ shrink: !!skillsRequired }}
                       />
                     </Grid>
                     <Grid item xs={12}>
@@ -278,6 +340,7 @@ export default function AddNew({ BASE_URL, setShowAlert, setAlertMessage, setAle
                           setResponsibilities(e.target.value);
                         }}
                         required
+                        InputLabelProps={{ shrink: !! responsibilities}}
                       />
                     </Grid>
                   </>
@@ -295,6 +358,7 @@ export default function AddNew({ BASE_URL, setShowAlert, setAlertMessage, setAle
                           setStipend(e.target.value);
                         }}
                         required
+                        InputLabelProps={{ shrink: !!stipend }}
                       />
                     </Grid>
                     <Grid item xs={12} md={6}>
@@ -308,6 +372,7 @@ export default function AddNew({ BASE_URL, setShowAlert, setAlertMessage, setAle
                           setNoOfOffers(e.target.value);
                         }}
                         required
+                        InputLabelProps={{ shrink: !!noOfOffers }}
                       />
                     </Grid>
                     <Grid item xs={12} md={6}>
@@ -323,6 +388,7 @@ export default function AddNew({ BASE_URL, setShowAlert, setAlertMessage, setAle
                           setSkillsRequired(e.target.value);
                         }}
                         required
+                        InputLabelProps={{ shrink: !!skillsRequired }}
                       />
                     </Grid>
                     <Grid item xs={12} md={6}>
@@ -336,6 +402,7 @@ export default function AddNew({ BASE_URL, setShowAlert, setAlertMessage, setAle
                           setJobLocation(e.target.value);
                         }}
                         required
+                        InputLabelProps={{ shrink: !!jobLocation }}
                       />
                     </Grid>
                   </>
@@ -354,6 +421,7 @@ export default function AddNew({ BASE_URL, setShowAlert, setAlertMessage, setAle
                         setResponsibilities(e.target.value);
                       }}
                       required
+                      InputLabelProps={{ shrink: !!responsibilities }}
                     />
                   </Grid>
                 )}
@@ -366,6 +434,7 @@ export default function AddNew({ BASE_URL, setShowAlert, setAlertMessage, setAle
                       color="primary"
                       value={hoursType}
                       exclusive
+                      // {...hoursType ? setHoursType(hoursType) : setHoursType(newHoursType)}
                       onChange={(e, newHoursType) => {
                         setHoursType(newHoursType);
                       }}
@@ -409,6 +478,8 @@ export default function AddNew({ BASE_URL, setShowAlert, setAlertMessage, setAle
                     onChange={(e) => {
                       setAssignment(e.target.value);
                     }}
+                    InputLabelProps={{ shrink: !!assignment }}
+                    
                   />
                 </Grid>
                 {/* <TextField
@@ -431,6 +502,7 @@ export default function AddNew({ BASE_URL, setShowAlert, setAlertMessage, setAle
                     onChange={(e) => {
                       setDeadline(e.target.value);
                     }}
+                    InputLabelProps={{ shrink: !!deadline }}
                     />
                   </LocalizationProvider>
                 </Grid>
@@ -447,6 +519,7 @@ export default function AddNew({ BASE_URL, setShowAlert, setAlertMessage, setAle
                       setSelectionProcess(e.target.value);
                     }}
                     required
+                    InputLabelProps={{ shrink: !!selectionProcess }}
                   />
                 </Grid>
               </Grid>
