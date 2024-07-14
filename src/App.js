@@ -28,6 +28,7 @@ import Blogs from "./pages/student/blogpage"
 import Community from "./pages/student/community"
 import Popup from "./components/Loadpopup.js"
 import Apply from "./pages/student/Applied.js"
+import AIpopup from "./components/startUp/AI/Aipopup.js"
 
 
 
@@ -49,10 +50,13 @@ export default function App() {
   const [alertMessage, setAlertMessage] = useState('Showing alert!');
   const [alertSeverity, setAlertSeverity] = useState('info');
   const [loadPopup, setloadPopup] = useState(false)
+  const [IsOpen, setIsOpen] = useState(false)
+  const [newJD, setnewJD] = useState("")
+  const [loading2, setloading2] = useState(false)
 
-   
 
-   
+
+
   const colorTheme = createTheme({
     components: {
       MuiCssBaseline: {
@@ -123,6 +127,17 @@ export default function App() {
     else setLoading(false);
   }, []);
 
+  useEffect(() => {
+
+
+    console.log(newJD);
+
+
+  }, [newJD])
+
+
+  // console.log(IsOpen);
+
   // useEffect(() => {
   //   const colorMode = localStorage.getItem('colorMode');
   //   if (colorMode === 'dark') setMode('dark');
@@ -149,7 +164,7 @@ export default function App() {
         </Box>
       ) : (
         <>
-       {  }
+          { }
           <BrowserRouter>
             <Routes>
               {/* TODO IF i WRITE http://localhost:3000/signIn or http://localhost:3000/signUp, etc than teh site crashes, we need to add a redirect in such cases*/}
@@ -164,38 +179,38 @@ export default function App() {
                     setloadPopup={setloadPopup}
                     loadPopup={loadPopup}
                   />
-                  
+
                 }
               >
                 {/* <Route path="/" element={<StudentOrStartUp BASE_URL={BASE_URL} {...setAlertProps} />} /> */}
                 <Route path="/" element={
                   <>
-                  <TeleportLanding BASE_URL={BASE_URL} {...setAlertProps} />
-                  
-                  {/* {loadPopup &&  */}
-                  <Popup
-                  BASE_URL={BASE_URL}
-                   setStartUpDetails={setStartUpDetails}
-                    setStudentDetails={setStudentDetails}
-                    {...setAlertProps}
-                    setloadPopup={setloadPopup}
-                    loadPopup={loadPopup}
-                     />
-                     {/* } */}
-                     </> } />
+                    <TeleportLanding BASE_URL={BASE_URL} {...setAlertProps} />
+
+                    {/* {loadPopup &&  */}
+                    <Popup
+                      BASE_URL={BASE_URL}
+                      setStartUpDetails={setStartUpDetails}
+                      setStudentDetails={setStudentDetails}
+                      {...setAlertProps}
+                      setloadPopup={setloadPopup}
+                      loadPopup={loadPopup}
+                    />
+
+                  </>} />
 
 
                 <Route path="details" element={<JobDetails BASE_URL={BASE_URL} startUpDetails={null} />} />{' '}</Route>
-      
-              
+
+
 
               <Route
                 path="student"
                 element={<StudentIndex mode={mode} setMode={setMode} studentDetails={studentDetails} setStudentDetails={setStudentDetails} />}
               >
-                <Route path='blog'element={<Blogs/>}/>
-                <Route path='community'element={<Community/>}/>
-                <Route path='applied'element={<Apply BASE_URL={BASE_URL} studentDetails={studentDetails} {...setAlertProps} />}/>
+                <Route path='blog' element={<Blogs />} />
+                <Route path='community' element={<Community />} />
+                <Route path='applied' element={<Apply BASE_URL={BASE_URL} studentDetails={studentDetails} {...setAlertProps} />} />
 
                 <Route path="dashboard" element={<StudentDashbaord BASE_URL={BASE_URL} studentDetails={studentDetails} {...setAlertProps} />} />
                 <Route path="trial" element={<Trial BASE_URL={BASE_URL} studentDetails={studentDetails} {...setAlertProps} />} />
@@ -221,7 +236,16 @@ export default function App() {
                     <StartUpAccount BASE_URL={BASE_URL} startUpDetails={startUpDetails} setStartUpDetails={setStartUpDetails} {...setAlertProps} />
                   }
                 />
-                <Route path="addNew" element={<StartUpAddNew BASE_URL={BASE_URL} {...setAlertProps} />} />
+                <Route path="addNew" element={
+                  <>
+                    <AIpopup IsOpen={IsOpen} setIsOpen={setIsOpen} setnewJD={setnewJD}
+                    loading={loading2} setloading={setloading2}
+                    />
+                    <StartUpAddNew BASE_URL={BASE_URL} {...setAlertProps}
+                      IsOpen={IsOpen} setIsOpen={setIsOpen} newJD={newJD} 
+                      loading3={loading2} setloading3={setloading2} />
+                  </>} />
+
                 <Route path="studentsApplied" element={<StudentsApplied BASE_URL={BASE_URL} {...setAlertProps} />} />
                 <Route path="details" element={<JobDetails BASE_URL={BASE_URL} startUpDetails={startUpDetails} />} />{' '}
                 {/* TODO check if  shouldn't there be an alert property here also? */}
