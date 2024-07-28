@@ -59,6 +59,7 @@ export default function Details({ BASE_URL, startUpDetails }) {
           if (data.status === 200) {
             setJobStartUpDetails(data.startUpDetails);
             setLoading2(false);
+            console.log(data);
           } else {
             console.log(data);
           }

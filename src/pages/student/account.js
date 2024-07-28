@@ -65,7 +65,7 @@ export default function Account({ BASE_URL, studentDetails, setStudentDetails, s
   };
 
   return (
-    <Container sx={{ py: 2, mt: 9 }}>
+    <Container sx={{ py: 2, }}>
       <Typography variant="h5">Account Details</Typography>
       <form onSubmit={updateStudentAccount} encType="multipart/form-data">
         <Card sx={{ my: 2 }}>

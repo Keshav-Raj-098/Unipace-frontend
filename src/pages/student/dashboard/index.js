@@ -3,7 +3,7 @@ import React, { useState} from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import JobListing from '../../../components/student/JobListing';
 import logo from './../logo.png';
-import { useQuery } from '@tanstack/react-query';
+import {  useQuery } from '@tanstack/react-query';
 import Timer from "../../../components/timer"
 import frame from "../../../assets/Frame 65 (1).png"
 
@@ -29,9 +29,10 @@ const convertToTableRows = (jsonData, studentId) => {
     const convertedJsonData = {
       id: i + 1,
       company: oneJsonData.companyName,
-      designation: oneJsonData.designation,
-      stipend: oneJsonData.stipend,
-      deadline: oneJsonData.deadline,
+      role:oneJsonData.designation,
+      location: oneJsonData.jobLocation,
+      totalPositions: oneJsonData.noOfOffers,
+      totalApplied:oneJsonData.studentsApplied.length,
       status: checkStatus(oneJsonData.studentsApplied, studentId),
       details: oneJsonData.id,
       apply: {
@@ -57,6 +58,7 @@ export default function Dashboard({ BASE_URL, studentDetails, setShowAlert, setA
   const type = useLocation().state?.type || "Internship";
   const navigate = useNavigate();
   const [typeImage, setTypeImage] = useState([]);
+  var change = true;
 
   const { isLoading, data } = useQuery(
     {
@@ -64,7 +66,7 @@ export default function Dashboard({ BASE_URL, studentDetails, setShowAlert, setA
       queryFn: () => getOpportunityList(BASE_URL, type, studentDetails.id)
     }
   );
-
+ 
 
 
 
@@ -73,7 +75,7 @@ export default function Dashboard({ BASE_URL, studentDetails, setShowAlert, setA
 
   const loaderfunction = ()=>{
     return(
-      <Container sx={{ py: 2, mt: 9 ,}}>
+      <Container sx={{ py: 2}}>
     
         
           
@@ -93,10 +95,7 @@ export default function Dashboard({ BASE_URL, studentDetails, setShowAlert, setA
         
       <Card>
         <CardContent>
-          <Typography  sx={{ mb: 2,fontSize:{
-            xs : "18px",
-            sm:"27px"
-            } }}>
+          <Typography  variant="h5" sx={{ mb: 2 }}>
             {type} Opportunities
           </Typography>
           {isLoading ? (
@@ -112,23 +111,25 @@ export default function Dashboard({ BASE_URL, studentDetails, setShowAlert, setA
             </Box>
           ) : (
             <>
-              {data.map((internship) => (
+              {data.map((internship, index) => (
                 <Grid item xs={12} key={internship.id}>
-
+                   
+                   
 
 
                  { 
                  
-                 (!['Applied', 'Shortlisted', 'Selected', 'Not Shortlisted', 'Not Selected'].includes(internship.status))  &&
+                 (!['Applied', 'Shortlisted', 'Selected', 'Not shortlisted', 
+                  'Not selected'].includes(internship.status))  &&
 
                     <JobListing
                     logo={logo}
                     companyName={internship.company}
-                    mission={internship.mission}
-                    role={internship.designation}
-                    salary={internship.stipend}
-                    deadline={internship.deadline}
-                    type={type}
+                    role={internship.role}
+                    location={internship.location}
+                    totalAvailable={internship.totalPositions}
+                    totalApplied={internship.totalApplied}
+                    changeColor={index % 2 === 0}
                     status={internship.status}
                     hasApplied={internship.status === 'Applied'}
                     detailsButtonClick={() => {
@@ -146,9 +147,11 @@ export default function Dashboard({ BASE_URL, studentDetails, setShowAlert, setA
                       }
                     }}
                     />
+                    
   }
                 </Grid>
-              ))}
+              ))
+              }
             </>
           )}
         </CardContent>
@@ -166,3 +169,5 @@ export default function Dashboard({ BASE_URL, studentDetails, setShowAlert, setA
     </>
   );
 }
+
+export {getOpportunityList}

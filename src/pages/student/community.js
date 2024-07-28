@@ -3,7 +3,7 @@ import { Container } from '@mui/material'
 
 const Community = () => {
   return (
-    <Container  sx={{mt: 9,height:"86vh",
+    <Container  sx={{py:2,height:"86vh",
       position:"relative"
 
 
