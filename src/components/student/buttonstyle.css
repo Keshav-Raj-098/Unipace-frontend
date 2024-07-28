@@ -1,0 +1,92 @@
+.basic {
+  border-width: 1px;
+  border-style: solid;
+  padding: 6px 10px;
+  border-radius: 8px;
+}
+
+.basic2 {
+  border-width: 1px;
+  border-style: solid;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: "Epilogue", sans-seri;
+}
+
+.Shortlisted {
+  border-color: rgba(70, 64, 222, 1);
+  color: rgba(70, 64, 222, 1);
+}
+
+.Selected {
+  border-color: rgba(86, 205, 173, 1);
+  color: rgba(86, 205, 173, 1);
+}
+
+.Applied {
+  border-color: rgba(255, 184, 54, 1);
+  color: rgba(255, 184, 54, 1);
+}
+
+
+.Notshortlisted{
+  border-color: rgba(255, 101, 80, 1);
+  color: rgba(255, 101, 80, 1);
+}
+
+.Notselected {
+  border-color: #e32108;
+  color: #e32108;
+}
+
+
+
+
+
+
+
+
+
+
+.time {
+  background-color: rgba(86, 205, 173, 0.1);
+  border-color: rgba(86, 205, 173, 1);
+  color: rgba(86, 205, 173, 1);
+}
+
+
+.Marketing {
+  border-color: rgba(255, 184, 54, 1);
+  color: rgba(255, 184, 54, 1);
+}
+
+
+.Design {
+  border-color: rgba(70, 64, 222, 1);
+  color: rgba(70, 64, 222, 1);
+}
+
+.apply {
+  height:42px;
+  width:170px;
+  padding: 12px 24px;
+  gap: 10px;
+  opacity: 0px;
+  background: rgba(70, 64, 222, 1);
+  color: rgba(255, 255, 255, 1);
+  font-family: Epilogue;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 25.6px;
+  text-align: center;
+
+
+
+
+}
+
+.text{
+  font-size: 25px;
+}

@@ -29,6 +29,7 @@ import Community from "./pages/student/community"
 import Popup from "./components/Loadpopup.js"
 import Apply from "./pages/student/Applied.js"
 import AIpopup from "./components/startUp/AI/Aipopup.js"
+import Home from '../src/pages/student/home.js'
 
 
 
@@ -208,6 +209,10 @@ export default function App() {
                 path="student"
                 element={<StudentIndex mode={mode} setMode={setMode} studentDetails={studentDetails} setStudentDetails={setStudentDetails} />}
               >
+              <Route
+                path="home"
+                element={<Home studentDetails={studentDetails} BASE_URL={BASE_URL}/>}
+              />
                 <Route path='blog' element={<Blogs />} />
                 <Route path='community' element={<Community />} />
                 <Route path='applied' element={<Apply BASE_URL={BASE_URL} studentDetails={studentDetails} {...setAlertProps} />} />

@@ -1,191 +1,250 @@
 import React from 'react';
-import { useMediaQuery, Typography, Button, Grid, Card, CardContent} from '@mui/material';
+import { useMediaQuery, Typography, Button,  } from '@mui/material';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import "./buttonstyle.css"
+import {LinearProgress,CircularProgress} from '@mui/material';
+import { useState,useEffect } from 'react';
 
-function JobListing({ logo, companyName, mission, role, salary, deadline, type, detailsButtonClick, applyButtonClick, status }) {
+const Dot = () => (
+  <span
+    style={{ height: "4px", width: "4px", borderRadius: "50%", backgroundColor: "grey" }}
+  ></span>
+)
+
+function JobListing({ logo, companyName, role,  detailsButtonClick, applyButtonClick, status, location, changeColor,totalAvailable,totalApplied }) {
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down('md'));
 
-  const renderActionButton = () => {
-    if (status === 'Applied') {
-      return (
-        <Button
-          sx={{
-            border: 'none',
-            color: '#fff',
-            padding: '1.2vh 3vw',
-            '@media (max-width: 768px)': { paddingBlock: '1.5 vh' },
-            cursor: 'default',
-            backgroundColor: '#b5b522',
-            '&:hover': {
-              backgroundColor: '#b5b522',
-            },
-            fontSize:{xs:"10px",sm:"14px"}
-          }}
-        >
-          Applied
-        </Button>
-      );
-    } else if (status === 'Selected') {
-      return (
-        <Button
-          onClick={detailsButtonClick}
-          sx={{
-            border: '1px solid #00FFD1',
-            color: '#fff',
-            padding: '1.2vh 2.6vw',
-            '@media (max-width: 768px)': { paddingBlock: '1.5 vh' },
-            cursor: 'default',
-            backgroundColor: '#888',
-            '&:hover': {
-              backgroundColor: '#4CAF50',
-            },
-            fontSize:{xs:"10px",sm:"14px"}
-          }}
-        >
-          Selected
-        </Button>
-      );
-    } else if (status === 'Not selected') {
-      return (
-        <Button
-          onClick={detailsButtonClick}
-          sx={{
-            border: '1px solid #00FFD1',
-            color: '#fff',
-            padding: '1.2vh 1.5vw',
-            '@media (max-width: 768px)': { paddingBlock: '1.5 vh' },
-            cursor: 'default',
-            backgroundColor: '#888',
-            '&:hover': {
-              backgroundColor: '#F44336',
-            },
-            fontSize:{xs:"10px",sm:"14px"}
-          }}
-        >
-          Not Selected
-        </Button>
-      );
-    } else if (status === 'Shortlisted') {
-      return (
-        <Button
-          sx={{
-            border: '1px solid #00FFD1',
-            color: '#fff',
-            padding: '1.2vh 1.7vw',
-            '@media (max-width: 768px)': { paddingBlock: '0.8 vh' },
-            cursor: 'default',
-            backgroundColor: '#888',
-            '&:hover': {
-              backgroundColor: '#4CAF50',
-            },
-            fontSize:{xs:"10px",sm:"14px"}
-          }}
-        >
-          Shortlisted
-        </Button>
-      );
-    } else if (status === 'Not shortlisted') {
-      return (
-        <Button
-          sx={{
-            border: '1px solid #00FFD1',
-            color: '#fff',
-            padding: '1.2vh 0.6vw',
-            '@media (max-width: 768px)': { paddingBlock: '0.8 vh' },
-            cursor: 'default',
-            backgroundColor: '#888',
-            '&:hover': {
-              backgroundColor: '#F44336',
-            },
-            fontSize:{xs:"10px",sm:"14px"}
-          }}
-        >
-          Not Shortlisted
-        </Button>
-      );
-    } else {
-      return (
-        <Button
-          onClick={applyButtonClick}
-          sx={{
-            borderRadius: '6px',
-            backgroundColor: '#1d8bf8',
-            padding: '1.2vh 2.2vw',
-            color: 'white',
-            '@media (max-width: 768px)': { paddingBlock: '1.1vh' },
-            ':hover': {
-              backgroundColor: '#176ec4',
-            },
-            fontSize:{xs:"10px",sm:"14px"}
-          }}
-        >
-          Apply Now
-        </Button>
-      );
+
+
+  const [percentSeatAvailable, setPercentSeatAvailable] = useState(0);
+  const [isLoading, setisLoading] = useState(true);
+
+
+
+  useEffect(() => {
+    
+    if (totalAvailable > 0) {
+      setPercentSeatAvailable(parseInt((totalApplied / totalAvailable) * 100));
+      setisLoading(false)
     }
-  };
+  }, [totalAvailable, totalApplied]);
+
+  useEffect(()=>{ {if(role) setisLoading(false)}},[role])
+  
+
+
+
+
+  const JobApplied = () => (
+    <div
+      style={{
+        width: "100%", height: "125px", marginBottom: "10px",
+        display: "flex", flexDirection: "row", justifyContent: "space-between",
+        padding: "30px 20px", borderRadius: "10px",
+        backgroundColor: changeColor && "rgba(248, 248, 253, 1)"
+
+      }}
+    >
+      {isLoading ? 
+        <div className='w-full h-full flex flex-row justify-center align-middle'>
+          <CircularProgress size={"30px"}/> </div>:
+          (
+      <>
+      <div
+        style={{ display: "flex", flexDirection: "row", gap: "5px", width: "50%" }}
+      >
+
+
+        <div
+          style={{ height: "80px", width: "80px", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "flex-start" }}
+        >
+          <img src={logo} alt="Company Icon" height="55px" width="55px" />
+        </div>
+        <div
+          style={{ display: "flex", flexDirection: "column", justifyContent: "start" }}
+
+        >
+          <span
+            style={{
+              color: "rgba(37, 50, 75, 1)", fontSize: "18px", fontWeight: "700",
+              fontFamily: "Epilogue, sans-seri"
+            }}
+          >{role}</span>
+          <span
+            style={{
+              display: "flex", flexDirection: "row", alignItems: "center", gap: "5px",
+              color: "rgba(124, 132, 147, 1)", fontSize: "16px", fontWeight: "400",
+              fontFamily: "Epilogue, sans-seri"
+            }}
+          >
+            <span
+
+            >{companyName}</span>
+            <Dot />
+            <span>{location}</span>
+            <Dot />
+            <span>Full-time</span>
+          </span>
+
+        </div>
+      </div>
+
+      <div
+        style={{ display: "flex", flexDirection: "column", width: "20%" }}
+      >
+        <span
+          style={{
+            color: "rgba(37, 50, 75, 1)", fontSize: "16px", fontWeight: "500",
+            fontFamily: "Epilogue, sans-seri"
+          }}
+        >Date Applied</span>
+        <span
+          style={{
+            color: "rgba(124, 132, 147, 1)", fontSize: "16px", fontWeight: "500",
+            fontFamily: "Epilogue, sans-seri"
+          }}
+        >23 Jul 2024</span></div>
+
+      <div
+        style={{ width: "15%" }}>
+        <span className={`basic ${(status || "").replace(/\s+/g, '')} flex flex-row justify-center`}
+          style={{
+            fontSize: "14px", fontWeight: "600",
+            fontFamily: "Epilogue, sans-seri"
+          }}
+          onClick={()=>{console.log((status || "").replace(/\s+/g, ''));}}
+        >{status}</span>
+
+      </div>
+      <div
+        style={{ width: "10%" }} 
+        className='flex flex-row justify-center'
+        >
+        <MoreHorizIcon className='hover:cursor-pointer'
+          onClick={detailsButtonClick} />
+
+      </div></>)}
+
+    </div>
+  );
+
+
+
+ 
+
+  const JobNotApplied = () => (
+    <div
+      style={{
+        width: "100%", height: "125px", marginBottom: "10px", border: "1px solid rgba(214, 221, 235, 1)",
+        display: "flex", flexDirection: "row", justifyContent: "space-between",
+        padding: "0px 24px", backgroundColor: !changeColor && "rgba(248, 248, 253, 1)",
+        borderRadius: "10px",paddingTop:"24px"
+
+      }}
+    >
+        {isLoading ? 
+        <div className='w-full h-full flex flex-row justify-center align-middle'>
+          <CircularProgress size={"30px"}/> </div>:
+      (<>
+      <div
+        style={{ display: "flex", flexDirection: "row", gap: "5px", width: "50%" }}
+      >
+
+
+        <div
+          style={{ height: "80px", width: "80px", display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "flex-start" }}
+        >
+          <img src={logo} alt="Company Icon" height="55px" width="55px" />
+        </div>
+
+        <div
+          style={{ display: "flex", flexDirection: "column", justifyContent: "start", gap: '3px' }}
+
+        >
+          <span
+            style={{
+              color: "rgba(37, 50, 75, 1)", fontSize: "18px", fontWeight: "700",
+              fontFamily: "Epilogue, sans-seri"
+            }}
+          >{role}</span>
+          <span
+
+            style={{
+              display: "flex", flexDirection: "row", alignItems: "center", gap: "5px",
+              color: "rgba(124, 132, 147, 1)", fontSize: "16px", fontWeight: "400",
+              fontFamily: "Epilogue, sans-seri"
+            }}
+          >
+            <span
+            >{companyName}</span>
+            <Dot />
+            <span>{location}</span>
+
+          </span>
+
+          <div className='flex flex-row gap-2' >
+            <span className={`basic2 time`}>Full-time</span>
+            <span className={`basic2 Marketing`}>Marketing</span>
+            <span className={`basic2 Design`}>Design</span>
+          </div>
+
+        </div>
+      </div>
+
+      <div className='flex flex-col gap-2 w-auto'>
+        <span 
+        className='apply hover:cursor-pointer flex flex-row justify-center'
+
+        onClick={percentSeatAvailable === 100 ? detailsButtonClick :  applyButtonClick}
+        >
+          {percentSeatAvailable === 100 ? "Details" :"Apply" }
+        </span>
+        {percentSeatAvailable === 100 ? (
+          <p
+          style={{fontSize:"14px",fontWeight:"500",textAlign:"center",color:"#7c8493",fontFamily: "Epilogue, sans-seri"}}
+          ><span className='font-bold text-black'>No Seat Available</span></p>
+        )
+         : (<>
+        <span><LinearProgress variant="determinate" value={percentSeatAvailable}
+       sx={{
+        '& .MuiLinearProgress-bar': {
+          backgroundColor: 'red',
+        },
+        '& .MuiLinearProgress-bar1Determinate': {
+          backgroundColor: 'rgba(86, 205, 173, 1)'},}}
+        /></span>
+        <p
+        style={{fontSize:"14px",fontWeight:"500",textAlign:"center",color:"#7c8493",fontFamily: "Epilogue, sans-seri"}}
+        ><span className='font-bold text-black'>{totalApplied} applied</span> of {totalAvailable} capacity</p> </>)}
+      </div></>)}
+
+
+
+
+    </div>
+  )
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
 
   return (
-    <Card sx={{ borderRadius: '30px',marginBottom: '14px', boxShadow: '0px 3px 20px 0px rgba(0, 0, 0, 0.25)' }}>
-      <Grid container alignItems="center" justifyContent="space-between" gap={15} sx={{ paddingBlock: '1vh', paddingInline: '2vw', '@media (max-width: 900px)': { gap: '0' } }}>
-        {/* {!isMobile && (
-          <Grid item>
-            <CardMedia component="img" src={''} loading="lazy" alt="Company Logo" sx={{ aspectRatio: '0.94', objectFit: 'contain', objectPosition: 'center', width: '7vw', overflow: 'hidden' }} />
-          </Grid>
-        )} */}
-        <Grid item xs={12} md={8} lg={7} display="flex" flexDirection="column">
-          <CardContent sx={{ color: 'black' }}>
-            <Typography  component="div" fontWeight="bold"  
-            sx={{ fontSize:{xs:"16px",md:"21px"}}}>
-              {companyName}
-            </Typography>
-            {!isMobile && (
-              <Typography variant="body1" sx={{ color: 'black',marginBottom:"10px" ,fontWeight:'450'}}>
-                Our mission is to create a world where everyone has access to the food they love{mission}
-              </Typography>
-            )}
-            <Grid container alignItems="flex-start" justifyContent="space-between" gap={1}>
-              <Grid item>
-                <Typography  component="div" color="#1d8bf8"sx={{ fontSize:{xs:"15px",sm:"18px"}}}>
-                  {' '}
-                  Role: {role}
-                </Typography>
-              </Grid>
-   
-              <Grid item>
-                <Typography variant="body1" component="div" color="black"
-                 sx={{ fontSize:{xs:"15px",sm:"18px"}}}
-                >
-                  Salary:{salary}
-                </Typography>
-              </Grid>
-              <Grid item>
-                <Typography variant="body1" component="div" color="red"
-                 sx={{ fontSize:{xs:"15px",sm:"17px"}}}>
-                  Deadline:{deadline}
-                </Typography>
-              </Grid>
-              <Grid item xs={12} maxWidth="100%">
-                <Typography variant="body1" component="div" sx={{ fontFamily: 'Poppins, sans-serif',fontWeight:"bold" ,alignSelf: 'start', color: 'black',fontSize:{xs:"15px",sm:"17px"}  }}>
-                  {type}
-                </Typography>
-              </Grid>
-            </Grid>
-          </CardContent>
-        </Grid>
-        <Grid item sx={{ margin: 'auto' }}>
-          <Grid container flexDirection="column" gap={1} alignItems="center" sx={{ '@media (max-width:900px)': { flexDirection: 'row' } }}>
-            <Grid item sx={{ margin: 'auto' }}>
-              {renderActionButton()}
-            </Grid>
-            <Grid item>
-              <Button onClick={detailsButtonClick} sx={{ border: '1px solid #1d8bf8', color: '#1d8bf8', padding: '1vh 3vw', '@media (max-width: 768px)': { paddingBlock: '1.5 vh' },fontSize:{xs:"10px",sm:"14px"} }}>
-                Details
-              </Button>
-            </Grid>
-          </Grid>
-        </Grid>
-      </Grid>
-    </Card>
+    
+
+    (status === "Not Applied") ? <JobNotApplied /> : <JobApplied />
+
+
   );
 }
 
