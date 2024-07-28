@@ -150,7 +150,8 @@ export default function Dashboard({ BASE_URL, studentDetails, setShowAlert, setA
                     
   }
                 </Grid>
-              ))}
+              ))
+              }
             </>
           )}
         </CardContent>

@@ -48,7 +48,7 @@ const Home = ({ studentDetails, BASE_URL }) => {
     const fetchData = async () => {
       try {
         const opportunityList = await getOpportunityList(BASE_URL, "Internship", studentDetails.id);
-        setData(opportunityList.slice(0,3))
+        setData(opportunityList)
         setTotal(total_jobs(opportunityList));
         setapplied(applied_jobs(opportunityList));
         setApplied(jobs_data(opportunityList,"Applied"));
@@ -133,7 +133,7 @@ const Home = ({ studentDetails, BASE_URL }) => {
           style={{fontSize:"16px",fontWeight:"600",color:"rgba(37, 50, 75, 1)",
             fontFamily: "Epilogue, sans-seri",borderBottom:"1px solid #d6ddeb"
           }}
-          >Recent Application History</div>
+          >Recent Opportunities</div>
 
           {
             
@@ -141,26 +141,33 @@ const Home = ({ studentDetails, BASE_URL }) => {
 
              
              <Grid item xs={12} key={internship.id}>
-              { (internship.status !=="Not Applied") &&
-                        <JobListing
-                          logo={logo}
-                          companyName={internship.company}
-                          mission={internship.mission}
-                          role={internship.designation}
-                          salary={internship.stipend}
-                          deadline={internship.deadline}
-                          location={internship.location}
-                          changeColor={index % 2 === 0}
-                          type={type}
-                          totalApplied={applied}
-                          totalAvailable={total}
-                          status={internship.status}
-                          hasApplied={internship.status === 'Applied'}
-                          detailsButtonClick={() => {
-                            navigate('../details', { state: { jobId: internship.details } });
-                          }}
+                       { 
+                 
+                 (!['Applied', 'Shortlisted', 'Selected', 'Not shortlisted', 
+                  'Not selected'].includes(internship.status))  &&
 
-                        />}
+                    <JobListing
+                    logo={logo}
+                    companyName={internship.company}
+                    role={internship.role}
+                    location={internship.location}
+                    totalAvailable={internship.totalPositions}
+                    totalApplied={internship.totalApplied}
+                    changeColor={index % 2 === 0}
+                    status={internship.status}
+                    hasApplied={internship.status === 'Applied'}
+                    detailsButtonClick={() => {
+                      navigate('../details', { state: { jobId: internship.details } });
+                    }}
+                    applyButtonClick={() => {
+                      // Handle the apply button click
+                     
+                        navigate('../apply', { state: { jobId: internship.details, type: type } });
+                      
+                    }}
+                    />
+                    
+  }
                       
                     </Grid>
 
