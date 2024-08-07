@@ -50,7 +50,7 @@ const Job_applied = ({selected,notselected,notshortlisted,shortlisted,applied}) 
         //  fontFamily: "Epilogue, sans-seri"
       }}
       onClick={() => { navigate("../applied", 
-        { state: { text: "applied", type:"Internship"} }) }}
+        { state: { text: "applied", type:"Internship",color:"applied"} }) }}
       >View All Applications<ArrowForwardIcon/></span>
 
       </div>

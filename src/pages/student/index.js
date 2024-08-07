@@ -29,10 +29,10 @@ export default function Index({ studentDetails, setStudentDetails }) {
     <>
     <div className='flex flex-row'>
 
-   <Sidebar studentName={studentName} setStudentDetails={setStudentDetails} sidebar={sidebar} />
+   <Sidebar studentName={studentName} setStudentDetails={setStudentDetails} sidebar={sidebar}
+    />
     <div className='flex flex-col'>
 
-      {/* <ResponsiveAppBar setSidebar={setSidebar} sidebar={sidebar}/> */}
       <div
         id='maincontent'
         style={{

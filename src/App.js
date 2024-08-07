@@ -8,7 +8,8 @@ import StartUpInternship from './pages/startUp/internship';
 import StudentAccount from './pages/student/account';
 import JobPortalIndex from './pages/index';
 import StartUpAccount from './pages/startUp/account';
-import StartUpAddNew from './pages/startUp/addNew';
+import CompanyDetails from'./pages/student/CompanyPage.js'
+import StartUpAddNew from './pages/startUp/JobPost.js';
 import JobDetails from './pages/details';
 import StudentsApplied from './pages/startUp/studentsApplied';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
@@ -224,6 +225,10 @@ export default function App() {
                   element={
                     <StudentAccount BASE_URL={BASE_URL} studentDetails={studentDetails} setStudentDetails={setStudentDetails} {...setAlertProps} />
                   }
+                />
+                <Route
+                  path="company"
+                  element={<CompanyDetails/>}
                 />
                 <Route path="details" element={<JobDetails BASE_URL={BASE_URL} startUpDetails={null} />} />{' '}
                 {/* TODO check if  shouldn't there be an alert property here also? */}

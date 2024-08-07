@@ -162,7 +162,8 @@ const Home = ({ studentDetails, BASE_URL }) => {
                     applyButtonClick={() => {
                       // Handle the apply button click
                      
-                        navigate('../apply', { state: { jobId: internship.details, type: type } });
+                        navigate('../apply', { state: { jobId: internship.details, type: type,color:"dashboard",totalApplied:internship.totalApplied}
+ });
                       
                     }}
                     />

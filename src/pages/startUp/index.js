@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, Outlet } from 'react-router-dom';
 import ResponsiveAppBar from '../../components/startUp/responsiveAppBar';
 import { Box, CircularProgress } from '@mui/material';
+import Sidebar from "../../components/startUp/sidebar"
 
 export default function Index({ mode, setMode, startUpDetails, setStartUpDetails }) {
   const navigate = useNavigate();
@@ -19,31 +20,45 @@ export default function Index({ mode, setMode, startUpDetails, setStartUpDetails
 
   return (
     <>
-      <ResponsiveAppBar companyName={companyName} mode={mode} setMode={setMode} setStartUpDetails={setStartUpDetails} />
+    <div className='flex flex-row'>
+
+   <Sidebar  setStartUpDetails={setStartUpDetails} 
+    />
+    <div className='flex flex-col'>
+
       <div
+        id='maincontent'
         style={{
           overflowY: 'auto',
           position: 'absolute',
-          width: '100%',
+          backgroundColor:"white",
+          width: "83%",
           height: '100%',
+          // right:"0vw",
+          
+          
+
+          
         }}
-      >
+        >
         {loading ? (
           <Box
-            sx={{
-              height: '100vh',
-              width: '100%',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
+          sx={{
+            height: '100vh',
+            width: '80%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
           >
             <CircularProgress />
           </Box>
         ) : (
           <Outlet />
         )}
+        </div>
       </div>
+        </div>
     </>
   );
 }
