@@ -5,10 +5,12 @@ import { useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import JobListing from '../../components/student/JobListing';
 import logo from './logo.png';
+import logo2 from '../../assets/internshipImage.svg'
 import { useQuery } from '@tanstack/react-query';
 import frame from "../../assets/Frame 68 (1).png"
 import '../../components/student/buttonstyle.css'
 import { total_jobs, applied_jobs, jobs_data } from './HomeCalc';
+import { positions } from '@mui/system';
 
 
 
@@ -40,6 +42,8 @@ const convertToTableRows = (jsonData, studentId) => {
       designation: oneJsonData.designation,
       stipend: oneJsonData.stipend,
       deadline: oneJsonData.deadline,
+      totalPositions: oneJsonData.noOfOffers,
+      totalApplied: oneJsonData.studentsApplied.length,
       location: oneJsonData.jobLocation,
       status: checkStatus(oneJsonData.studentsApplied, studentId),
       details: oneJsonData.id,
@@ -119,7 +123,7 @@ export default function Dashboard({ BASE_URL, studentDetails, setShowAlert, setA
         fontFamily: "Epilogue, sans-seri", height: "30px",
         borderBottom: applyColor === `${text}` && "2px solid #1987d2",
         color: applyColor === `${text}` && "rgba(37, 50, 75, 1)",
-        // fontWeight: applyColor === `${text}` && "bold"
+        
       }}
       className={` hover:cursor-pointer px-3 py-2`}
       onClick={() => {
@@ -245,7 +249,7 @@ export default function Dashboard({ BASE_URL, studentDetails, setShowAlert, setA
                       {status.includes(internship.status) &&
 
                         <JobListing
-                          logo={logo}
+                          logo={logo2}
                           companyName={internship.company}
                           mission={internship.mission}
                           role={internship.designation}
@@ -257,7 +261,10 @@ export default function Dashboard({ BASE_URL, studentDetails, setShowAlert, setA
                           status={internship.status}
                           hasApplied={internship.status === 'Applied'}
                           detailsButtonClick={() => {
-                            navigate('../details', { state: { jobId: internship.details } });
+                            navigate('../details', { state: { jobId: internship.details,
+                              color:"applied",applied:internship.totalApplied,
+                              positions:internship.totalPositions
+                             } });
                           }}
 
                         />

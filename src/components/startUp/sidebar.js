@@ -7,16 +7,14 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { FaUser, FaBriefcase, FaFileAlt, FaHome,FaInfoCircle } from "react-icons/fa";
 import { FaDiscord } from "react-icons/fa";
 import { FaGear, FaGears, FaRegHourglassHalf, FaWebAwesome } from "react-icons/fa6";
-// import "./sidebar.css"
 import Logo from "../../assets/Asset 4.svg";
-import InfoIcon from '@mui/icons-material/Info';
 import SearchIcon from '@mui/icons-material/Search';
 
 
 
 
 
-const Sidebar = ({ studentName, setStudentDetails, sidebar }) => {
+const Sidebar = ({ setStartUpDetails}) => {
 
   const  applyColor= useLocation().state?.color || "Home";
   // const [applyColor, setapplyColor] = useState(applyto)
@@ -27,22 +25,14 @@ const Sidebar = ({ studentName, setStudentDetails, sidebar }) => {
 
 
 
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-
-  };
-
-
 
   const logOut = () => {
-    handleCloseUserMenu();
-    setStudentDetails(null);
-    localStorage.removeItem('localStorageStudentId');
-    localStorage.removeItem('localStorageStudentToken');
+    setStartUpDetails(null);
+    localStorage.removeItem('localStorageStartUpId');
+    localStorage.removeItem('localStorageStartUpToken');
     navigate('/');
   };
+
   
 
   const Sidebtn = ({icon,navigateto,title,type})=>(

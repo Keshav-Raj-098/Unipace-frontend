@@ -18,7 +18,8 @@ module.exports = {
     "./src/components/otpBox/otpBox.js",
     "./src/pages/signIn.js",
     "./src/pages/signUp.js",
-    "./src/pages/startUp/addNew.js"
+    "./src/pages/startUp/addNew.js",
+    "./src/pages/startUp/account.js"
 
   ],
   theme: {

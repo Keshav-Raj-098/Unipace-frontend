@@ -1,5 +1,5 @@
 import React from 'react';
-import { useMediaQuery, Typography, Button,  } from '@mui/material';
+import { useMediaQuery } from '@mui/material';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import "./buttonstyle.css"
 import {LinearProgress,CircularProgress} from '@mui/material';
@@ -135,10 +135,10 @@ function JobListing({ logo, companyName, role,  detailsButtonClick, applyButtonC
   const JobNotApplied = () => (
     <div
       style={{
-        width: "100%", height: "125px", marginBottom: "10px", border: "1px solid rgba(214, 221, 235, 1)",
+        width: "100%", marginBottom: "10px", border: "1px solid rgba(214, 221, 235, 1)",
         display: "flex", flexDirection: "row", justifyContent: "space-between",
-        padding: "0px 24px", backgroundColor: !changeColor && "rgba(248, 248, 253, 1)",
-        borderRadius: "10px",paddingTop:"24px"
+        padding: "0px 22px", backgroundColor: !changeColor && "rgba(248, 248, 253, 1)",
+        borderRadius: "10px",paddingTop:"24px",paddingBottom:"5px"
 
       }}
     >
@@ -163,7 +163,7 @@ function JobListing({ logo, companyName, role,  detailsButtonClick, applyButtonC
         >
           <span
             style={{
-              color: "rgba(37, 50, 75, 1)", fontSize: "18px", fontWeight: "700",
+              color: "rgba(37, 50, 75, 1)", fontSize: "16px", fontWeight: "700",
               fontFamily: "Epilogue, sans-seri"
             }}
           >{role}</span>
@@ -171,7 +171,7 @@ function JobListing({ logo, companyName, role,  detailsButtonClick, applyButtonC
 
             style={{
               display: "flex", flexDirection: "row", alignItems: "center", gap: "5px",
-              color: "rgba(124, 132, 147, 1)", fontSize: "16px", fontWeight: "400",
+              color: "rgba(124, 132, 147, 1)", fontSize: "15px", fontWeight: "400",
               fontFamily: "Epilogue, sans-seri"
             }}
           >
@@ -201,22 +201,23 @@ function JobListing({ logo, companyName, role,  detailsButtonClick, applyButtonC
         </span>
         {percentSeatAvailable === 100 ? (
           <p
-          style={{fontSize:"14px",fontWeight:"500",textAlign:"center",color:"#7c8493",fontFamily: "Epilogue, sans-seri"}}
+          style={{fontSize:"13px",fontWeight:"500",textAlign:"center",color:"#7c8493",fontFamily: "Epilogue, sans-seri"}}
           ><span className='font-bold text-black'>No Seat Available</span></p>
         )
-         : (<>
+         : 
+         (<>
         <span><LinearProgress variant="determinate" value={percentSeatAvailable}
        sx={{
-        '& .MuiLinearProgress-bar': {
-          backgroundColor: 'red',
-        },
+        
         '& .MuiLinearProgress-bar1Determinate': {
           backgroundColor: 'rgba(86, 205, 173, 1)'},}}
         /></span>
         <p
         style={{fontSize:"14px",fontWeight:"500",textAlign:"center",color:"#7c8493",fontFamily: "Epilogue, sans-seri"}}
         ><span className='font-bold text-black'>{totalApplied} applied</span> of {totalAvailable} capacity</p> </>)}
-      </div></>)}
+      </div>
+      
+      </>)}
 
 
 
