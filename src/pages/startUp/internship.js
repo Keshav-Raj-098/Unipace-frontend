@@ -9,7 +9,8 @@ import ProjectImgage from '../../assets/projectImage.svg';
 import JobImage from '../../assets/jobImage.svg';
 import { useNavigate, useLocation } from 'react-router-dom';
 // import moment from 'moment';
-import StudentListing from "../../components/startUp/StudentListing"
+import JobListing from "../../components/startUp/StudentListing"
+import Header from "../../components/startUp/Header"
 
 export default function Internship({ BASE_URL, startUpDetails, setShowAlert, setAlertMessage, setAlertSeverity }) {
   const { type } = useLocation().state;
@@ -68,6 +69,7 @@ export default function Internship({ BASE_URL, startUpDetails, setShowAlert, set
           if (data.status === 200) {
             setLoading(false);
             convertToTableRows(data.jobs);
+            console.log(internshipTableRow);
           } else {
             console.log(data);
           }
@@ -158,94 +160,132 @@ export default function Internship({ BASE_URL, startUpDetails, setShowAlert, set
 
   useEffect(() => {
     getInternship();
+   
+    
   }, [type]);
 
+  const styles = {
+    large: { fontSize: "19px", fontWeight: "600", color: "#25324b" },
+    small: {
+      fontSize: "14px", fontWeight: "400",
+      fontFamily: "Epilogue, sans-seri", color: "rgba(124, 132, 147, 1)",
+    }
+  }
+
   return (
-    <div>
-      <Container sx={{ py: 2, mt: 9 }}>
-        <Card sx={{ mb: 1 }}>
-          <CardContent>
-            <Grid container spacing={2} sx={{width: '100%',
-                    height: '100%',
-                    display: 'flex',
-                    justifyContent: 'end',
-                    alignItems: 'center',}}>
-              <Grid item xs={12} sm={7} md={9}>
-                <Box
-                  sx={{
-                    margin : 2
-                  }}
-                >
-                  <Typography variant="h5">{typeDescription}</Typography>
-                </Box>
-                <Box
-                  sx={{
-                    margin : 2,
-                    display: { xs: 'block', md: 'flex' },
-                  }}
-                >
-                  <Button variant="contained" sx={{ mt: { xs: 2, md: 0 } }} onClick={addNew}>
-                    {/* <AddRoundedIcon /> */}
+    <div className='py-2 px-6 w-full'
+    style={{paddingBottom:"40px"}}
+    
+    
+    >
 
-                    <Typography variant="body1"> Add another {type} </Typography>
+      <div className="w-auto px-2 py-3 flex flex-col justify-start"
+      >
+        <p
+          style={styles.large}
+        >Job Listing</p>
+        <p
+          style={styles.small}
+        >Here is your job listings status,</p>
+      </div>
 
-                  </Button>
-                </Box>
+
+
+      <div className='mx-2'
+        style={{ border: "1px solid rgba(214, 221, 235, 1)" }}
+      >
+        <p className='py-5 px-4'
+          style={{
+            fontSize: "17px", fontWeight: "600", color: "#25324b",
+            borderBottom: "1px solid rgba(214, 221, 235, 1)"
+          }}
+        >Job List</p>
+
+
+        <div className='py-5 px-4 flex flex-row'
+          style={{borderBottom:"1px solid rgba(214, 221, 235, 1)",fontSize: "14px", fontWeight: "400",
+            fontFamily: "Epilogue, sans-seri", color: "rgba(124, 132, 147, 1)"}}
+        >
+          <span
+            style={{ width: "30%", minWidth: "200px" }}
+          >Role</span>
+          <div
+            style={{ width: '70%', display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
+
+            <span style={{width:"80px",textAlign:"center"}}>Status</span>
+            <span className='flex flex-row justify-center'
+            style={{width:"140px",}}
+            >Date Posted</span>
+            <span
+            style={{width:"100px",textAlign:"center"}}
+            >Due Date</span>
+            <span
+            style={{width:"80px",textAlign:"center"}}
+            >Job Type</span>
+            <span 
+            style={{width:"80px",textAlign:"center"}}
+            >Applicants</span>
+            <span 
+            style={{width:"80px",textAlign:"center"}}
+            >Needs</span>
+            <span 
+            style={{width:"40px",textAlign:"center",opacity:0}}
+            ></span>
+          </div>
+
+        </div>
+
+        {loading ? (
+          <Box
+            sx={{
+              height: 370.5,
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <CircularProgress />
+          </Box>
+        ) : (
+          <>
+            {internshipTableRow.map((internship, index) => (
+
+              <Grid item xs={12} key={internship.id}>
+
+                <JobListing
+                  role={internship.designation1}
+                  salary={internship.stipend}
+                  deadline={internship.deadline}
+                  type={type}
+                  status={internship.status}
+                  designation={internship.designation}x
+                  postedDate ={internship.createdAt}
+                  studentsAppliedClick={() => { navigate('../studentsApplied', { state: { jobId: internship.studentsApplied } }); }}
+                  approval={internship.approval}
+                  index={index}
+                  detailsButtonClick={() => {
+                    navigate('../details', { state: { jobId: internship.details } });
+                  }}
+                />
               </Grid>
-              <Grid item xs={0} sm={5} md={3} display={{ xs: 'none', sm: 'grid' }}>
-                <Box
-                  sx={{
-                    width: '100%',
-                    height: '100%',
-                    display: 'flex',
-                    justifyContent: 'end',
-                    alignItems: 'center',
-                  }}
-                >
-                  <img src={typeImage} alt={type} loading="lazy" width={200} height={200} />
-                </Box>
-              </Grid>
-            </Grid>
-          </CardContent>
-        </Card>
-        <Card sx={{ mb: 1 }}>
-          <CardContent>
-            {loading ? (
-              <Box
-                sx={{
-                  height: 370.5,
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-              >
-                <CircularProgress />
-              </Box>
-            ) : (
-              <>
-              {internshipTableRow.map((internship) => (
-                <Grid item xs={12} key={internship.id}>
-                  <StudentListing
-                    role={internship.designation1}
-                    salary={internship.stipend}
-                    deadline={internship.deadline}
-                    type={type}
-                    status={internship.status}
-                    designation = {internship.designation}
-                    studentsAppliedClick = {() => { navigate('../studentsApplied', { state: { jobId: internship.studentsApplied } }); }}
-                    approval = {internship.approval}
-                    detailsButtonClick={() => {
-                      navigate('../details', { state: { jobId: internship.details } });
-                    }}
-                  />
-                </Grid>))}
+            ))}
+          </>
+        )}
 
-                </>
-  
-            )}
-          </CardContent>
-        </Card>
-      </Container>
+
+
+
+
+
+      </div>
+
+
+
+
+
+
+
+
     </div>
   );
 }

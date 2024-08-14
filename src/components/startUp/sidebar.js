@@ -4,19 +4,21 @@ import React, { useEffect } from 'react'
 import { useNavigate,useLocation } from 'react-router-dom'
 import { useState } from 'react';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { FaUser, FaBriefcase, FaFileAlt, FaHome,FaInfoCircle } from "react-icons/fa";
-import { FaDiscord } from "react-icons/fa";
-import { FaGear, FaGears, FaRegHourglassHalf, FaWebAwesome } from "react-icons/fa6";
 import Logo from "../../assets/Asset 4.svg";
-import SearchIcon from '@mui/icons-material/Search';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import BusinessIcon from '@mui/icons-material/Business';
+import GroupsIcon from '@mui/icons-material/Groups';
+import ListAltIcon from '@mui/icons-material/ListAlt';
+import SettingsIcon from '@mui/icons-material/Settings';
+import InfoIcon from '@mui/icons-material/Info';
 
 
 
 
 
-const Sidebar = ({ setStartUpDetails}) => {
+const Sidebar = ({setStartUpDetails}) => {
 
-  const  applyColor= useLocation().state?.color || "Home";
+  const  applyColor= useLocation().state?.color || "dashboard";
   // const [applyColor, setapplyColor] = useState(applyto)
 
 
@@ -50,7 +52,7 @@ const Sidebar = ({ setStartUpDetails}) => {
 
          }
          else{
-         navigate(`/student/${navigateto}`, { state: { type: `${type}`,
+         navigate(`/startUp/${navigateto}`, { state: { type: `${type}`,
           color:`${navigateto}` } })}
        }}>
        <span
@@ -118,16 +120,19 @@ const Sidebar = ({ setStartUpDetails}) => {
         }}
         >
 
-      <Sidebtn title={"Home"} icon={<FaHome/>} navigateto={"home"} type={"Account"} />
+      <Sidebtn title={"Dashboard"} icon={<DashboardIcon fontSize='17px'/>}
+       navigateto={"dashboard"} type={"Account"} />
      
       
-      <Sidebtn title={"My Application"} icon={<FaFileAlt />} navigateto={"applied"} type={"Internship"} />
+      <Sidebtn title={"Company Profile"} icon={<BusinessIcon fontSize='17px'/>} 
+      navigateto={"companyprofile"} type={"Internship"} />
 
 
-      <Sidebtn title={"Find Internship"} icon={<SearchIcon/>} navigateto={"dashboard"} type={"Internship"} />
-        
-      {/* <Sidebtn title={"Resume"} icon={ <FaFileAlt />} navigateto={"resume"} type={"resume"} /> */}
-      <Sidebtn title={"Community"} icon={ <FaDiscord />} navigateto={"community"}  />
+      <Sidebtn title={"All Applicants"} icon={<GroupsIcon fontSize='17px'/>}
+       navigateto={"applicants"} type={"Internship"} />
+      
+      <Sidebtn title={"Job List"} icon={ <ListAltIcon fontSize='17px'/>}
+       navigateto={"joblist"} type={"Internship"} />
       
 
           <div></div>
@@ -137,8 +142,9 @@ const Sidebar = ({ setStartUpDetails}) => {
         <div className='flex flex-col gap-1'
         style={{position:"relative",top:"-20px"}}
         >
-        <Sidebtn title={"Setting"} icon={ <FaGear/>} navigateto={"Account"} type={"Account"} />
-        <Sidebtn title={"Help Center"} icon={ <FaInfoCircle/>} navigateto={"Help Center"}  />
+        <Sidebtn title={"Setting"} icon={ <SettingsIcon fontSize='17px'/>} 
+        navigateto={"account"} type={"Account"} />
+        <Sidebtn title={"Help Center"} icon={ <InfoIcon fontSize='17px'/>} navigateto={"Help Center"}  />
 
  
           

@@ -1,7 +1,7 @@
 import { FormControl, InputLabel, Select, MenuItem, TextField,Input,Grid } from '@mui/material';
 import React, { useState, useRef } from 'react';
 
-const DetailsButton = ({ title, data, width, disable, setFunction }) => (
+const DetailsButton = ({ title, data, width, disable, setFunction,type }) => (
     <div className='flex flex-col'
         style={{ width: `${width}%` }}
     >
@@ -17,6 +17,8 @@ const DetailsButton = ({ title, data, width, disable, setFunction }) => (
 
 
         <TextField
+        type={type||"text"}
+            
             style={{
                 height: "40px",
                 width: "85%",

@@ -1,29 +1,61 @@
 import { Container, Typography, Card, CardContent, TextField, Grid, Button, CircularProgress, Box, MenuItem, IconButton } from '@mui/material';
 import React, { useState, useEffect } from 'react';
-import AddIcon from '@mui/icons-material/Add';
-import RemoveRoundedIcon from '@mui/icons-material/RemoveRounded';
 import { useNavigate } from 'react-router-dom';
+import userimg from "../../assets/user.svg"
+import Uploader from "../../components/student/Uploadimg"
+import { DetailsButton, DetailsDrop } from '../../components/student/account';
+import DatePicker from "../../components/startUp/Datepicker"
+import { IoMdAdd, IoMdClose } from "react-icons/io";
 
 const sectorItems = ['SAAS', 'Fin-Tech', 'Ed-Tech', 'Health-Tech', 'E-Commerce', 'Logistics', 'Other'];
 
 export default function Account({ BASE_URL, startUpDetails, setStartUpDetails, setShowAlert, setAlertMessage, setAlertSeverity }) {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const [linkedIn, setLinkedIn] = useState(startUpDetails.linkedIn);
+
+  const [selectedImgFile, setSelectedImgFile] = useState(null);
   const [website, setWebsite] = useState(startUpDetails.website);
   const [tracxn, setTracxn] = useState(startUpDetails.tracxn);
   const [social, setSocial] = useState(startUpDetails.social);
   const [cruchbase, setCruchbase] = useState(startUpDetails.cruchbase);
-  const [sector, setSector] = useState(startUpDetails.sector);
-  const [noOfEmployees, setNoOfEmployees] = useState(startUpDetails.noOfEmployees);
+
+  const [companyVision, setCompanyVision] = useState(startUpDetails.companyVision);
+
+  const updateOrSave = startUpDetails.location === '' || startUpDetails.location === undefined ? 'Save' : 'Update';
+
+  const [applyColor, setapplyColor] = useState("overview");
+  const [update, setUpdate] = useState("Update")
+
+  const [foundedDate, setFoundedDate] = useState(startUpDetails.foundedDate || "");
+  const [aboutCompany, setAboutCompany] = useState(startUpDetails.foundedDate || "");
+
   const companyName = startUpDetails.companyName;
   const companyEmail = startUpDetails.email;
-  const [companyVision, setCompanyVision] = useState(startUpDetails.companyVision);
+  const [twitter, setTwitter] = (startUpDetails.twitter || "")
+  const [Facebook, setFacebook] = (startUpDetails.facebook || "")
+  const [insta, setInsta] = (startUpDetails.instagram || "")
+  const [youtube, setYoutube] = (startUpDetails.youtube || "")
+  const [linkedIn, setLinkedIn] = useState(startUpDetails.linkedIn);
   const [founder, setFounder] = useState(startUpDetails.founder);
   const [hrName, setHrName] = useState(startUpDetails.hrName);
   const [hrEmail, setHrEmail] = useState(startUpDetails.hrEmail);
+  const [hrLinkedin, setHrLinkedin] = useState(startUpDetails.hrLinkedin);
   const [hrDesignation, setHrDesignation] = useState(startUpDetails.hrDesignation);
-  const updateOrSave = startUpDetails.location === '' || startUpDetails.location === undefined ? 'Save' : 'Update';
+  const [sector, setSector] = useState(startUpDetails.sector);
+  const [noOfEmployees, setNoOfEmployees] = useState(startUpDetails.noOfEmployees);
+  const [location, setLocation] = useState(startUpDetails.location || ["Delhi", "Banglore"]);
+
+
+
+
+
+
+
+
+
+
+
+
 
   const updateAccountDetails = async (e) => {
     e.preventDefault();
@@ -31,6 +63,11 @@ export default function Account({ BASE_URL, startUpDetails, setStartUpDetails, s
     const formData = {
       linkedIn: linkedIn,
       website: website,
+      twitter: twitter,
+      instagram: insta,
+      youtube: youtube,
+      facebook: Facebook,
+      founded: foundedDate,
       tracxn: tracxn,
       sector: sector,
       noOfEmployees: noOfEmployees,
@@ -41,6 +78,7 @@ export default function Account({ BASE_URL, startUpDetails, setStartUpDetails, s
       hrDesignation: hrDesignation,
       social: social,
       cruchbase: cruchbase,
+      // image:selectedImgFile
     };
     console.log(formData)
     const requestOptions = {
@@ -102,280 +140,530 @@ export default function Account({ BASE_URL, startUpDetails, setStartUpDetails, s
   useEffect(() => {
     if (founder.length === 0) addFounder();
   }, []);
+
+
+  const styles = {
+    large: {
+      fontSize: "14px", fontWeight: "600", color: "#202430",
+      lineHeight: "35.4px", width: "100%",
+    },
+    small: { fontFamily: "Epilogue, sans-seri", fontSize: "14px", fontWeight: "400", color: "#515B6F", }
+
+  }
+
+ 
+
+
+
+
+
+
+
+
+
   return (
-    <Container sx={{ py: 2, mt: 9 }}>
-      <Typography variant="h5" sx={{ mb: 2 }}>
-        Account Details
-      </Typography>
-      <form onSubmit={updateAccountDetails}>
-        <Card>
-          <CardContent>
-            <Typography variant="h5" sx={{ mb: 2 }}>
-              Company Overview
-            </Typography>
-            <Grid container spacing={2}>
-              <Grid item xs={12} md={6}>
-                <TextField
-                  variant="standard"
-                  label="Company Name"
-                  placeholder="XYZ"
-                  fullWidth
-                  value={companyName}
-                  InputProps={{ disableUnderline: true, readOnly: true }}
-                />
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <TextField
-                  variant="standard"
-                  label="Email"
-                  placeholder="xyz@gmail.com"
-                  fullWidth
-                  value={companyEmail}
-                  InputProps={{ disableUnderline: true, readOnly: true }}
-                />
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <TextField
-                  variant="standard"
-                  label="LinkedIn"
-                  placeholder="https://www.linkedin.com/in/xyz/"
-                  fullWidth
-                  value={linkedIn}
-                  onChange={(e) => {
-                    setLinkedIn(e.target.value);
-                  }}
-                />
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <TextField
-                  variant="standard"
-                  label="Website"
-                  placeholder="https://www.startup.com/in"
-                  fullWidth
-                  value={website}
-                  onChange={(e) => {
-                    setWebsite(e.target.value);
-                  }}
-                />
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <TextField
-                  variant="standard"
-                  label="Tracxn"
-                  placeholder="https://tracxn.com/"
-                  fullWidth
-                  value={tracxn}
-                  onChange={(e) => {
-                    setTracxn(e.target.value);
-                  }}
-                />
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <TextField
-                  variant="standard"
-                  label="Social"
-                  placeholder=""
-                  fullWidth
-                  value={social}
-                  onChange={(e) => {
-                    setSocial(e.target.value);
-                  }}
-                />
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <TextField
-                  variant="standard"
-                  label="Cruchbase"
-                  placeholder="https://www.crunchbase.com/"
-                  fullWidth
-                  value={cruchbase}
-                  onChange={(e) => {
-                    setCruchbase(e.target.value);
-                  }}
-                />
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <TextField
-                  variant="standard"
-                  fullWidth
-                  required
-                  select
-                  label="Sector"
-                  value={sector}
-                  onChange={(e) => {
-                    setSector(e.target.value);
-                  }}
-                >
-                  {sectorItems.map((item) => (
-                    <MenuItem value={item}>{item}</MenuItem>
-                  ))}
-                </TextField>
-              </Grid>
-              
-              <Grid item xs={12} md={6}>
-                <TextField
-                  variant="standard"
-                  label="No Of Employees"
-                  placeholder="10"
-                  fullWidth
-                  value={noOfEmployees}
-                  onChange={(e) => {
-                    setNoOfEmployees(e.target.value);
-                  }}
-                  required
-                  
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  variant="standard"
-                  label="Company Vision"
-                  multiline
-                  minRows={2}
-                  fullWidth
-                  value={companyVision}
-                  placeholder="Explain company vision and what it aim to solve."
-                  onChange={(e) => {
-                    setCompanyVision(e.target.value);
-                  }}
-                  required
-                />
-              </Grid>
-            </Grid>
-          </CardContent>
-        </Card>
-        <Card sx={{ my: 2 }}>
-          <CardContent>
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-              }}
+
+    <div className='py-2 px-4 w-full'>
+
+      <div className=" px-4 h-12 pb-3 flex flex-row justify-start items-center"
+        style={{
+          fontSize: "25px", fontWeight: "600", color: "rgba(37, 50, 75, 1)",
+          lineHeight: "35.4px", width: "100%",
+          fontFamily: "Epilogue, sans-seri"
+        }}
+      >
+        Settings</div>
+
+      <div
+        className='w-full h-auto pb-1 px-2 flex flex-row justify-between '
+        style={{ borderBottom: "1px solid #f4f6fa", gap: "15px" }}
+      >
+        <div>
+
+
+          <span
+            style={{
+              fontSize: "14px", fontWeight: "400", color: "#25324B",
+              fontFamily: "Epilogue, sans-seri", height: "30px",
+              borderBottom: applyColor === `overview` && "3px solid #1987d2",
+              color: applyColor === `overview` && "rgba(37, 50, 75, 1)",
+
+            }}
+            className={` hover:cursor-pointer px-3 py-2`}
+            onClick={() => {
+              setapplyColor("overview")
+              // setPage("profile")
+            }}
+
+
+          >OverView</span>
+
+
+          <span
+            style={{
+              fontSize: "14px", fontWeight: "400", color: "rgba(124, 132, 147, 1)",
+              fontFamily: "Epilogue, sans-seri", height: "30px",
+              borderBottom: applyColor === `links` && "3px solid #1987d2",
+              color: applyColor === `links` && "rgba(37, 50, 75, 1)",
+
+            }}
+            className={` hover:cursor-pointer px-3 py-2`}
+            onClick={() => {
+              setapplyColor("links")
+              // setPage(false)
+            }}
+
+
+          >Social Links</span>
+
+          <span
+            style={{
+              fontSize: "14px", fontWeight: "400", color: "rgba(124, 132, 147, 1)",
+              fontFamily: "Epilogue, sans-seri", height: "30px",
+              borderBottom: applyColor === `hr` && "3px solid #1987d2",
+              color: applyColor === `hr` && "rgba(37, 50, 75, 1)",
+
+            }}
+            className={` hover:cursor-pointer px-3 py-2`}
+            onClick={() => {
+              setapplyColor("hr")
+              // setPage(false)
+            }}
+
+
+          >Recruiter Details </span>
+        </div>
+
+        <div style={{ position: "relative", bottom: "10px" }}>
+          {(update === "Update") ? (<span className=' hover:cursor-pointer'
+          style={{padding:"9px 20px",backgroundColor:"#4640de",color:"white",fontFamily: "Epilogue, sans-serif", fontSize: "16px", fontWeight: "400",}}
+            onClick={() => {
+
+              setUpdate("save Changes")
+              setLoading(true)
+
+
+            }}
+          >{update}</span>)
+            :
+            (<div className=' hover:cursor-pointer'
+              style={{padding:"9px 20px",backgroundColor:"#4640de",color:"white",fontFamily: "Epilogue, sans-serif", fontSize: "16px", fontWeight: "400",}}
+              onClick={() => { }}
+            >{update}</div>)}
+        </div>
+
+
+
+      </div>
+
+
+      {applyColor === "overview" &&
+
+        <div className='px-4 py-3'>
+          {/* Basic information */}
+          <div className='flex flex-col w-full pb-3'
+            style={{ fontFamily: "Epilogue, sans-seri", borderBottom: "2px solid #f4f6fa" }}>
+            <span style={{
+              fontSize: "16px", fontWeight: "600", color: "#202430",
+            }}>  Basic Information</span>
+            <div className='flex flex-row justify-between align-middle'>
+              <span
+                style={{
+                  fontSize: "14px", fontWeight: "400", color: "#515B6F",
+                  lineHeight: "35.4px",
+                }}
+
+              >This is company information that you can update anytime.</span>
+
+
+
+            </div>
+          </div>
+
+          {/* Photo Section */}
+
+          <div className='flex flex-row w-full py- justify-start'
+            style={{
+              fontFamily: "Epilogue, sans-seri", borderBottom: "1px solid #f4f6fa",
+              gap: "20px"
+            }}>
+
+            <div className='flex flex-col' style={{ width: "35%" }}>
+              <span style={styles.large}>Company Logo</span>
+
+              <span
+                style={styles.small}
+
+              >This image will be shown publicly as company logo.</span>
+            </div>
+
+            <div className='flex flex-row  justify-between items-center'>
+
+              <div
+                className="flex flex-row justify-center items-center"
+                style={{
+                  height: "105px", width: "105px", borderRadius: "50%", overflow: "hidden",
+                  border: !startUpDetails.imglink && "1px solid black"
+
+
+                }}>
+
+                <img src={startUpDetails.imglink || userimg} alt="userimg" />
+              </div>
+
+
+
+            </div>
+
+            <Uploader selectedFile={selectedImgFile} setSelectedFile={setSelectedImgFile} />
+
+          </div>
+
+
+          {/* Details Section */}
+
+          <div className='flex flex-row w-full py-3 justify-start'
+            style={{
+              fontFamily: "Epilogue, sans-seri", borderBottom: "1px solid #f4f6fa",
+              gap: "20px"
+            }}>
+
+            <div className='flex flex-col' style={{ width: "35%" }}>
+              <span style={styles.large}>Company Details</span>
+
+              <span
+                style={styles.small}
+
+              >Introduce your company core info quickly to users by fill up company details</span>
+            </div>
+
+            <div className='flex flex-col'
+              style={{ width: "60%", gap: "40px" }}
             >
-              <Typography variant="h5">Founder</Typography>
-              <Box sx={{ gap: 2 }}>
-                <IconButton size="small" onClick={addFounder} color="success">
-                  <AddIcon />
-                </IconButton>
-                <IconButton size="small" onClick={removeFounder} color="error" disabled={founder.length === 1}>
-                  <RemoveRoundedIcon />
-                </IconButton>
-              </Box>
-            </Box>
-            {founder.map((value, key) => {
-              return (
-                <Card variant="outlined" sx={{ mt: 2 }}>
-                  <CardContent
-                    sx={{
-                      display: { xs: 'block', md: 'flex' },
-                      gap: 2,
-                      alignItems: 'end',
-                    }}
+
+              <DetailsButton
+                title={"Company Name"} data={companyName}
+                width={80} disable={true} />
+
+              <DetailsButton
+                title={"Company Email"} data={companyEmail}
+                width={80} disable={true} />
+
+              <DatePicker width={"60%"} title={"Company Founded"}
+                selectedDate={foundedDate} setSelectedDate={setFoundedDate} />
+
+              <div className='flex flex-row'>
+
+                <DetailsButton
+                  title={"Employee"} data={noOfEmployees}
+                  width={40} disable={false} type={"number"}
+                  setFunction={setNoOfEmployees} />
+
+                <DetailsDrop title={"Sector"} data={sector} setFunction={setSector}
+                  menu={sectorItems} width={35} />
+
+              </div>
+
+
+
+            </div>
+
+
+
+          </div>
+
+
+          {/* About Section */}
+
+          <div className='flex flex-row w-full py-3 justify-start'
+            style={{
+              fontFamily: "Epilogue, sans-seri", borderBottom: "1px solid #f4f6fa",
+              gap: "20px"
+            }}>
+
+            <div className='flex flex-col' style={{ width: "35%" }}>
+              <span style={styles.large}>About Company </span>
+
+              <span
+                style={styles.small}
+
+              >Brief description for your company. URLs are hyperlinked.</span>
+            </div>
+
+            <div className='flex flex-col'
+              style={{ minWidth: "400px", width: "60%" }}
+
+            >
+              <textarea
+                value={aboutCompany}
+                onChange={(e) => { setAboutCompany(e.target.value) }}
+                style={{
+                  outline: "none", padding: "7px 10px", width: "100%", height: "150px",
+                  border: "1px solid rgba(214, 221, 235, 1)", color: "rgba(37, 50, 75, 1)", marginBottom: "5px", overflowY: "auto", scrollbarWidth: "none",
+                  msOverflowStyle: "none", resize: 'none'
+                }}
+                placeholder='Enter Company Description'
+              ></textarea>
+              <span
+                style={{
+                  fontSize: "14px", fontWeight: "400",
+                  color: "rgba(81, 91, 111, 1)",
+                }}
+              >
+                At max 500 characters allowed
+              </span>
+            </div>
+          </div>
+        </div>
+
+      }
+
+      {applyColor === "links" &&
+
+
+        <div className='flex flex-col w-full py-3 justify-start'
+          style={{
+            fontFamily: "Epilogue, sans-seri", borderBottom: "1px solid #f4f6fa",
+            gap: "20px"
+          }}>
+
+          <div className='flex flex-col' style={{ width: "100%" }}>
+            <span style={styles.large}>Basic Information</span>
+
+            <span
+              style={styles.small}
+
+            >Add elsewhere links to your company profile. You can add only username without full https links.</span>
+          </div>
+
+          <div className='flex flex-col'
+            style={{ width: "100%", gap: "40px" }}
+          >
+            <div className='flex flex-row justify-around'>
+
+              <DetailsButton
+                title={"Website"} data={website} setFunction={setWebsite}
+                width={50} disable={false} type={"link"} />
+
+              <DetailsButton
+                title={"CrunchBase"} data={cruchbase}
+                width={50} disable={false} setFunction={setCruchbase} />
+            </div>
+
+            <div className='flex flex-row'>
+
+              <DetailsButton
+                title={"Linkedin"} data={linkedIn}
+                width={50} disable={false} setFunction={setLinkedIn} />
+
+              <DetailsButton
+                title={"Twitter"} data={twitter} setFunction={setTwitter}
+                width={50} disable={false} />
+            </div>
+
+            <div className='flex flex-row'>
+
+              <DetailsButton
+                title={"Instagram"} data={insta} setFunction={setInsta}
+                width={50} disable={false} />
+
+              <DetailsButton
+                title={"Facebook"} data={Facebook} setFunction={setFacebook}
+                width={50} disable={false} />
+            </div>
+            <DetailsButton
+              title={"YouTube"} data={youtube} setFunction={setYoutube}
+              width={50} disable={false} />
+
+          </div>
+        </div>
+      }
+
+
+      {applyColor === "hr" &&
+
+        <div className='flex flex-col w-full py-3 px-4 justify-start'
+          style={{
+            fontFamily: "Epilogue, sans-seri", borderBottom: "1px solid #f4f6fa",
+
+          }}>
+
+          <div className='flex flex-col pb-3 gap-5' style={{ borderBottom: "2px solid #f4f6fa" }}>
+
+            <div className='flex flex-row justify-between items-center ' style={{ width: "100%" }}>
+
+              <div className='flex flex-col ' style={{ width: "95%" }} >
+
+                <span style={styles.large}>Founder </span>
+
+                <span
+                  style={styles.small}
+
+                > Add details of the founder of your company and the vision they pursue.
+                </span>
+              </div>
+
+              <Icon addField={addFounder} deleteField={removeFounder} />
+
+
+
+            </div>
+
+            <div className='flex flex-col'
+              style={{ width: "100%", gap: "40px" }}
+            >
+
+              {founder.map((value, key) => (
+
+                <div className='w-full flex flex-col gap-2'>
+
+
+
+                  <div className='flex flex-row full justify-between'>
+                    <Input title={"Founder Name"}
+                      value={value.name}
+                      onChange={(e) => {
+                        updateFounderName(e.target.value, value.id)
+                      }} />
+
+                    <Input title={"Founder Linkedin"} value={value.linkedIn}
+
+                      onChange={(e) => {
+                        updateFounderLinkedIn(e.target.value, value.id);
+                      }} />
+
+                  </div>
+                  <div className='flex flex-col'
+                    style={{ minWidth: "400px", width: "100%" }}
+
                   >
-                    <Grid container spacing={2}>
-                      <Grid item xs={12} md={6}>
-                        <TextField
-                          variant="standard"
-                          label="Founder Name"
-                          placeholder="Steve Jobs"
-                          sx={{ mb: { xs: 2, md: 0 } }}
-                          fullWidth
-                          value={value.name}
-                          onChange={(e) => {
-                            updateFounderName(e.target.value, value.id);
-                          }}
-                        />
-                      </Grid>
-                      <Grid item xs={12} md={6}>
-                        <TextField
-                          variant="standard"
-                          label="Founder LinkedIn"
-                          placeholder="linkedin.com/in/steve-jobs/"
-                          fullWidth
-                          multiline
-                          value={value.linkedIn}
-                          onChange={(e) => {
-                            updateFounderLinkedIn(e.target.value, value.id);
-                          }}
-                        />
-                      </Grid>
-                      <Grid item xs={12}>
-                        <TextField
-                          variant="standard"
-                          label="Founder Bio"
-                          placeholder="Explain founder's professional and educational background."
-                          fullWidth
-                          multiline
-                          value={value.bio}
-                          onChange={(e) => {
-                            updateFounderBio(e.target.value, value.id);
-                          }}
-                        />
-                      </Grid>
-                    </Grid>
-                  </CardContent>
-                </Card>
-              );
-            })}
-          </CardContent>
-        </Card>
-        <Card sx={{ my: 2 }}>
-          <CardContent>
-            <Typography variant="h5" sx={{ mb: 2 }}>
-              HR/POC Details
-            </Typography>
-            <Grid container spacing={2}>
-              <Grid item xs={12} md={6}>
-                <TextField
-                  variant="standard"
-                  label="Name"
-                  placeholder=""
-                  fullWidth
+                    <textarea
+                      style={{
+                        outline: "none", padding: "7px 10px", width: "100%", height: "150px",
+                        border: "1px solid rgba(214, 221, 235, 1)", color: "rgba(37, 50, 75, 1)", marginBottom: "5px", overflowY: "auto", scrollbarWidth: "none",
+                        msOverflowStyle: "none", resize: 'none'
+                      }}
+                      maxLength={500}
+                      value={value.bio}
+                      onChange={(e) => {
+                        updateFounderBio(e.target.value, value.id);
+                      }}
+                      placeholder='Enter Founder Bio'
+                    ></textarea>
+                    <span
+                      style={{
+                        fontSize: "14px", fontWeight: "400",
+                        color: "rgba(81, 91, 111, 1)",
+                      }}
+                    >
+                      At max 500 characters allowed
+                    </span>
+                  </div>
+
+                </div>
+              ))}
+
+            </div>
+          </div>
+
+
+
+          <div className='flex flex-col' style={{ width: "100%" }}>
+
+            <div className='flex flex-col py-2 pb-3 justify-start'  >
+
+              <span style={styles.large}>Team/POC</span>
+
+              <span
+                style={styles.small}
+
+              >Add details of your hiring team.</span>
+            </div>
+
+            <div className='w-full flex flex-col gap-2'>
+
+              <div className='flex flex-row full justify-between'>
+                <Input title={"HR Name"}
                   value={hrName}
                   onChange={(e) => {
-                    setHrName(e.target.value);
-                  }}
-                />
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <TextField
-                  variant="standard"
-                  label="Personal Email"
-                  placeholder=""
-                  fullWidth
-                  value={hrEmail}
+                    setHrName(e.target.value)
+                  }} />
+
+                <Input title={"HR Email"} value={hrEmail}
+
                   onChange={(e) => {
                     setHrEmail(e.target.value);
-                  }}
-                />
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <TextField
-                  variant="standard"
-                  label="Designation"
-                  placeholder=""
-                  fullWidth
+                  }} />
+
+              </div>
+
+              <div className='flex flex-row full justify-between'>
+                <Input title={"HR Designation"}
                   value={hrDesignation}
                   onChange={(e) => {
-                    setHrDesignation(e.target.value);
-                  }}
-                />
-              </Grid>
-            </Grid>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent>
-            <Typography variant="h5" sx={{ mb: 2 }}>
-              {updateOrSave} Account
-            </Typography>
-            <Button type="submit" variant="contained" sx={{ width: 120, height: 40 }}>
-              {loading ? <CircularProgress sx={{ color: 'white' }} size={25} /> : <Typography>{updateOrSave}</Typography>}
-            </Button>
-          </CardContent>
-        </Card>
-      </form>
-    </Container>
+                    setHrDesignation(e.target.value)
+                  }} />
+
+                <Input title={"HR Linkedin"} value={hrLinkedin}
+
+                  onChange={(e) => {
+                    setHrLinkedin(e.target.value);
+                  }} />
+
+              </div>
+
+
+            </div>
+
+
+
+
+
+          </div>
+
+        </div>}
+
+
+
+    </div>
+
   );
 }
+
+const Icon = ({ addField, deleteField }) => (
+
+  <div className='flex flex-row gap-1' style={{ width: "100px" }}>
+    <span
+      style={{ backgroundColor: "#e9ebfd", padding: "5px", borderRadius: "50%", cursor: "pointer" }}
+      onClick={addField}
+    >
+      <IoMdAdd size={"18px"} color='#707785' />
+    </span>
+    <span
+      style={{ backgroundColor: "#fde9e9", padding: "5px", borderRadius: "50%", cursor: "pointer" }}
+      onClick={deleteField}
+    >
+      <IoMdClose size={"18px"} color='#e57373' />
+    </span>
+  </div>
+)
+
+const Input = ({ title, onChange, value, width }) => (
+  <div className='flex flex-col'>
+
+    <span
+      style={{
+        fontSize: "16px", fontWeight: "400", color: "rgba(81, 91, 111, 1)",
+        fontFamily: "Epilogue, sans-seri"
+      }}
+    >{title}</span>
+    <input type="text" style={{
+      height: "40px", width: "100%", minWidth: "450px", outline: "none",
+      border: "1px solid rgba(214, 221, 235, 1)", padding: "3px 8px",
+      color: "rgba(81, 91, 111, 1)"
+    }}
+      value={value}
+      onChange={onChange}
+    />
+  </div>
+)

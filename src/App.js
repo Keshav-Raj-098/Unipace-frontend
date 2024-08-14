@@ -8,7 +8,7 @@ import StartUpInternship from './pages/startUp/internship';
 import StudentAccount from './pages/student/account';
 import JobPortalIndex from './pages/index';
 import StartUpAccount from './pages/startUp/account';
-import CompanyDetails from'./pages/student/CompanyPage.js'
+import CompanyDetails from './pages/student/CompanyPage.js'
 import StartUpAddNew from './pages/startUp/JobPost.js';
 import JobDetails from './pages/details';
 import StudentsApplied from './pages/startUp/studentsApplied';
@@ -31,6 +31,10 @@ import Popup from "./components/Loadpopup.js"
 import Apply from "./pages/student/Applied.js"
 import AIpopup from "./components/startUp/AI/Aipopup.js"
 import Home from '../src/pages/student/home.js'
+import Dashboard from "./pages/startUp/dashboard.js"
+import Applicants from "./pages/startUp/Allapplicant.js"
+import CompanyProfile from "./pages/startUp/CompanyProfile.js"
+import AdminLogin from "./pages/adminSignin.js"
 
 
 
@@ -202,7 +206,8 @@ export default function App() {
                   </>} />
 
 
-                <Route path="details" element={<JobDetails BASE_URL={BASE_URL} startUpDetails={null} />} />{' '}</Route>
+                <Route path="details" element={<JobDetails BASE_URL={BASE_URL} startUpDetails={null} />} />{' '}
+                </Route>
 
 
 
@@ -210,10 +215,10 @@ export default function App() {
                 path="student"
                 element={<StudentIndex mode={mode} setMode={setMode} studentDetails={studentDetails} setStudentDetails={setStudentDetails} />}
               >
-              <Route
-                path="home"
-                element={<Home studentDetails={studentDetails} BASE_URL={BASE_URL}/>}
-              />
+                <Route
+                  path="home"
+                  element={<Home studentDetails={studentDetails} BASE_URL={BASE_URL} />}
+                />
                 <Route path='blog' element={<Blogs />} />
                 <Route path='community' element={<Community />} />
                 <Route path='applied' element={<Apply BASE_URL={BASE_URL} studentDetails={studentDetails} {...setAlertProps} />} />
@@ -228,7 +233,7 @@ export default function App() {
                 />
                 <Route
                   path="company"
-                  element={<CompanyDetails/>}
+                  element={<CompanyDetails />}
                 />
                 <Route path="details" element={<JobDetails BASE_URL={BASE_URL} startUpDetails={null} />} />{' '}
                 {/* TODO check if  shouldn't there be an alert property here also? */}
@@ -239,20 +244,24 @@ export default function App() {
                 path="startUp"
                 element={<StartUpIndex mode={mode} setMode={setMode} startUpDetails={startUpDetails} setStartUpDetails={setStartUpDetails} />}
               >
-                <Route path="internship" element={<StartUpInternship BASE_URL={BASE_URL} startUpDetails={startUpDetails} {...setAlertProps} />} />
+                <Route path="dashboard" element={<Dashboard
+                  startUpDetails={startUpDetails} BASE_URL={BASE_URL} />} />
+                <Route path="applicants" element={<Applicants />} />
+                <Route path="companyprofile" element={<CompanyProfile />} />
+                <Route path="joblist" element={<StartUpInternship BASE_URL={BASE_URL} startUpDetails={startUpDetails} {...setAlertProps} />} />
                 <Route
                   path="account"
                   element={
                     <StartUpAccount BASE_URL={BASE_URL} startUpDetails={startUpDetails} setStartUpDetails={setStartUpDetails} {...setAlertProps} />
                   }
                 />
-                <Route path="addNew" element={
+                <Route path="jobPost" element={
                   <>
                     <AIpopup IsOpen={IsOpen} setIsOpen={setIsOpen} setnewJD={setnewJD}
-                    loading={loading2} setloading={setloading2}
+                      loading={loading2} setloading={setloading2}
                     />
                     <StartUpAddNew BASE_URL={BASE_URL} {...setAlertProps}
-                      IsOpen={IsOpen} setIsOpen={setIsOpen} newJD={newJD} 
+                      IsOpen={IsOpen} setIsOpen={setIsOpen} newJD={newJD}
                       loading3={loading2} setloading3={setloading2} />
                   </>} />
 
@@ -260,7 +269,8 @@ export default function App() {
                 <Route path="details" element={<JobDetails BASE_URL={BASE_URL} startUpDetails={startUpDetails} />} />{' '}
                 {/* TODO check if  shouldn't there be an alert property here also? */}
               </Route>
-              <Route path="admin" element={<AdminIndex mode={mode} setMode={setMode} />}>
+              <Route path="admin" element={<AdminLogin {...setAlertProps}  />}>
+              {/* <Route path="admin" element={<AdminIndex mode={mode} setMode={setMode} />}> */}
                 <Route path="" element={<AdminSignInRedirect />} />
                 <Route path="dashboard" element={<AdminDashboard />} />
                 <Route path="details" element={<JobDetails BASE_URL={BASE_URL} startUpDetails={null} />} />

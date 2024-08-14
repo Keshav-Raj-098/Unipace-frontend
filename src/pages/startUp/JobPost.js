@@ -1,27 +1,34 @@
-import {
-  Card,
-  CardContent,
-  Container,
-  Grid,
-  Typography,
-  TextField,
-  Button,
-  CircularProgress,
-  Box,
-  ToggleButton,
-  ToggleButtonGroup,
-} from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import moment from 'moment';
 // import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-import { LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
+import Header from '../../components/startUp/Header';
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
+import { IoBriefcase } from "react-icons/io5";
+import { FaClipboardList, FaGift } from "react-icons/fa6";
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import Step1 from '../../components/startUp/JobPostPages.js/Page1';
+import { Step2 } from '../../components/startUp/JobPostPages.js/Page2';
+import Step3 from '../../components/startUp/JobPostPages.js/Page3';
 
 
-export default function AddNew({ BASE_URL, setShowAlert, setAlertMessage, setAlertSeverity,IsOpen,setIsOpen,loading3,setloading3,newJD }) {
+
+const MoveOrNot = (values, setFunction) => {
+  return Object.values(values).every(value => value !== undefined && value !== null && value !== '');
+ 
+};
+
+
+
+
+
+
+
+
+
+export default function AddNew({ BASE_URL, setShowAlert, setAlertMessage, setAlertSeverity, IsOpen, setIsOpen, loading3, setloading3, newJD }) {
   const navigate = useNavigate();
   const { type, companyName, startUpId, jobId } = useLocation().state;
   const [designation, setDesignation] = useState('');
@@ -29,67 +36,116 @@ export default function AddNew({ BASE_URL, setShowAlert, setAlertMessage, setAle
   const [stipend, setStipend] = useState('');
   const [noOfOffers, setNoOfOffers] = useState('');
   const [skillsRequired, setSkillsRequired] = useState('');
-  const [responsibilities, setResponsibilities] = useState('');
+  // const [responsibilities, setResponsibilities] = useState('');
   const [assignment, setAssignment] = useState('');
-  const [deadline, setDeadline] = useState(moment().format('YYYY-MM-DDThh:mm'));
-  const [selectionProcess, setSelectionProcess] = useState('');
+  const [deadline, setDeadline] = useState();
+  // const [selectionProcess, setSelectionProcess] = useState('');
   const [hoursType, setHoursType] = useState('fulltime'); // either parttime or fulltime
   const [jobLocation, setJobLocation] = useState('');
   const [loading, setLoading] = useState(false);
   const [loading2, setLoading2] = useState(true);
   const updateOrAdd = jobId !== '' && jobId !== undefined ? 'Update' : 'Add';
 
+  const [step, setStep] = useState("one");
+
+
+
+
+  const [title, setTitle] = useState('');
+  const [Type, setType] = useState('');
+  const [Salary, setSalary] = useState('');
+  const [category, setCategory] = useState([]);
+  const [addSkill, setAddSkill] = useState(["Graphic", "Media"]);
+  const [description, setDescription] = useState('');
+  const [responsibilities, setResponsibilities] = useState([]);
+  const [qualification, setQualification] = useState([]);
+  const [skills, setSkills] = useState([]);
+  const [perks, setPerks] = useState([]);
+  const [selectionProcess, setSelectionProcess] = useState([]);
+  const [totalApplications, setTotalApplications] = useState();
+  const [totalRequired, setTotalRequired] = useState("");
+  const [currency, setCurrency] = useState('INR');
+  const [salary, setsalary] = useState('INR');
+
+  useEffect(() => {
+    setSalary(`${currency} ${salary}`)
+  }, [salary, currency])
+
+  
+
+  const Step1Values = { title, Type, salary,currency,category, addSkill, deadline, totalApplications, totalRequired }
+  const Step1Function = { setTitle, setType, setSalary, setCategory, setAddSkill, setDeadline, setTotalApplications, setTotalRequired,setsalary,setCurrency }
+
+  const Step2Values = { description, responsibilities, qualification, skills, selectionProcess }
+  const Step2Function = { setDescription, setResponsibilities, setQualification, setSkills, setSelectionProcess }
+   
+  const move1 = MoveOrNot(Step1Values)
+  const move2 = MoveOrNot(Step2Values)
+  const move3 = perks.length !== 0; 
+
+ console.log();
+ 
+ 
+
   const addNewOpportunity = async (e) => {
     e.preventDefault();
     setLoading(true);
     const formData = {
       companyName: companyName,
-      designation: designation,
-      type: type,
-      duration: duration,
-      stipend: stipend,
-      noOfOffers: noOfOffers,
-      skillsRequired: skillsRequired,
-      jobLocation: jobLocation,
+      title:title,
+      type: Type,
+      // duration: duration,
+      category:category,
+      salary: Salary,
+      category:category,
+      addSkill:addSkill,
+      description:description,
+      // jobLocation: jobLocation,
       responsibilities: responsibilities,
+      skills:skills,
+      perks:perks,
+      qualification:qualification,
       assignment: assignment,
       deadline: deadline,
       selectionProcess: selectionProcess,
-      hoursType: hoursType,
+      totalApplications:totalApplications,
+      totalRequired:totalRequired,
       startUpId: startUpId,
       createdAt: moment().format('YYYY-MM'),
     };
-    const requestOptions = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: localStorage.localStorageStartUpToken,
-      },
-      body: JSON.stringify(formData),
-    };
-    const url = `${BASE_URL}/api/startUp/jobs`;
-    try {
-      await fetch(url, requestOptions)
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.status === 201) {
-            setLoading(false);
-            setAlertMessage('Opportunity added successfully.');
-            setAlertSeverity('success');
-            setShowAlert(true);
-            navigate(-1);
-          } else if (data.status === 400) {
-            setLoading(false);
-            setAlertMessage(data.message);
-            setAlertSeverity('error');
-            setShowAlert(true);
-          } else {
-            console.log(data);
-          }
-        });
-    } catch (error) {
-      console.log(error);
-    }
+    // const requestOptions = {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //     Authorization: localStorage.localStorageStartUpToken,
+    //   },
+    //   body: JSON.stringify(formData),
+    // };
+    // const url = `${BASE_URL}/api/startUp/jobs`;
+    // try {
+    //   await fetch(url, requestOptions)
+    //     .then((response) => response.json())
+    //     .then((data) => {
+    //       if (data.status === 201) {
+    //         setLoading(false);
+    //         setAlertMessage('Opportunity added successfully.');
+    //         setAlertSeverity('success');
+    //         setShowAlert(true);
+    //         navigate(-1);
+    //       } else if (data.status === 400) {
+    //         setLoading(false);
+    //         setAlertMessage(data.message);
+    //         setAlertSeverity('error');
+    //         setShowAlert(true);
+    //       } else {
+    //         console.log(data);
+    //       }
+    //     });
+    // } catch (error) {
+    //   console.log(error);
+    // }
+    console.log(formData);
+    
   };
 
   const updateOpportunity = async (e) => {
@@ -186,16 +242,16 @@ export default function AddNew({ BASE_URL, setShowAlert, setAlertMessage, setAle
     }
   }, []);
 
-  function makeList(arr){
+  function makeList(arr) {
 
-    if((arr!==undefined)&&(arr!==null)){
+    if ((arr !== undefined) && (arr !== null)) {
 
       return arr.join('\n')
     }
-    else{return arr}
-   
+    else { return arr }
+
   }
-  
+
 
 
   useEffect(() => {
@@ -204,16 +260,16 @@ export default function AddNew({ BASE_URL, setShowAlert, setAlertMessage, setAle
     setStipend(newJD.stipend)
     setNoOfOffers(newJD.noOfOffers)
     setSkillsRequired(makeList(newJD.skillsRequired))
-    setResponsibilities( makeList(newJD.responsibilitie))
+    setResponsibilities(makeList(newJD.responsibilitie))
     setAssignment(makeList(newJD.assignment))
     setDeadline(newJD.deadline)
     setSelectionProcess(makeList(newJD.selectionProcess))
-    if(newJD.hoursType=="true"){setHoursType("fulltime")}
-      else{setHoursType("parttime")}
-    setJobLocation(  newJD.jobLocation)
+    if (newJD.hoursType == "true") { setHoursType("fulltime") }
+    else { setHoursType("parttime") }
+    setJobLocation(newJD.jobLocation)
     setloading3(false)
     setIsOpen(false)
-        
+
     return () => {
       setDesignation("")
       setDuration("")
@@ -228,315 +284,201 @@ export default function AddNew({ BASE_URL, setShowAlert, setAlertMessage, setAle
       setJobLocation("")
     }
   }, [newJD])
-  
+
+  const handleclickForward = () => {
+
+
+
+    if (step === "one") { 
+      if(move1){setStep("two")}
+      else{
+        setAlertMessage('All fields Required');
+            setAlertSeverity('failed');
+            setShowAlert(true);
+      }
+     }
+    else if (step === "two") { 
+      if(move2){setStep("three")}
+    else{ setAlertMessage('All fields Required');
+      setAlertSeverity('failed');
+      setShowAlert(true);} }
+  }
+
+
+  const handleclickBackward = () => {
+
+
+
+    if (step === "two") { setStep("one") }
+    else if (step === "three") { setStep("two") }
+  }
 
 
 
   return (
-    <Container sx={{ py: 2, mt: 9,}} >
-      <Box sx={{display:"flex",justifyContent:"space-between" }}>
 
-      <Typography variant="h5" sx={{ mb: 2 }}>
-        {updateOrAdd} {type} Opportunity
-      </Typography>
-      <button
-        onClick={() => {
-          IsOpen ? setIsOpen(false) : setIsOpen(true)}}
-        className=" text-white font-medium px-4 py-2 rounded hover:opacity-90 transition-opacity text-sm" 
-        style={{backgroundColor:"#1976d2"}}
-        >
-        Build with AI
-      </button>
-        </Box>
-      <form onSubmit={addorUpdateOpportunity}>
-        <Card>
-          <CardContent>
-            <Typography variant="h5" sx={{ mb: 2 }}>
-              Project Details
-            </Typography>
-            {loading2 ? (
-              <Box
-                sx={{
-                  height: 300,
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-              >
-                <CircularProgress />
-              </Box>
-            ) : (
-              <Grid container spacing={2}>
-                <Grid item xs={12} md={6}>
-                  <TextField
-                    variant="standard"
-                    label="Designation"
-                    placeholder='SDE'
-                    fullWidth
-                    value={designation}
-                    onChange={(e) => {
-                      setDesignation(e.target.value);
-                    }}
-                    required
-                    InputLabelProps={{ shrink: !!designation }}
-                  />
-                </Grid>
-                {type === 'Internship' ? (
-                  <Grid item xs={12} md={6}>
-                    <TextField
-                      variant="standard"
-                      label="Internship Duration"
-                      placeholder="2 Months (June-July)"
-                      fullWidth
-                      value={duration}
-                      onChange={(e) => {
-                        setDuration(e.target.value);
-                      }}
-                      required
-                      InputLabelProps={{ shrink: !!duration }}
-                    />
-                  </Grid>
-                ) : (
-                  <Grid item xs={12} md={6}>
-                    <TextField
-                      variant="standard"
-                      label="Type"
-                      fullWidth
-                      value={type}
-                      required
-                      InputProps={{ disableUnderline: true, readOnly: true }}
-                      InputLabelProps={{ shrink: !!type }}
-                    />
-                  </Grid>
-                )}
-                {type === 'Project' && (
-                  <>
-                    <Grid item xs={12}>
-                      <TextField
-                        variant="standard"
-                        label="Skills Required"
-                        multiline
-                        fullWidth
-                        minRows={3}
-                        value={skillsRequired}
-                        placeholder="1. C++&#10;2. Python&#10;3. Communication Skills"
-                        onChange={(e) => {
-                          setSkillsRequired(e.target.value);
-                        }}
-                        required
-                        InputLabelProps={{ shrink: !!skillsRequired }}
-                      />
-                    </Grid>
-                    <Grid item xs={12}>
-                      <TextField
-                        variant="standard"
-                        label="Project Description"
-                        multiline
-                        fullWidth
-                        minRows={3}
-                        value={responsibilities}
-                        placeholder="1. Execute full software development life cycle (SDLC)&#10;2. Write well-designed, testable code&#10;3. Troubleshoot, debug and upgrade existing systems"
-                        onChange={(e) => {
-                          setResponsibilities(e.target.value);
-                        }}
-                        required
-                        InputLabelProps={{ shrink: !! responsibilities}}
-                      />
-                    </Grid>
-                  </>
-                )}
-                {type !== 'Project' && (
-                  <>
-                    <Grid item xs={12} md={6}>
-                      <TextField
-                        variant="standard"
-                        label="Stipend"
-                        placeholder="Flexible"
-                        fullWidth
-                        value={stipend}
-                        onChange={(e) => {
-                          setStipend(e.target.value);
-                        }}
-                        required
-                        InputLabelProps={{ shrink: !!stipend }}
-                      />
-                    </Grid>
-                    <Grid item xs={12} md={6}>
-                      <TextField
-                        variant="standard"
-                        label="No of Offers"
-                        placeholder="5"
-                        fullWidth
-                        value={noOfOffers}
-                        onChange={(e) => {
-                          setNoOfOffers(e.target.value);
-                        }}
-                        required
-                        InputLabelProps={{ shrink: !!noOfOffers }}
-                      />
-                    </Grid>
-                    <Grid item xs={12} md={6}>
-                      <TextField
-                        variant="standard"
-                        label="Skills Required"
-                        multiline
-                        fullWidth
-                        minRows={3}
-                        value={skillsRequired}
-                        placeholder="1. C++&#10;2. Python&#10;3. Communication Skills"
-                        onChange={(e) => {
-                          setSkillsRequired(e.target.value);
-                        }}
-                        required
-                        InputLabelProps={{ shrink: !!skillsRequired }}
-                      />
-                    </Grid>
-                    <Grid item xs={12} md={6}>
-                      <TextField
-                        variant="standard"
-                        label="Job Location"
-                        placeholder="Remote, Delhi, Banglore, etc."
-                        fullWidth
-                        value={jobLocation}
-                        onChange={(e) => {
-                          setJobLocation(e.target.value);
-                        }}
-                        required
-                        InputLabelProps={{ shrink: !!jobLocation }}
-                      />
-                    </Grid>
-                  </>
-                )}
-                {type !== 'Project' && (
-                  <Grid item xs={12} md={6}>
-                    <TextField
-                      variant="standard"
-                      label="Responsibilities"
-                      multiline
-                      fullWidth
-                      minRows={3}
-                      value={responsibilities}
-                      placeholder="1. Execute full software development life cycle (SDLC)&#10;2. Write well-designed, testable code&#10;3. Troubleshoot, debug and upgrade existing systems"
-                      onChange={(e) => {
-                        setResponsibilities(e.target.value);
-                      }}
-                      required
-                      InputLabelProps={{ shrink: !!responsibilities }}
-                    />
-                  </Grid>
-                )}
-                {type === 'Internship' && (
-                  <Grid item xs={12} md={6}>
-                    <Typography variant="button" display="block" gutterBottom style={{ marginLeft: '5px' }}>
-                      Part/Full time
-                    </Typography>
-                    <ToggleButtonGroup
-                      color="primary"
-                      value={hoursType}
-                      exclusive
-                      // {...hoursType ? setHoursType(hoursType) : setHoursType(newHoursType)}
-                      onChange={(e, newHoursType) => {
-                        setHoursType(newHoursType);
-                      }}
-                      aria-label="Platform"
-                      style={{ marginLeft: '5px' }}
-                    >
-                      <ToggleButton value="parttime">FULL-TIME</ToggleButton>
-                      <ToggleButton value="fulltime">PART-TIME</ToggleButton>
-                    </ToggleButtonGroup>
-                  </Grid>
-                )}
-              </Grid>
-            )}
-          </CardContent>
-        </Card>
-        <Card sx={{ my: 2 }}>
-          <CardContent>
-            <Typography variant="h5" sx={{ mb: 2 }}>
-              Deadline and Selection Process
-            </Typography>
-            {loading2 ? (
-              <Box
-                sx={{
-                  height: 300,
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-              >
-                <CircularProgress />
-              </Box>
-            ) : (
-              <Grid container spacing={2}>
-                <Grid item xs={12} md={6} sx={{ mb: 2 }}>
-                  <TextField
-                    variant="standard"
-                    label="Assignment And Submission Details"
-                    fullWidth
-                    value={assignment}
-                    placeholder="Add assignment link ( Optional )"
-                    onChange={(e) => {
-                      setAssignment(e.target.value);
-                    }}
-                    InputLabelProps={{ shrink: !!assignment }}
-                    
-                  />
-                </Grid>
-                {/* <TextField
-                  type="datetime-local"
-                  variant="standard"
-                  label="Application Deadline"
-                  fullWidth
-                  value={deadline}
-                  onChange={(e) => {
-                    setDeadline(e.target.value);
-                  }}
-                  required
-                /> */}
-                <Grid item xs={12} md={6} sx={{ mb: 2 }}>
-                  <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DatePicker 
-                    label="Application Deadline"
-                    fullWidth
-                    value={dayjs(deadline)}
-                    onChange={(e) => {
-                      setDeadline(e.target.value);
-                    }}
-                    InputLabelProps={{ shrink: !!deadline }}
-                    />
-                  </LocalizationProvider>
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    variant="standard"
-                    label="Selection Process"
-                    multiline
-                    fullWidth
-                    minRows={3}
-                    value={selectionProcess}
-                    placeholder="1. Resume Shortlist&#10;2. Online Test&#10;3. Interview"
-                    onChange={(e) => {
-                      setSelectionProcess(e.target.value);
-                    }}
-                    required
-                    InputLabelProps={{ shrink: !!selectionProcess }}
-                  />
-                </Grid>
-              </Grid>
-            )}
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent>
-            <Typography variant="h5" sx={{ mb: 2 }}>
-              {updateOrAdd} Opportunity
-            </Typography>
-            <Button type="submit" variant="contained" sx={{ width: 120, height: 40 }}>
-              {loading ? <CircularProgress sx={{ color: 'white' }} size={25} /> : <Typography>{updateOrAdd}</Typography>}
-            </Button>
-          </CardContent>
-        </Card>
-      </form>
-    </Container>
+    <div className='py-2 px-6 h-full w-full'>
+
+
+      <div
+        className='py-3 flex flex-row items-center'
+
+      >
+        <KeyboardBackspaceIcon fontSize='large' className='hover:cursor-pointer'
+          onClick={() => {
+            navigate(-1, {
+              state: {
+                color: "dashboard"
+              }
+            })
+          }}
+        />
+        <span
+          style={{
+            fontSize: "25px", fontWeight: "600", color: "rgba(37, 50, 75, 1)",
+            fontFamily: "Clash Display,serif", marginLeft: "7px"
+          }}
+        >Post a Job</span>
+      </div>
+
+      {/* Steps Showcase */}
+      <div className='p-2 flex flex-row w-full items-center justify-between'
+        style={{ border: "1px solid rgba(214, 221, 235, 1)" }}
+
+      >
+        <StepStatus icon={<IoBriefcase color={step === "one" ? "white" : "#707785"}
+          fontSize="22px" />} number={1} title={"Job Information"} status={step === "one"} 
+          CompletedorNot={move1} />
+
+        <StepStatus icon={<FaClipboardList color={step === "two" ? "white" : "#707785"}
+          fontSize="22px" />} number={2} title={"Job Description"} status={step === "two"} 
+          CompletedorNot={move2}/>
+
+
+        <StepStatus icon={<FaGift color={step === "three" ? "white" : "#707785"}
+          fontSize="22px" />} number={3} title={"Perks & Benifits"} status={step === "three"}
+          CompletedorNot={move3} />
+      </div>
+
+      {step === "one" && <Step1 {...Step1Values} {...Step1Function} />}
+      {step === "two" && <Step2 {...Step2Values} {...Step2Function} />}
+      {step === "three" && <Step3 perks={perks} setPerks={setPerks} />}
+
+      <div
+        style={{
+          display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center",
+          paddingTop: "18px", paddingBottom: "22px", paddingRight: "45px"
+        }}
+      >
+
+        <span className='flex  flex-row justify-center items-center cursor-pointer'
+          style={{
+            fontSize: "16px", fontWeight: "400", color: "rgba(37, 50, 75, 1)",
+            fontFamily: "Epilogue, sans-seri", marginLeft: "7px", padding: "7px 20px",
+            backgroundColor: "rgba(70, 64, 222, 1)", color: "white", gap: "4px",
+            opacity: (step === "one") && "0"
+          }}
+          onClick={handleclickBackward}
+        ><ArrowBackIcon />Previous Step</span>
+
+
+
+       {step==="three" ? 
+       
+       <StepButton handleClick={addNewOpportunity} text={"Post"} />
+      
+      :
+      <StepButton handleClick={handleclickForward} text={"Next Step"} />
+      }
+
+
+
+      </div>
+
+
+
+
+    </div>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const StepStatus = ({ icon, status, title, number,CompletedorNot }) => (
+  <div
+    className='w-1/3 flex flex-row justify-center items-center'
+    style={{ height: "75px", width: "30%" }}
+  >
+
+    <div
+      className='flex flex-row justify-center items-center'
+      style={{
+        height: "50px", width: "50px", borderRadius: "50%",
+        backgroundColor: (status || CompletedorNot) ? "#4640de" : "#e9ebfd",
+      }}>
+      {icon}
+    </div>
+    <div className='flex flex-col'
+      style={{ fontFamily: "Epilogue", marginLeft: "8px" }}
+    >
+      <span style={{
+        fontFamily: "Epilogue", fontSize: "14px", fontWeight: "400",
+        color: status ? "rgba(70, 64, 222, 1)" : "rgba(168, 173, 183, 1)",
+      }}>
+        {`Step ${number || 1}/3`}
+      </span>
+      <span
+        style={{
+          fontFamily: "Epilogue", fontSize: "16px", fontWeight: "600",
+          color: status ? "rgba(37, 50, 75, 1)" : "rgba(124, 132, 147, 1)",
+        }}
+      >{title}</span>
+
+    </div>
+
+
+
+
+  </div>
+)
+
+const StepButton = ({ handleClick, text }) => {
+
+  return <span className='flex  flex-row justify-center items-center cursor-pointer'
+    style={{
+      fontSize: "16px", fontWeight: "400", color: "rgba(37, 50, 75, 1)",
+      fontFamily: "Epilogue, sans-seri", marginLeft: "7px", padding: "7px 20px",
+      backgroundColor: "rgba(70, 64, 222, 1)", color: "white", gap: "4px"
+    }}
+    onClick={handleClick}
+  >{text}<ArrowForwardIcon /></span>
+}
+
+
+
+
+
+
+// <button
+// onClick={() => {
+//   IsOpen ? setIsOpen(false) : setIsOpen(true)}}
+// className=" text-white font-medium px-4 py-2 rounded hover:opacity-90 transition-opacity text-sm"
+// style={{backgroundColor:"#1976d2"}}
+// >
+// Build with AI
+// </button>

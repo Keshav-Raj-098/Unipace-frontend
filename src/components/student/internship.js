@@ -26,7 +26,7 @@ const SearchBar = ({ placeholder, icon,setFunction }) => (
   
   )
   
-  const Click = ({ name, setFunction, value }) => {
+  const Click = ({ name, setFunction,}) => {
   
     const [click, setClick] = useState(false);
   
@@ -47,9 +47,14 @@ const SearchBar = ({ placeholder, icon,setFunction }) => (
           borderRadius:"6px"
           }}
         onClick={() => {
-          if (click === false) { setClick(true) }
+          if (click === false) { 
+            setClick(true)
+          setFunction((array => [...array, name])
+        )
+          }
           else { setClick(false); 
-            // setFunction({ value })
+            setFunction(array => array.filter(item => item !== name));
+
            }
         }}
       >
