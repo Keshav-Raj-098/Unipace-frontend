@@ -1,76 +1,70 @@
 import React from "react";
 import { Typography, Button, Grid, Card, CardContent, Container } from "@mui/material";
+import { fontFamily, minWidth, width } from "@mui/system";
 // import InternshipTable from '../../components/table';
+import  "./buttonstyle.css"
+import moment from "moment/moment";
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
 
-const approvalStatusColor = (approvalStatus) => {
-  if (approvalStatus === 'approved') {
-    return '#00ffd1';
-  } else if (approvalStatus === 'disapproved') {
-    return '#d32f2f';
-  } else if (approvalStatus === 'pending') {
-    return 'primary';
-  } else {
-    return 'none';
-  }
-};
 
 
-function JobListing({ salary, deadline, type, detailsButtonClick, designation, studentsAppliedClick, approval }) {
+function JobListing({ deadline,detailsButtonClick, designation, studentsAppliedClick, approval,index }) {
   const isDisapproved = approval === 'disapproved';
   const isPending = approval === 'pending';
+  const styles = {
+    role:{
+     fontSize: "16px", fontWeight: "500", color: "rgba(37, 50, 75, 1)",minWidth:"200px",width:"30%"
+
+    }
+  }
+  const Duedate = moment(deadline).format('DD MMM YYYY');
+  const posteddate = moment(new Date()).format('DD MMM YYYY');
+
 
   return (
-    <Card sx={{ borderRadius: "20px", boxShadow: "0px 3px 20px 0px rgba(0, 0, 0, 0.25)" }}>
-      <Grid container alignItems="center" justifyContent="space-between" gap={2} sx={{ paddingBlock: "1vh", paddingInline: "2vw", "@media (max-width: 768px)": { gap: "0", flexWrap: "nowrap" }, "@media (max-width: 1024px)": { flexWrap: "nowrap" }, "@media (max-width: 468px)": { flexWrap: "wrap" } }}>
+   <div className="flex flex-row px-4"
+   style={{backgroundColor:((index+1)%2===0) && "rgba(248, 248, 253, 1)",paddingTop:"25px",
+    paddingBottom:"25px"
+   }}
+   >
+    <span style={styles.role}>{designation}</span>
 
-        <Grid item xs={12} md={8} lg={4} display="flex" flexDirection="column">
-          <CardContent sx={{ color: "#fff" }}>
-            <Typography variant="h6" component="div" fontWeight="bold" color="#000"> {designation}</Typography>
+    <div  style={{ width: '70%', display: "flex", flexDirection: "row", justifyContent: "space-between", }}>
+      
+      <span
+      className={`Live`}
+      style={{width:"80px",textAlign:"center"}}
+      >Live</span>
 
-            <Grid container alignItems="flex-start" justifyContent="flex-start" gap={1} >
-              <Grid item>
-                <Typography variant="h6" component="div" color={approvalStatusColor(approval)}>Approval: {approval}</Typography>
-              </Grid>
+      <span
+      style={{width:"140px",textAlign:"center",fontFamily:"Inter",color:"rgba(37, 50, 75, 1)",fontWeight:"400",fontSize:"16px"}}
+      >{posteddate}</span>
 
-              <Grid item xs={12} maxWidth="100%">
-                <Typography variant="body1" component="div" fontWeight="bold" color="#000" sx={{ fontFamily: "Poppins, sans-serif", alignSelf: "start" }}>{type}</Typography>
-              </Grid>
+      <span 
+      style={{width:"100px",fontFamily:"Inter",color:"rgba(37, 50, 75, 1)",fontWeight:"400",fontSize:"16px"}}
+      >{Duedate}</span>
 
-            </Grid>
-          </CardContent>
+      <span 
+      className="Freelance"
+      style={{width:"80px",textAlign:"center"}}
+      >Freelance</span>
 
-        </Grid>
-        <Grid item>
-          <Container variant="body1" component="div" sx={{ display: "flex", flexDirection: "column" }}>
-            <Typography variant="body1" component="div">Salary:</Typography>
-            <Typography variant="body1" component="div">{salary||"-"}</Typography>
-          </Container>
-        </Grid>
-        <Grid item>
-          <Container variant="body1" component="div" sx={{ display: "flex", flexDirection: "column" }}>
-            <Typography variant="body1" component="div">Deadline:</Typography>
-            <Typography variant="body1" component="div">{deadline}</Typography>
-          </Container>
-        </Grid>
-        <Grid item sx={{ margin: "auto", "@media (max-width: 468px)": { paddingBlock: "5%" } }}>
+      <span
+       style={{width:"80px",textAlign:"center"}}
+      >50</span>
+      <span
+      style={{width:"80px",textAlign:"center"}}
+      >5/50</span>
 
-          <Grid container flexDirection="column" gap={1} alignItems="center" sx={{ "@media (max-width: 768px)": { flexDirection: "row" } }}>
-            <Grid item sx={{ width: "100%", "@media (max-width: 425px)": { width: "auto" } }}>
-              <Button onClick={detailsButtonClick} sx={{ borderRadius: "6px", width: "100%", backgroundColor: isDisapproved ? '#d32f2f' : '#00ffd1', padding: "1vh 2vw", color: "black", cursor: isDisapproved ? 'not-allowed' : 'pointer', "@media (max-width: 768px)": { paddingBlock: "1.2vh" }, "@media (max-width: 425px)": { width: "auto" } }}>
-                Details
-              </Button>
-            </Grid>
-            <Grid item sx={{ "@media (max-width: 468px)": { margin: "auto" } }}>
-              <Button onClick={studentsAppliedClick} disabled={isPending || isDisapproved} sx={{ border: "1px solid", borderColor: isPending ? 'primary' : '#00FFD1', color: isPending ? 'primary' : '#00FFD1', padding: "1vh 3vw", fontSize: "100%", "@media (max-width: 768px)": { paddingBlock: "1.5 vh", width: "max-content" }, "@media (max-width: 1024px)": { width: "max-content" }, "@media (max-width: 468px)": { fontSize: "100%" } }}>
+      <span style={{width:"40px"}}><MoreHorizIcon 
+      className="hover:cursor-pointer"
+      onClick={detailsButtonClick}
+      /></span>
 
-                Student Applied
-              </Button>
-            </Grid>
-          </Grid>
-        </Grid>
-      </Grid>
-    </Card>
+    </div>
+
+   </div>
   );
 }
 

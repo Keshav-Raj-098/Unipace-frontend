@@ -12,6 +12,7 @@ module.exports = {
     "./src/components/student/jobListing.js",
     "./src/components/startUp/AI/Aipopup.js",
     "./src/components/student",
+    "./src/components/startUp",
     "./src/components/student/JobListing",
     "./src/components/Loadpopup.js",
     "./src/components/responsiveAppBar.js",
@@ -19,7 +20,8 @@ module.exports = {
     "./src/pages/signIn.js",
     "./src/pages/signUp.js",
     "./src/pages/startUp/addNew.js",
-    "./src/pages/startUp/account.js"
+    "./src/pages/startUp/account.js",
+    "./src/pages/startUp"
 
   ],
   theme: {

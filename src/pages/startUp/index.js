@@ -3,6 +3,7 @@ import { useNavigate, Outlet } from 'react-router-dom';
 import ResponsiveAppBar from '../../components/startUp/responsiveAppBar';
 import { Box, CircularProgress } from '@mui/material';
 import Sidebar from "../../components/startUp/sidebar"
+import Header from "../../components/startUp/Header"
 
 export default function Index({ mode, setMode, startUpDetails, setStartUpDetails }) {
   const navigate = useNavigate();
@@ -41,6 +42,7 @@ export default function Index({ mode, setMode, startUpDetails, setStartUpDetails
           
         }}
         >
+          <Header name={companyName}/>
         {loading ? (
           <Box
           sx={{
