@@ -23,6 +23,8 @@ function JobListing({ logo, companyName, role,  detailsButtonClick, applyButtonC
 
   useEffect(() => {
     
+    console.log(totalApplied);
+    
     if (totalAvailable > 0) {
       setPercentSeatAvailable(parseInt((totalApplied / totalAvailable) * 100));
       setisLoading(false)

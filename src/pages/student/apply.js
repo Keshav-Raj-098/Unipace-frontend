@@ -101,8 +101,7 @@ export default function Apply({ BASE_URL, studentDetails, setShowAlert, setAlert
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     };
-    // const url = `${BASE_URL}/api/student/jobs/${jobId}`;
-    const url = `http://localhost:1515/api/student/jobs/${jobId}`;
+    const url = `${BASE_URL}/api/student/jobs/${jobId}`;
 
     try {
       await fetch(url, requestOptions)
@@ -150,8 +149,7 @@ export default function Apply({ BASE_URL, studentDetails, setShowAlert, setAlert
       },
       body: JSON.stringify(formData),
     };
-    // const url = `${BASE_URL}/api/student/jobs/${jobId}`;
-    const url = `http://localhost:1515/api/student/jobs/${jobId}`;
+    const url = `${BASE_URL}/api/student/jobs/${jobId}`;
     try {
       await fetch(url, requestOptions)
         .then((response) => response.json())
@@ -252,7 +250,7 @@ export default function Apply({ BASE_URL, studentDetails, setShowAlert, setAlert
                     fontSize: "21px", fontWeight: "600", color: "rgba(37, 50, 75, 1)",
                     fontFamily: "Clash Display,serif",
                   }}>
-                  {jobDetails.designation}
+                  {jobDetails.title}
                 </span>
 
                 <div
@@ -314,7 +312,10 @@ export default function Apply({ BASE_URL, studentDetails, setShowAlert, setAlert
         }}
 
         >
+
+          
           {/* Main Content */}
+          <Paragraphs title={"Description"} paragraph={[`${jobDetails.description}`]} />
           <Paragraphs title={"Responsibilities"} paragraph={jobDetails.responsibilities} />
           <Paragraphs title={"Nice-to-haves"} paragraph={jobDetails.skillsRequired} />
           <Paragraphs title={"Perks & Benifits"} paragraph={jobDetails.perks} />

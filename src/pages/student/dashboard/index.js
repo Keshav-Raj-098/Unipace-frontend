@@ -55,8 +55,7 @@ const convertToTableRows = (jsonData, studentId) => {
 };
 
 const getOpportunityList = async (BASE_URL, type, studentId) => {
-  // const response = await fetch(`${BASE_URL}/api/student/jobs?type=${type}`)
-  const response = await fetch(`http://localhost:1515/api/student/jobs?type=${type}`)
+  const response = await fetch(`${BASE_URL}/api/student/jobs?type=${type}`)
   const data = await response.json()
   const jobList = data.jobs
   
@@ -76,16 +75,6 @@ export default function Dashboard({ BASE_URL, studentDetails, setShowAlert, setA
   const [data,setdata] = useState()
   const [isLoading,setLoading] = useState()
 
-  // console.log(location);
-
-  var change = true;
-
-  // const { isLoading, data } = useQuery(
-  //   {
-  //     queryKey: [`opportunites`, type],
-  //     queryFn: () => getOpportunityList(BASE_URL, type, studentDetails.id)
-  //   }
-  // );
  
 
   const handleSearch = (role, company, location,internship) => {
@@ -101,6 +90,8 @@ export default function Dashboard({ BASE_URL, studentDetails, setShowAlert, setA
         try {
             const jobs = await getOpportunityList(BASE_URL, type, studentDetails.id);
             setdata(jobs);  // make sure `setdata` is correctly spelled as `setData`
+            console.log(data);
+            
         } catch (error) {
             console.error("Error fetching jobs:", error);
         } finally {
@@ -211,7 +202,7 @@ export default function Dashboard({ BASE_URL, studentDetails, setShowAlert, setA
                       role={internship.role}
                       location={internship.location}
                       totalAvailable={internship.totalPositions}
-                      totalApplied={internship.totalApplied}
+                      totalApplied={internship.totalApplications}
                       changeColor={index % 2 === 0}
                       status={internship.status}
                       detailsButtonClick={() => {

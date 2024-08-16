@@ -114,7 +114,7 @@ const CompanyPage = () => {
 
               <p className='mt-5'>
                 {startUpDetails?.sector && <Line start={"Sector"} end={startUpDetails?.sector} />}
-                {startUpDetails.noOfEmployees &&
+                {startUpDetails?.noOfEmployees &&
                   <Line start={"No. of Employees"} end={startUpDetails?.noOfEmployees} />}
               </p>
 
@@ -135,7 +135,7 @@ const CompanyPage = () => {
         <div className='px-2 pb-4 flex flex-col gap-2'>
 
           {/* Founder */}
-          {startUpDetails.founder[0].name &&
+          {startUpDetails?.founder[0].name &&
             <div className='px-4'
               style={{ backgroundColor: "#f8f8fd" }}
             >
@@ -218,8 +218,8 @@ const CompanyPage = () => {
               }}
             >
 
-              <Line2 title={"Name"} text={startUpDetails.hrName} />
-              <Line2 title={"Designation"} text={startUpDetails.hrDesignation} />
+              <Line2 title={"Name"} text={startUpDetails?.hrName} />
+              <Line2 title={"Designation"} text={startUpDetails?.hrDesignation} />
 
               <div className={` flex flex-row w-full`}
                 style={{ marginTop: "6px" }}
@@ -230,7 +230,7 @@ const CompanyPage = () => {
                   <ArrowRightIcon style={{ position: "relative", right: "6px" }} /></span>
                 <MailIcon
                   className='hover:cursor-pointer'
-                  onClick={()=>{directTo(startUpDetails.hrEmail)}} />
+                  onClick={()=>{directTo(startUpDetails?.hrEmail)}} />
               </div>
 
 

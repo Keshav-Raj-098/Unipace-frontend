@@ -82,8 +82,8 @@ export default function Details({ BASE_URL, startUpDetails }) {
         'Content-Type': 'application/json',
       },
     };
-    // const url = `${BASE_URL}/api/student/jobs/${jobId}`;
-    const url = `http://localhost:1515/api/student/jobs/${jobId}`;
+    const url = `${BASE_URL}/api/student/jobs/${jobId}`;
+   
     try {
       await fetch(url, requestOptions)
         .then((response) => response.json())
@@ -94,7 +94,7 @@ export default function Details({ BASE_URL, startUpDetails }) {
 
             }
             setJobDetails(data.jobDetails);
-            let x = parseInt(data.jobDetails.noOfOffers)
+            let x = parseInt(data.jobDetails.totalApplications)
             let y = parseInt(applied)
             setPercent((y / x) * 100);
             setLoading(false);
@@ -173,7 +173,7 @@ export default function Details({ BASE_URL, startUpDetails }) {
                       fontSize: "21px", fontWeight: "600", color: "rgba(37, 50, 75, 1)",
                       fontFamily: "Clash Display,serif",
                     }}>
-                    {jobDetails.designation}
+                    {jobDetails.title}
                   </span>
 
                   <div
