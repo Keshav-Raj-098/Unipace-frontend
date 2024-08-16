@@ -243,7 +243,7 @@ function JobListing({ logo, companyName, role,  detailsButtonClick, applyButtonC
   return (
     
 
-    (status === "Not Applied") ? <JobNotApplied /> : <JobApplied />
+    (status === null) ? <JobNotApplied /> : <JobApplied />
 
 
   );

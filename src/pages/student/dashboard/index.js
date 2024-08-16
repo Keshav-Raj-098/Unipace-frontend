@@ -1,5 +1,5 @@
 import { Container, Typography, Grid, CardContent, Card, Box, CircularProgress } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import JobListing from '../../../components/student/JobListing';
 import '../../../components/student/buttonstyle.css';
@@ -22,7 +22,7 @@ import { SearchBar, Click } from '../../../components/student/internship';
 
 const checkStatus = (studentsApplied, studentId) => {
   for (let i = 0; i < studentsApplied.length; i++) {
-    if (studentsApplied[i].studentId === studentId) {
+    if (studentsApplied[i]?.studentId === studentId) {
       return studentsApplied[i].status;
     }
   }
@@ -36,30 +36,35 @@ const convertToTableRows = (jsonData, studentId) => {
     const convertedJsonData = {
       id: i + 1,
       company: oneJsonData.companyName,
-      role: oneJsonData.designation,
-      location: oneJsonData.jobLocation,
-      totalPositions: oneJsonData.noOfOffers,
-      totalApplied: oneJsonData.studentsApplied.length,
-      status: checkStatus(oneJsonData.studentsApplied, studentId),
+      role: oneJsonData.title,
+      // location: oneJsonData.jobLocation,
+      totalPositions: oneJsonData.totalApplications,
+      totalApplied: oneJsonData.studentsApplied?.length,
+      status:oneJsonData.studentsApplied ? checkStatus(oneJsonData.studentsApplied) : null,
       details: oneJsonData.id,
       apply: {
         jobId: oneJsonData.id,
-        status: checkStatus(oneJsonData.studentsApplied),
+        status: oneJsonData.studentsApplied ? checkStatus(oneJsonData.studentsApplied) : null,
         deadline: oneJsonData.deadline,
       },
     };
     jsonDataArray.push(convertedJsonData);
   }
-  console.log(jsonDataArray);
+
   return jsonDataArray;
 };
 
 const getOpportunityList = async (BASE_URL, type, studentId) => {
-  const response = await fetch(`${BASE_URL}/api/student/jobs?type=${type}`)
+  // const response = await fetch(`${BASE_URL}/api/student/jobs?type=${type}`)
+  const response = await fetch(`http://localhost:1515/api/student/jobs?type=${type}`)
   const data = await response.json()
   const jobList = data.jobs
+  
+  
   return convertToTableRows(jobList, studentId)
 };
+;
+
 
 export default function Dashboard({ BASE_URL, studentDetails, setShowAlert, setAlertMessage, setAlertSeverity }) {
   const type = useLocation().state?.type || "Internship";
@@ -68,17 +73,20 @@ export default function Dashboard({ BASE_URL, studentDetails, setShowAlert, setA
   const [role, setRole] = useState()
   const [company, setCompany] = useState()
   const [location, setLocation] = useState()
+  const [data,setdata] = useState()
+  const [isLoading,setLoading] = useState()
 
   // console.log(location);
 
   var change = true;
 
-  const { isLoading, data } = useQuery(
-    {
-      queryKey: [`opportunites`, type],
-      queryFn: () => getOpportunityList(BASE_URL, type, studentDetails.id)
-    }
-  );
+  // const { isLoading, data } = useQuery(
+  //   {
+  //     queryKey: [`opportunites`, type],
+  //     queryFn: () => getOpportunityList(BASE_URL, type, studentDetails.id)
+  //   }
+  // );
+ 
 
   const handleSearch = (role, company, location,internship) => {
      
@@ -87,15 +95,36 @@ export default function Dashboard({ BASE_URL, studentDetails, setShowAlert, setA
      }
 
   }
+  console.log(studentDetails.id);
+  useEffect(() => {
+    const fetchJobs = async () => {
+        try {
+            const jobs = await getOpportunityList(BASE_URL, type, studentDetails.id);
+            setdata(jobs);  // make sure `setdata` is correctly spelled as `setData`
+        } catch (error) {
+            console.error("Error fetching jobs:", error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
+    fetchJobs();
+}, []);
 
+   console.log(data);
+   
 
 
   //  Function(react component) that will load after the deadline
 
-  const loaderfunction = () => {
-    return (
-      <div className='py-2 h-full w-full'>
+  // const loaderfunction = () => {
+  //   return (
+      
+  // }
+
+
+  return (
+    <div className='py-2 h-full w-full'>
 
         <div className=" px-8 h-12 pb-3 flex flex-row justify-start items-center"
           style={{
@@ -164,7 +193,7 @@ export default function Dashboard({ BASE_URL, studentDetails, setShowAlert, setA
             (<div
               style={{ width: 'calc(100% - 170px)' }}
             >
-              {data.map((internship, index) => (
+              {data?.map((internship, index) => (
 
 
                 <Grid item xs={12} key={internship.id}>
@@ -172,9 +201,9 @@ export default function Dashboard({ BASE_URL, studentDetails, setShowAlert, setA
 
 
 
-                  {
+                  {/* {
 
-                    internship.status === "Not Applied" &&
+                    internship.status === "Not Applied" && */}
 
                     <JobListing
                       logo={logo2}
@@ -185,7 +214,6 @@ export default function Dashboard({ BASE_URL, studentDetails, setShowAlert, setA
                       totalApplied={internship.totalApplied}
                       changeColor={index % 2 === 0}
                       status={internship.status}
-                      hasApplied={internship.status === 'Applied'}
                       detailsButtonClick={() => {
                         navigate('../details', { state: { jobId: internship.details } });
                       }}
@@ -202,26 +230,14 @@ export default function Dashboard({ BASE_URL, studentDetails, setShowAlert, setA
                         }
                       }}
                     />
-                  }
+                  {/* } */}
                 </Grid>
               ))
               }</div>
             )}
         </div>
 
-      </div>)
-  }
-
-
-  return (
-    <>
-
-
-
-      {loaderfunction()}
-
-
-    </>
+      </div>
   );
 }
 

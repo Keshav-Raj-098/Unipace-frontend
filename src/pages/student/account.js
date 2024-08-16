@@ -69,7 +69,9 @@ export default function Account({ BASE_URL, studentDetails, setStudentDetails, s
       },
       body: formData,
     };
-    const url = `${BASE_URL}/api/student/register/${studentDetails.id}`;
+    // const url = `${BASE_URL}/api/student/register/${studentDetails.id}`;
+    const url = `http://localhost:1515/api/student/register/${studentDetails.id}`;
+
     console.log(url);
 
 

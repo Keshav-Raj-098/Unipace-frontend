@@ -1,86 +1,178 @@
 .postJob {
-    /* height:42px; */
-    padding: 13px 20px;
-    background: rgba(70, 64, 222, 1);
-    color: rgba(255, 255, 255, 1);
-    font-family: Epilogue;
-    font-size: 14px;
-    font-weight: 600;
-    display: flex;
-    flex-direction:row;
-    justify-content: center;
-    align-items:center;
-    gap:5px;
-  
-  }
+  /* height:42px; */
+  padding: 13px 20px;
+  background: rgba(70, 64, 222, 1);
+  color: rgba(255, 255, 255, 1);
+  font-family: Epilogue;
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+
+}
+
 .Live {
-    /* height:42px; */
-    padding: 5px 10px;
-    border:1px solid rgba(86, 205, 173, 1);
-    color: rgba(86, 205, 173, 1);
-    font-family: Epilogue;
-    font-size: 12px;
-    font-weight: 600;
-    display: flex;
-    flex-direction:row;
-    justify-content: center;
-    align-items:center;
-    border-radius: 20px;
-  
-  
-  }
+  /* height:42px; */
+  padding: 5px 10px;
+  border: 1px solid rgba(86, 205, 173, 1);
+  color: rgba(86, 205, 173, 1);
+  font-family: Epilogue;
+  font-size: 12px;
+  font-weight: 600;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+
+
+}
+
 .Full-time {
-    /* height:42px; */
-    padding: 5px 10px;
-    border:1px solid rgba(70, 64, 222, 1);
-    color: rgba(70, 64, 222, 1);
-    font-family: Epilogue;
-    font-size: 12px;
-    font-weight: 600;
-    display: flex;
-    flex-direction:row;
-    justify-content: center;
-    align-items:center;
-    border-radius: 20px;
-  
-  
-  }
+  /* height:42px; */
+  padding: 5px 10px;
+  border: 1px solid rgba(70, 64, 222, 1);
+  color: rgba(70, 64, 222, 1);
+  font-family: Epilogue;
+  font-size: 12px;
+  font-weight: 600;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
 
-.Freelance{
-    /* height:42px; */
-    padding: 5px 10px;
-    border:1px solid rgba(255, 184, 54, 1);
-    color: rgba(255, 184, 54, 1);
-    font-family: Epilogue;
-    font-size: 12px;
-    font-weight: 600;
-    display: flex;
-    flex-direction:row;
-    justify-content: center;
-    align-items:center;
-    border-radius: 20px;
-  
-  
-  }
 
-  .containerr {
-    margin: 5px;
-    display: grid;
-    grid-template-columns: auto auto auto ;
+}
+
+.Freelance {
+  /* height:42px; */
+  padding: 5px 10px;
+  border: 1px solid rgba(255, 184, 54, 1);
+  color: rgba(255, 184, 54, 1);
+  font-family: Epilogue;
+  font-size: 12px;
+  font-weight: 600;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+
+
+}
+
+.containerr {
+  margin: 5px;
+  display: grid;
+  grid-template-columns: auto auto auto;
   grid-template-rows: 55px;
-  }
-  
-  .item {
-    margin: 10px;
-    text-align: center;
-    background-color: rgba(248, 248, 253, 1);
-    color: rgba(70, 64, 222, 1);
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap:5px;
+}
 
-  }
-  
-  
+.item {
+  margin: 10px;
+  text-align: center;
+  background-color: rgba(248, 248, 253, 1);
+  color: rgba(70, 64, 222, 1);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+
+}
+
+.edit {
+  padding: 10px 20px;
+  border: 1px solid rgba(204, 204, 245, 1);
+  color: rgba(70, 64, 222, 1);
+  font-size: 16px;
+  font-weight: 600;
+  display: flex;
+  flex-direction: row;
+  justify-items: center;
+  align-items: center;
+  gap: 8px;
+}
+
+
+
+.basic {
+  border-width: 1px;
+  border-style: solid;
+  padding: 0px 15px;
+  height: 30px;
+  border-radius: 80px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-family: "Epilogue";
+  font-size: 14px;
+  font-weight: 400;
+
+}
+
+
+
+.Shortlisted {
+  border-color: rgba(70, 64, 222, 1);
+  color: rgba(70, 64, 222, 1);
+}
+
+.Hired {
+  border-color: rgba(86, 205, 173, 1);
+  color: rgba(86, 205, 173, 1);
+}
+
+.review {
+  border-color: rgba(255, 184, 54, 1);
+  color: rgba(255, 184, 54, 1);
+}
+
+.interview {
+  border-color: rgba(38, 164, 255, 1);
+  color: rgba(38, 164, 255, 1);
+}
+
+
+.Declined {
+  border-color: rgba(255, 101, 80, 1);
+  color: rgba(255, 101, 80, 1);
+}
+
+
+
+/* Styles for Student Application */
+
+.stage>span {
+  height: 10px;
+  background-color: rgba(38, 164, 255, 1);
+  width: 30%;
+}
+
+
+
+.intervieww {
+  background-color: rgba(38, 164, 255, 1);
+}
+
+.interview1 {
+  color: rgba(38, 164, 255, 1);
+}
+
+.status {
+  padding: 5px 12px;
+  border: 1px solid rgba(204, 204, 245, 1);
+  color: rgba(70, 64, 222, 1);
+  font-family: Epilogue;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 25.6px;
+  text-align: center;
+
+
+}

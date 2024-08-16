@@ -31,9 +31,7 @@ const Paragraphs = ({ title, paragraph }) => (
     }}>{title}</span>
 
     <div className='py-3'>
-      {paragraph?.split(/(?<!\b(?:e\.g|i\.e|(?:\d+)\.))\.(?!\d)/)
-        .filter(sentence => sentence.trim() !== '')
-        .map((sentence, index) => (
+      {paragraph?.map((sentence, index) => (
           <React.Fragment key={index}>
             <div className='flex flex-row gap-1 items-start'
               style={{
@@ -78,6 +76,7 @@ export default function Apply({ BASE_URL, studentDetails, setShowAlert, setAlert
   const [jobDetails, setJobDetails] = useState([]);
   const [jobStartUpDetails, setJobStartUpDetails] = useState({});
 
+    
   const getStartUpDetails = async (startUpId) => {
 
     try {
@@ -102,7 +101,9 @@ export default function Apply({ BASE_URL, studentDetails, setShowAlert, setAlert
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     };
-    const url = `${BASE_URL}/api/student/jobs/${jobId}`;
+    // const url = `${BASE_URL}/api/student/jobs/${jobId}`;
+    const url = `http://localhost:1515/api/student/jobs/${jobId}`;
+
     try {
       await fetch(url, requestOptions)
         .then((response) => response.json())
@@ -113,7 +114,7 @@ export default function Apply({ BASE_URL, studentDetails, setShowAlert, setAlert
             let x = parseInt(data.jobDetails.noOfOffers) 
             let y = parseInt(totalApplied) 
             setPercent((y/x)*100);
-            console.log(percent);
+            console.log(data.jobDetails);
 
             setLoading(false);
           } else {
@@ -149,7 +150,8 @@ export default function Apply({ BASE_URL, studentDetails, setShowAlert, setAlert
       },
       body: JSON.stringify(formData),
     };
-    const url = `${BASE_URL}/api/student/jobs/${jobId}`;
+    // const url = `${BASE_URL}/api/student/jobs/${jobId}`;
+    const url = `http://localhost:1515/api/student/jobs/${jobId}`;
     try {
       await fetch(url, requestOptions)
         .then((response) => response.json())
@@ -176,6 +178,8 @@ export default function Apply({ BASE_URL, studentDetails, setShowAlert, setAlert
 
   useEffect(() => {
     getJobDetails();
+    console.log(jobDetails);
+    
     
    
    
@@ -313,6 +317,7 @@ export default function Apply({ BASE_URL, studentDetails, setShowAlert, setAlert
           {/* Main Content */}
           <Paragraphs title={"Responsibilities"} paragraph={jobDetails.responsibilities} />
           <Paragraphs title={"Nice-to-haves"} paragraph={jobDetails.skillsRequired} />
+          <Paragraphs title={"Perks & Benifits"} paragraph={jobDetails.perks} />
           <Paragraphs title={"Selection Process"} paragraph={jobDetails.selectionProcess} />
           <Paragraphs title={"Assignment"} paragraph={jobDetails.assignment} />
 

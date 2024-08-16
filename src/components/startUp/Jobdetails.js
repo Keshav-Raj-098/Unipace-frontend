@@ -2,26 +2,28 @@ import { CircularProgress, LinearProgress } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import moment from 'moment';
-import { openLink } from '../utils.js';
-import internshipImage from '../assets/internshipImage.svg';
-import cofounderImage from '../assets/cofounderImage.svg';
+// import { openLink } from '../';
+import internshipImage from '../../assets/internshipImage.svg'
+import cofounderImage from '../../assets/cofounderImage.svg';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
-import { Dot, Line, Paragraphs } from './student/apply.js';
-import "../components/student/buttonstyle.css"
+import { Dot, Line, Paragraphs } from '../../pages/student/apply.js';
+import "./buttonstyle.css"
+import { FaEdit } from "react-icons/fa";
 
 
 // Things to set :
 // jobStartUpDetails.stage, jobStartUpDetails.companyPhoto, jobStartUpDetails.socials
 // jobStartUpDetails.founderImage
-export default function Details({ BASE_URL, startUpDetails }) {
-  const { jobId, applied, positions } = useLocation().state;
+
+export default function Details({ BASE_URL, startUpDetails,jobId,details,applied }) {
+  // const { jobId, applied, positions } = useLocation().state;
   const [loading, setLoading] = useState(true);
   const [loading2, setLoading2] = useState(false);
   const [jobDetails, setJobDetails] = useState([]);
   const [jobStartUpDetails, setJobStartUpDetails] = useState(startUpDetails);
   const [isadmin, setisadmin] = useState(false);
   const [percent, setPercent] = useState();
-  const createdAtMoment = moment(jobDetails.createdAt, 'YYYY-MM-DD')
+  const createdAtMoment = moment(jobDetails?.createdAt, 'YYYY-MM-DD')
   const Deadline = moment(jobDetails.deadline, 'YYYY-MM-DD')
 
   const navigate = useNavigate();
@@ -73,7 +75,9 @@ export default function Details({ BASE_URL, startUpDetails }) {
       console.log(error);
     }
   };
-
+  console.log(jobId);
+  
+   
   const getJobDetails = async (e) => {
     setLoading(true);
     const requestOptions = {
@@ -82,8 +86,7 @@ export default function Details({ BASE_URL, startUpDetails }) {
         'Content-Type': 'application/json',
       },
     };
-    // const url = `${BASE_URL}/api/student/jobs/${jobId}`;
-    const url = `http://localhost:1515/api/student/jobs/${jobId}`;
+    const url = `${BASE_URL}/api/student/jobs/${jobId}`;
     try {
       await fetch(url, requestOptions)
         .then((response) => response.json())
@@ -117,42 +120,18 @@ export default function Details({ BASE_URL, startUpDetails }) {
 
 
   return (
-    loading ? (<div className='w-full h-full flex flex-row justify-center items-center'>
+    loading ? (<div className='w-full h-40 flex flex-row justify-center items-center'>
       <CircularProgress />
     </div>) :
 
       <div>
-        <div
-          className='py-3 px-4 flex flex-row items-center'
-          style={{ borderBottom: "1px solid gray" }}
-        >
-          <KeyboardBackspaceIcon fontSize='large' className='hover:cursor-pointer'
-            onClick={() => {
-              navigate("/student/applied", {
-                state: {
-                  type: "Internship"
-                  , color: "applied"
-                }
-              })
-            }}
-          />
-          <span
-            style={{
-              fontSize: "25px", fontWeight: "600", color: "rgba(37, 50, 75, 1)",
-              lineHeight: "35.4px", width: "100%",
-              fontFamily: "Clash Display,serif", marginLeft: "15px"
-            }}
-          >Job Details</span>
-        </div>
-
-
-
+        
         {/* Card */}
 
         <div className='w-full p-5 h-auto'>
           <div
             className='flex flex-row justify-center items-center'
-            style={{ backgroundColor: "#f8f8fd", padding: "50px" }}
+            style={{ backgroundColor: "#f8f8fd", padding: "0px" }}
           >
 
             <div
@@ -195,13 +174,14 @@ export default function Details({ BASE_URL, startUpDetails }) {
 
                 </div>
               </div>
-              <span className='apply hover:cursor-pointer flex flex-row justify-center items-center'
-                style={{ width: "130px" }}
+              <span className='edit hover:cursor-pointer'
+                
                 onClick={() => {
-                  navigate('../company', { state: { StartUpDetails: jobStartUpDetails,
-                     color: "applied" } });
+                  navigate('', { state: { StartUpDetails: jobStartUpDetails,
+                     color: "joblist" } });
                 }}
-              >About Us</span>
+              ><FaEdit color='rgba(70, 64, 222, 1)'/>
+                Edit Job-Details</span>
 
             </div>
 
@@ -274,7 +254,7 @@ export default function Details({ BASE_URL, startUpDetails }) {
                 <p
                   style={{ fontSize: "14px", fontWeight: "500", textAlign: "center", color: "#7c8493", fontFamily: "Epilogue, sans-seri", marginTop: "5px" }}
                 ><span className='font-bold text-black'>{applied} applied </span> of
-                  {` ` + jobDetails.noOfOffers} capacity</p>
+                  {` ` + jobDetails.totalApplications} capacity</p>
 
               </div>
 

@@ -80,7 +80,7 @@ export default function Dashboard({ BASE_URL, studentDetails, setShowAlert, setA
               </Box>
             ) : (
               <>
-                {data.map((internship) => (
+                {data?.map((internship) => (
                   <Grid item xs={12} key={internship.id}>
                     <JobListing
                       logo={logo}
