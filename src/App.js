@@ -33,7 +33,9 @@ import AIpopup from "./components/startUp/AI/Aipopup.js"
 import Home from '../src/pages/student/home.js'
 import Dashboard from "./pages/startUp/dashboard.js"
 import Applicants from "./pages/startUp/Allapplicant.js"
+import JobApplicants from "./pages/startUp/Applicant.js"
 import CompanyProfile from "./pages/startUp/CompanyProfile.js"
+import StudentApplication from "./pages/startUp/StudentApplication.js"
 import AdminLogin from "./pages/adminSignin.js"
 
 
@@ -247,6 +249,8 @@ export default function App() {
                 <Route path="dashboard" element={<Dashboard
                   startUpDetails={startUpDetails} BASE_URL={BASE_URL} />} />
                 <Route path="applicants" element={<Applicants />} />
+                <Route path="application" element={<StudentApplication />} />
+                {/* <Route path="Jobapplicant" element={<JobApplicants  BASE_URL={BASE_URL} {...setAlertProps}/>} /> */}
                 <Route path="companyprofile" element={<CompanyProfile />} />
                 <Route path="joblist" element={<StartUpInternship BASE_URL={BASE_URL} startUpDetails={startUpDetails} {...setAlertProps} />} />
                 <Route
@@ -265,7 +269,7 @@ export default function App() {
                       loading3={loading2} setloading3={setloading2} />
                   </>} />
 
-                <Route path="studentsApplied" element={<StudentsApplied BASE_URL={BASE_URL} {...setAlertProps} />} />
+                <Route path="Jobapplicant" element={<StudentsApplied BASE_URL={BASE_URL} {...setAlertProps} />} />
                 <Route path="details" element={<JobDetails BASE_URL={BASE_URL} startUpDetails={startUpDetails} />} />{' '}
                 {/* TODO check if  shouldn't there be an alert property here also? */}
               </Route>

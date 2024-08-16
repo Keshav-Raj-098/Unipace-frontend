@@ -27,14 +27,17 @@ export default function Internship({ BASE_URL, startUpDetails, setShowAlert, set
       const convertedJsonData = {
         id: i + 1,
         company: oneJsonData.companyName,
-        designation: oneJsonData.designation,
+        title: oneJsonData.title,
         type: oneJsonData.type,
-        stipend: oneJsonData.stipend,
         deadline: oneJsonData.deadline,
         details: oneJsonData.id,
         update: oneJsonData.id,
         studentsApplied: oneJsonData.id,
         approval: oneJsonData.approval || 'pending',
+        createdAt:oneJsonData.createdAt,
+        deadline:oneJsonData.deadline,
+        totalRequired:oneJsonData.totalRequired,
+        totalApplications:oneJsonData.totalApplications
       };
       jsonDataArray.push(convertedJsonData);
     }
@@ -61,6 +64,8 @@ export default function Internship({ BASE_URL, startUpDetails, setShowAlert, set
         Authorization: localStorage.localStorageStartUpToken,
       },
     };
+    console.log(startUpDetails.id);
+    
     const url = `${BASE_URL}/api/startUp/jobs?startUpId=${startUpDetails.id}&type=${type}`;
     try {
       await fetch(url, requestOptions)
@@ -253,18 +258,20 @@ export default function Internship({ BASE_URL, startUpDetails, setShowAlert, set
               <Grid item xs={12} key={internship.id}>
 
                 <JobListing
-                  role={internship.designation1}
-                  salary={internship.stipend}
-                  deadline={internship.deadline}
-                  type={type}
+                  
+                  type={internship.type}
                   status={internship.status}
-                  designation={internship.designation}x
-                  postedDate ={internship.createdAt}
-                  studentsAppliedClick={() => { navigate('../studentsApplied', { state: { jobId: internship.studentsApplied } }); }}
+                  designation={internship.title}
+                  PostDate ={internship.createdAt}
+                  deadline={internship.deadline}
+                  // studentsAppliedClick={() => { navigate('../studentsApplied', { state: { jobId: internship.studentsApplied } }); }}
+                  totalRequired={internship.totalRequired}
+                  totalApplications={internship.totalApplications}
                   approval={internship.approval}
                   index={index}
                   detailsButtonClick={() => {
-                    navigate('../details', { state: { jobId: internship.details } });
+                    navigate('../Jobapplicant', { state: { jobId: internship.details,applied: internship.studentsApplied,color:"joblist",
+                      designation:internship.title } });
                   }}
                 />
               </Grid>

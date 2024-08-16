@@ -242,7 +242,7 @@ export default function Dashboard({ BASE_URL, studentDetails, setShowAlert, setA
                 </Box>
               ) : (
                 <>
-                  {data.map((internship, index) => (
+                  {data?.map((internship, index) => (
 
                     <Grid item xs={12} key={internship.id}>
 

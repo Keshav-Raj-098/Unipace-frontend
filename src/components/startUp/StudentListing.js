@@ -9,7 +9,7 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
 
 
-function JobListing({ deadline,detailsButtonClick, designation, studentsAppliedClick, approval,index }) {
+function JobListing({ deadline,detailsButtonClick, designation, approval,index,type,totalApplications,totalRequired,PostDate }) {
   const isDisapproved = approval === 'disapproved';
   const isPending = approval === 'pending';
   const styles = {
@@ -19,7 +19,7 @@ function JobListing({ deadline,detailsButtonClick, designation, studentsAppliedC
     }
   }
   const Duedate = moment(deadline).format('DD MMM YYYY');
-  const posteddate = moment(new Date()).format('DD MMM YYYY');
+  const posteddate = moment(PostDate).format('DD MMM YYYY');
 
 
   return (
@@ -47,15 +47,15 @@ function JobListing({ deadline,detailsButtonClick, designation, studentsAppliedC
 
       <span 
       className="Freelance"
-      style={{width:"80px",textAlign:"center"}}
-      >Freelance</span>
+      style={{width:"80px",textAlign:"center",fontSize:"12px"}}
+      >{`${type}`}</span>
 
       <span
        style={{width:"80px",textAlign:"center"}}
       >50</span>
       <span
       style={{width:"80px",textAlign:"center"}}
-      >5/50</span>
+      >{`${totalRequired}/${totalApplications}`}</span>
 
       <span style={{width:"40px"}}><MoreHorizIcon 
       className="hover:cursor-pointer"

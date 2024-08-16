@@ -12,6 +12,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Step1 from '../../components/startUp/JobPostPages.js/Page1';
 import { Step2 } from '../../components/startUp/JobPostPages.js/Page2';
 import Step3 from '../../components/startUp/JobPostPages.js/Page3';
+import { dateCalendarClasses } from '@mui/x-date-pickers';
 
 
 
@@ -38,23 +39,23 @@ export default function AddNew({ BASE_URL, setShowAlert, setAlertMessage, setAle
   const [skillsRequired, setSkillsRequired] = useState('');
   // const [responsibilities, setResponsibilities] = useState('');
   const [assignment, setAssignment] = useState('');
-  const [deadline, setDeadline] = useState();
   // const [selectionProcess, setSelectionProcess] = useState('');
   const [hoursType, setHoursType] = useState('fulltime'); // either parttime or fulltime
   const [jobLocation, setJobLocation] = useState('');
   const [loading, setLoading] = useState(false);
   const [loading2, setLoading2] = useState(true);
   const updateOrAdd = jobId !== '' && jobId !== undefined ? 'Update' : 'Add';
-
+  
   const [step, setStep] = useState("one");
-
-
-
-
+  
+  
+  
+  
   const [title, setTitle] = useState('');
   const [Type, setType] = useState('');
   const [Salary, setSalary] = useState('');
-  const [category, setCategory] = useState([]);
+  const [deadline, setDeadline] = useState();
+  const [category, setCategory] = useState();
   const [addSkill, setAddSkill] = useState(["Graphic", "Media"]);
   const [description, setDescription] = useState('');
   const [responsibilities, setResponsibilities] = useState([]);
@@ -93,7 +94,7 @@ export default function AddNew({ BASE_URL, setShowAlert, setAlertMessage, setAle
     const formData = {
       companyName: companyName,
       title:title,
-      type: Type,
+      type: "Part-Time",
       // duration: duration,
       category:category,
       salary: Salary,
@@ -110,40 +111,45 @@ export default function AddNew({ BASE_URL, setShowAlert, setAlertMessage, setAle
       selectionProcess: selectionProcess,
       totalApplications:totalApplications,
       totalRequired:totalRequired,
-      startUpId: startUpId,
-      createdAt: moment().format('YYYY-MM'),
+      startUpId: "884c8085-ccba-4bf6-9494-f15001d57472",
+      createdAt: moment(new Date()).format('YYYY-MM'),
     };
-    // const requestOptions = {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     Authorization: localStorage.localStorageStartUpToken,
-    //   },
-    //   body: JSON.stringify(formData),
-    // };
-    // const url = `${BASE_URL}/api/startUp/jobs`;
-    // try {
-    //   await fetch(url, requestOptions)
-    //     .then((response) => response.json())
-    //     .then((data) => {
-    //       if (data.status === 201) {
-    //         setLoading(false);
-    //         setAlertMessage('Opportunity added successfully.');
-    //         setAlertSeverity('success');
-    //         setShowAlert(true);
-    //         navigate(-1);
-    //       } else if (data.status === 400) {
-    //         setLoading(false);
-    //         setAlertMessage(data.message);
-    //         setAlertSeverity('error');
-    //         setShowAlert(true);
-    //       } else {
-    //         console.log(data);
-    //       }
-    //     });
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    console.log(startUpId);
+    
+    
+    
+    const requestOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: localStorage.localStorageStartUpToken,
+      },
+      body: JSON.stringify(formData),
+    };
+    const url = `${BASE_URL}/api/startUp/jobs`;
+    try {
+      await fetch(url, requestOptions)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.status === 201) {
+            setLoading(false);
+            setAlertMessage('Opportunity added successfully.');
+            setAlertSeverity('success');
+            setShowAlert(true);
+            setStep("one")
+            navigate("../jobPost")
+          } else if (data.status === 400) {
+            setLoading(false);
+            setAlertMessage(data.message);
+            setAlertSeverity('error');
+            setShowAlert(true);
+          } else {
+            console.log(data);
+          }
+        });
+    } catch (error) {
+      console.log(error);
+    }
     console.log(formData);
     
   };
@@ -163,7 +169,7 @@ export default function AddNew({ BASE_URL, setShowAlert, setAlertMessage, setAle
       selectionProcess: selectionProcess,
       hoursType: hoursType,
       jobLocation: jobLocation,
-      createdAt: moment().format('YYYY-MM'),
+      createdAt: moment(new Date()).format('YYYY-MM'),
     };
     const requestOptions = {
       method: 'PUT',
@@ -346,16 +352,17 @@ export default function AddNew({ BASE_URL, setShowAlert, setAlertMessage, setAle
         style={{ border: "1px solid rgba(214, 221, 235, 1)" }}
 
       >
-        <StepStatus icon={<IoBriefcase color={step === "one" ? "white" : "#707785"}
+        <StepStatus icon={<IoBriefcase 
+        color={((step === "one")|| move1) ? "white" : "#707785"}
           fontSize="22px" />} number={1} title={"Job Information"} status={step === "one"} 
           CompletedorNot={move1} />
 
-        <StepStatus icon={<FaClipboardList color={step === "two" ? "white" : "#707785"}
+        <StepStatus icon={<FaClipboardList color={((step === "two")|| move1) ? "white" : "#707785"}
           fontSize="22px" />} number={2} title={"Job Description"} status={step === "two"} 
           CompletedorNot={move2}/>
 
 
-        <StepStatus icon={<FaGift color={step === "three" ? "white" : "#707785"}
+        <StepStatus icon={<FaGift color={((step === "three")|| move3) ? "white" : "#707785"}
           fontSize="22px" />} number={3} title={"Perks & Benifits"} status={step === "three"}
           CompletedorNot={move3} />
       </div>

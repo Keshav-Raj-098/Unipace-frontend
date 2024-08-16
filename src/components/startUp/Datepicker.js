@@ -2,9 +2,11 @@ import * as React from 'react';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import TextField from '@mui/material/TextField';
+import dayjs from 'dayjs';
+import { useState } from 'react';
 
 function MyDatePicker({ title, width, selectedDate, setSelectedDate }) {
+
   return (
     <div
       className='flex flex-col'
@@ -24,7 +26,9 @@ function MyDatePicker({ title, width, selectedDate, setSelectedDate }) {
         <DatePicker
           value={selectedDate}
           onChange={(newValue) => {
-            setSelectedDate(newValue);
+           // Ensure only the date is set
+           const formattedDate = dayjs(newValue).format('YYYY-MM-DD');
+           setSelectedDate(formattedDate);
           }}
           sx={{
             height: '40px',
