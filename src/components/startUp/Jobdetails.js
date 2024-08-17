@@ -52,6 +52,7 @@ export default function Details({ BASE_URL, startUpDetails,jobId,details,applied
       }
     }
   };
+
   const getStartUpDetails = async (startUpId) => {
     setLoading2(true);
     const requestOptions = {
@@ -152,7 +153,7 @@ export default function Details({ BASE_URL, startUpDetails,jobId,details,applied
                       fontSize: "21px", fontWeight: "600", color: "rgba(37, 50, 75, 1)",
                       fontFamily: "Clash Display,serif",
                     }}>
-                    {jobDetails.designation}
+                    {jobDetails.title}
                   </span>
 
                   <div

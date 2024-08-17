@@ -14,14 +14,16 @@ import { FaLinkedin } from "react-icons/fa";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { Select, InputLabel, FormControl, MenuItem } from '@mui/material';
 
-const StudentApplication = () => {
+const StudentApplication = ({BASE_URL,setAlertMessage,setAlertSeverity,setShowAlert}) => {
 
-    const { studentDetails } = useLocation()?.state
-    const [status, setStatus] = useState(studentDetails.statusUpdate.status || "In Review")
+    const { studentDetails,jobId } = useLocation()?.state
+    const [status, setStatus] = useState(studentDetails.statusUpdate.status === "Applied" ?  "In Review" : studentDetails.statusUpdate.status )
     const navigate = useNavigate();
     console.log(studentDetails);
+    
 
-
+  
+   
 
     const styles = {
         small: {
@@ -36,6 +38,56 @@ const StudentApplication = () => {
             fontSize: "16px",
             color: "rgba(37, 50, 75, 1)"
         }
+    }
+
+    const handleClick = async() => {
+
+        const studentId = studentDetails?.statusUpdate?.studentId;
+        const statuss = status; // Ensure this is correctly set
+      
+        // Debugging logs
+        console.log('status:', status);
+        console.log('studentId:', studentId);
+      
+        if (!status || !studentId) {
+          console.error('Form data is incomplete:', { status, studentId });
+          return;
+        }
+      
+        const formdata = {
+            status: statuss,
+            studentId: studentId,
+          };
+
+
+    const requestOptions = {
+        method: 'PUT',
+            // headers: {
+            //     Authorization: localStorage.localStorageStartUpToken,
+            // },
+            body: JSON.stringify(formdata),
+        };
+        
+          const url = `${BASE_URL}/api/startUp/jobs/${jobId}`;
+          
+          try {
+              console.log(formdata);
+            const response = await fetch(url, requestOptions);
+            const data = await response.json();
+            if (data.status === 200) {
+            //   setLoading(false);
+              setAlertMessage(`Application's Status Updated successfully.`);
+              setAlertSeverity('success');
+              setShowAlert(true);
+              navigate('../application', { state: { type: 'Internship' } });
+            } else {
+              console.log(data);
+            }
+          } catch (error) {
+            console.log(error);
+          }
+        
+
     }
 
 
@@ -87,11 +139,13 @@ const StudentApplication = () => {
                             },
                         }}
                     >
-                        <MenuItem value={"In review"}>In review</MenuItem>
+                        
+                        <MenuItem value={"In Review"}>In Review</MenuItem>
                         <MenuItem value={"Shortlisted"}>Shortlisted</MenuItem>
+                        <MenuItem value={"Not Shortlisted"}>Shortlisted</MenuItem>
                         <MenuItem value={"Interview"}>Interview</MenuItem>
-                        <MenuItem value={"Hired"}>Hired</MenuItem>
-                        <MenuItem value={"Declined"}>Declined</MenuItem>
+                        <MenuItem value={"Selected"}>Hired</MenuItem>
+                        <MenuItem value={"Not Selected"}>Declined</MenuItem>
                     </Select>
                 </FormControl>
 
@@ -111,14 +165,17 @@ const StudentApplication = () => {
                     {/* profile */}
 
                     <div className='flex flex-col gap-5  items-center'>
-                        <span className='flex flex-row justify-center items-center'
-                            style={{
-                                border: "1px solid black", height: "70px", width: "70px",
-                                borderRadius: "50%"
-                            }}>
-                            <FaUserAlt fontSize={"30px"} />
+                    <span className='flex flex-row justify-center items-center'
+                      style={{
+                        border: !studentDetails.imglink && "1px solid black", height: "80px", width: "80px",overflow:"hidden",
+                        borderRadius: "50%"
+                      }}>
+                        { studentDetails.imglink ? <img src={studentDetails.imglink} alt="profile" />:
 
-                        </span>
+                          <FaUserAlt fontSize={"21px"} />
+
+                        }
+                    </span>
                         <div className='flex flex-row gap-1 items-center justify-between w-full' >
                             <span
                                 style={{
@@ -259,14 +316,6 @@ const StudentApplication = () => {
 
 
 
-
-
-
-
-
-
-
-
                 {/* Right Part */}
                 <div className='py-3 px-2'
                     style={{
@@ -274,6 +323,12 @@ const StudentApplication = () => {
                         minWidth: "calc(100% - 330px)", height: "100%", width: "58%"
                     }}
                 >
+
+                    <span className='p-2 text-white cursor-pointer' style={{backgroundColor:"#1986d2"}}
+                    onClick={handleClick}
+                    >
+                        save
+                    </span>
 
                 </div>
 

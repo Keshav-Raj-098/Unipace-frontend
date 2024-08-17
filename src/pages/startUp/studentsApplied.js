@@ -72,6 +72,8 @@ export default function StudentsApplied({ BASE_URL, setShowAlert, setAlertMessag
 
   const convertToTableRows = (studentsApplied) => {
     const jsonDataArray = [];
+    console.log(studentsApplied);
+    
     for (let i = 0; i < studentsApplied.length; i++) {
       const oneJsonData = studentsApplied[i].student;
       const x = studentsApplied[i];
@@ -84,6 +86,7 @@ export default function StudentsApplied({ BASE_URL, setShowAlert, setAlertMessag
         department: oneJsonData.department,
         year: oneJsonData.year,
         cgpa: oneJsonData.cgpa,
+        imglink: oneJsonData.imglink,
         whyShouldWeHireYou: x.whyShouldWeHireYou,
         resumeId: oneJsonData.resumeId,
         linkedIn: oneJsonData.linkedIn,
@@ -354,11 +357,14 @@ export default function StudentsApplied({ BASE_URL, setShowAlert, setAlertMessag
                     style={{ width: "230px" }}>
                     <span className='flex flex-row justify-center items-center'
                       style={{
-                        border: "1px solid black", height: "50px", width: "50px",
+                        border: !student.imglink && "1px solid black", height: "50px", width: "50px",overflow:"hidden",
                         borderRadius: "50%"
                       }}>
-                      <FaUserAlt fontSize={"21px"} />
+                        { student.imglink ? <img src={student.imglink} alt="profile" />:
 
+                          <FaUserAlt fontSize={"21px"} />
+
+                        }
                     </span>
 
                     <span>{student.name}</span>
@@ -400,7 +406,7 @@ export default function StudentsApplied({ BASE_URL, setShowAlert, setAlertMessag
                     }}
                     
                     onClick={()=>{
-                      navigate("../application",{state:{studentDetails:student,color:"joblist"}})
+                      navigate("../application",{state:{studentDetails:student,color:"joblist",jobId:jobId}})
                     }}
                     
                     >

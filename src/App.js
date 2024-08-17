@@ -46,6 +46,7 @@ ReactGA.initialize(trackingId);
 const BASE_URL = process.env.REACT_APP_BACKEND_URL_PRODUCTION || process.env.REACT_APP_BACKEND_URL;
 const timer = 3000;
 
+console.log(BASE_URL);
 
 export default function App() {
   // localStorage.clear()
@@ -118,6 +119,8 @@ export default function App() {
           if (data.status === 200) {
             setStartUpDetails(data.startUpDetails);
             setLoading(false);
+            
+            
           } else {
             console.log(data);
           }
@@ -249,7 +252,8 @@ export default function App() {
                 <Route path="dashboard" element={<Dashboard
                   startUpDetails={startUpDetails} BASE_URL={BASE_URL} />} />
                 <Route path="applicants" element={<Applicants />} />
-                <Route path="application" element={<StudentApplication />} />
+                <Route path="application" element={<StudentApplication BASE_URL={BASE_URL}
+                {...setAlertProps}/>} />
                 {/* <Route path="Jobapplicant" element={<JobApplicants  BASE_URL={BASE_URL} {...setAlertProps}/>} /> */}
                 <Route path="companyprofile" element={<CompanyProfile />} />
                 <Route path="joblist" element={<StartUpInternship BASE_URL={BASE_URL} startUpDetails={startUpDetails} {...setAlertProps} />} />
