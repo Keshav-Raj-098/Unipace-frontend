@@ -13,7 +13,17 @@ const Header = ({ name,logo }) => {
             style={{ borderBottom: "1px solid rgba(214, 221, 235, 1)" }}
         >
             <div className='flex flex-row gap-2'>
-                <img src={logo || Companyimg} alt="Company img" width="75px" style={{ marginRight: "15px" }} />
+            <div
+                className="flex flex-row justify-center items-center"
+                style={{
+                  height: "75px", width: "75px", borderRadius: "50%", overflow: "hidden",
+                  border: logo && "1px solid black"
+
+
+                }}>
+
+                <img src={logo || Companyimg} alt="userimg" />
+              </div>
                 <div className='flex flex-col gap-2'
 
                 >

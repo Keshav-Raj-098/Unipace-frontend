@@ -29,7 +29,7 @@ const DetailsButton = ({ title, data, width, disable, setFunction,type }) => (
                 paddingLeft: "5px",
                 outline: "none",
                 backgroundColor: "white",
-                cursor: disable ? "not-allowed" : "auto",
+                cursor: disable && "not-allowed",
                 '& .MuiInputBase-root': {
                     padding: '0',
                     borderRadius: '4px'

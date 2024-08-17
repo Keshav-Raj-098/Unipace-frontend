@@ -8,6 +8,7 @@ import Header from "../../components/startUp/Header"
 export default function Index({ mode, setMode, startUpDetails, setStartUpDetails }) {
   const navigate = useNavigate();
   const [companyName, setCompanyName] = useState('');
+  const [profileImg, setProfileImg] = useState('');
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -15,6 +16,7 @@ export default function Index({ mode, setMode, startUpDetails, setStartUpDetails
       navigate('/');
     } else {
       setCompanyName(startUpDetails.companyName);
+      setProfileImg(startUpDetails.profileimglink )
       setLoading(false);
     }
   }, []);
@@ -42,7 +44,7 @@ export default function Index({ mode, setMode, startUpDetails, setStartUpDetails
           
         }}
         >
-          <Header name={companyName}/>
+          <Header name={companyName} logo={profileImg}/>
         {loading ? (
           <Box
           sx={{

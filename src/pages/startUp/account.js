@@ -13,105 +13,110 @@ export default function Account({ BASE_URL, startUpDetails, setStartUpDetails, s
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
-  const [selectedImgFile, setSelectedImgFile] = useState(null);
-  const [website, setWebsite] = useState(startUpDetails.website);
-  const [tracxn, setTracxn] = useState(startUpDetails.tracxn);
-  const [social, setSocial] = useState(startUpDetails.social);
-  const [cruchbase, setCruchbase] = useState(startUpDetails.cruchbase);
+  
 
-  const [companyVision, setCompanyVision] = useState(startUpDetails.companyVision);
-
+  
+  
+  
   const updateOrSave = startUpDetails.location === '' || startUpDetails.location === undefined ? 'Save' : 'Update';
-
+  
   const [applyColor, setapplyColor] = useState("overview");
   const [update, setUpdate] = useState("Update")
-
+  const [allow, setallow] = useState(true)
+  
+  // OverView
+  const [selectedImgFile, setSelectedImgFile] = useState(null);
+  const companyName = startUpDetails?.companyName;
+  const companyEmail = startUpDetails?.email;
+  const profilepic = startUpDetails.profileimglink || null;
   const [foundedDate, setFoundedDate] = useState(startUpDetails.foundedDate || "");
-  const [aboutCompany, setAboutCompany] = useState(startUpDetails.foundedDate || "");
+  const [location, setLocation] = useState(startUpDetails.location);
+  const [noOfEmployees, setNoOfEmployees] = useState(startUpDetails.noOfEmployees);
+  const [sector, setSector] = useState(startUpDetails.sector);
+  const [aboutCompany, setAboutCompany] = useState(startUpDetails.aboutCompany || "");
 
-  const companyName = startUpDetails.companyName;
-  const companyEmail = startUpDetails.email;
-  const [twitter, setTwitter] = (startUpDetails.twitter || "")
-  const [Facebook, setFacebook] = (startUpDetails.facebook || "")
-  const [insta, setInsta] = (startUpDetails.instagram || "")
-  const [youtube, setYoutube] = (startUpDetails.youtube || "")
+  // Social
+  const [website, setWebsite] = useState(startUpDetails.website);
+  const [twitter, setTwitter] = useState(startUpDetails.twitter || "");
+  const [Facebook, setFacebook] = useState(startUpDetails.facebook || "");
+  const [cruchbase, setCruchbase] = useState(startUpDetails.cruchbase);
+  const [insta, setInsta] = useState(startUpDetails.instagram || "");
+  const [youtube, setYoutube] = useState(startUpDetails.youtube || "");
+  
   const [linkedIn, setLinkedIn] = useState(startUpDetails.linkedIn);
-  const [founder, setFounder] = useState(startUpDetails.founder);
+  const [tracxn, setTracxn] = useState(startUpDetails.tracxn);
+
+
+  const [founder, setFounder] = useState(startUpDetails?.founder || null);
   const [hrName, setHrName] = useState(startUpDetails.hrName);
   const [hrEmail, setHrEmail] = useState(startUpDetails.hrEmail);
   const [hrLinkedin, setHrLinkedin] = useState(startUpDetails.hrLinkedin);
   const [hrDesignation, setHrDesignation] = useState(startUpDetails.hrDesignation);
-  const [sector, setSector] = useState(startUpDetails.sector);
-  const [noOfEmployees, setNoOfEmployees] = useState(startUpDetails.noOfEmployees);
-  const [location, setLocation] = useState(startUpDetails.location || ["Delhi", "Banglore"]);
+
+   
 
 
 
 
 
-
-
-
-
-
-
-
-
-  const updateAccountDetails = async (e) => {
-    e.preventDefault();
+  const updateAccountDetails = async () => {
     setLoading(true);
-    const formData = {
-      linkedIn: linkedIn,
-      website: website,
-      twitter: twitter,
-      instagram: insta,
-      youtube: youtube,
-      facebook: Facebook,
-      founded: foundedDate,
-      tracxn: tracxn,
-      sector: sector,
-      noOfEmployees: noOfEmployees,
-      companyVision: companyVision,
-      founder: founder,
-      hrName: hrName,
-      hrEmail: hrEmail,
-      hrDesignation: hrDesignation,
-      social: social,
-      cruchbase: cruchbase,
-      // image:selectedImgFile
-    };
-    console.log(formData)
+  
+    const formData = new FormData();
+  
+    formData.append('image', selectedImgFile);
+    formData.append('founded', foundedDate);
+    formData.append('sector', sector);
+    formData.append('location', location);
+    formData.append('noOfEmployees', noOfEmployees);
+    formData.append('aboutCompany', aboutCompany);
+    formData.append('linkedIn', linkedIn);
+    formData.append('website', website);
+    formData.append('twitter', twitter);
+    formData.append('instagram', insta);
+    formData.append('youtube', youtube);
+    formData.append('facebook', Facebook);
+    formData.append('tracxn', tracxn);
+    formData.append('cruchbase', cruchbase);
+    formData.append('founder', JSON.stringify(founder));
+    formData.append('hrName', hrName);
+    formData.append('hrEmail', hrEmail);
+    formData.append('hrDesignation', hrDesignation);
+    formData.append('hrLinkedin', hrLinkedin);
+  
     const requestOptions = {
       method: 'PUT',
       headers: {
-        'Content-Type': 'application/json',
         Authorization: localStorage.localStorageStartUpToken,
       },
-      body: JSON.stringify(formData),
+      body: formData,
     };
+  
     const url = `${BASE_URL}/api/startUp/register/${startUpDetails.id}`;
+  
     try {
-      await fetch(url, requestOptions)
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.status === 200) {
-            setStartUpDetails(data.startUpDetails);
-            setLoading(false);
-            setAlertMessage(`Account details ${updateOrSave + 'd'} successfully.`);
-            setAlertSeverity('success');
-            setShowAlert(true);
-            navigate('../internship', { state: { type: 'Internship' } });
-          } else {
-            console.log(data);
-          }
-        });
+      const response = await fetch(url, requestOptions);
+      const data = await response.json();
+      if (data.status === 200) {
+        setStartUpDetails(data.startUpDetails);
+        setLoading(false);
+        setAlertMessage(`Account details ${updateOrSave + 'd'} successfully.`);
+        setAlertSeverity('success');
+        setShowAlert(true);
+        navigate('../account', { state: { type: 'Internship' } });
+      } else {
+        console.log(data);
+      }
     } catch (error) {
       console.log(error);
     }
   };
 
+  
+  
+
   const addFounder = () => {
-    setFounder((current) => [...current, { id: current.length + 1, name: '', bio: '' }]);
+    setFounder((current) => [...current, { id: current?.length + 1, name: '', bio: '' }]);
   };
 
   const removeFounder = () => {
@@ -119,14 +124,14 @@ export default function Account({ BASE_URL, startUpDetails, setStartUpDetails, s
   };
 
   const updateFounderName = (value, id) => {
-    const newState = founder.map((obj) => {
+    const newState = founder?.map((obj) => {
       return obj.id === id ? { ...obj, name: value } : obj;
     });
     setFounder(newState);
   };
 
   const updateFounderBio = (value, id) => {
-    const newState = founder.map((obj) => {
+    const newState = founder?.map((obj) => {
       return obj.id === id ? { ...obj, bio: value } : obj;
     });
     setFounder(newState);
@@ -137,8 +142,10 @@ export default function Account({ BASE_URL, startUpDetails, setStartUpDetails, s
     });
     setFounder(newState);
   };
+
+
   useEffect(() => {
-    if (founder.length === 0) addFounder();
+    if (founder?.length === 0) addFounder();
   }, []);
 
 
@@ -149,6 +156,15 @@ export default function Account({ BASE_URL, startUpDetails, setStartUpDetails, s
     },
     small: { fontFamily: "Epilogue, sans-seri", fontSize: "14px", fontWeight: "400", color: "#515B6F", }
 
+  }
+
+  const handlclick = ()=>{
+    if(update==="Update"){setUpdate("Save Changes"); setallow(false)}
+    else if(update==="Save Changes"){
+      setUpdate("Update");
+      updateAccountDetails();
+      
+    }
   }
 
  
@@ -235,29 +251,26 @@ export default function Account({ BASE_URL, startUpDetails, setStartUpDetails, s
         </div>
 
         <div style={{ position: "relative", bottom: "10px" }}>
-          {(update === "Update") ? (<span className=' hover:cursor-pointer'
+           <span className=' hover:cursor-pointer'
           style={{padding:"9px 20px",backgroundColor:"#4640de",color:"white",fontFamily: "Epilogue, sans-serif", fontSize: "16px", fontWeight: "400",}}
-            onClick={() => {
-
-              setUpdate("save Changes")
-              setLoading(true)
-
-
-            }}
-          >{update}</span>)
-            :
-            (<div className=' hover:cursor-pointer'
-              style={{padding:"9px 20px",backgroundColor:"#4640de",color:"white",fontFamily: "Epilogue, sans-serif", fontSize: "16px", fontWeight: "400",}}
-              onClick={() => { }}
-            >{update}</div>)}
+            onClick={handlclick}
+          >{update}</span>
+            
+            
         </div>
 
 
 
       </div>
 
+      { loading ? 
+      
+      <div className='w-full flex flex-row justify-center items-center'
+      style={{height:"55vh"}}><CircularProgress/></div> 
+         
+      : 
 
-      {applyColor === "overview" &&
+      <>{applyColor === "overview" &&
 
         <div className='px-4 py-3'>
           {/* Basic information */}
@@ -303,12 +316,12 @@ export default function Account({ BASE_URL, startUpDetails, setStartUpDetails, s
                 className="flex flex-row justify-center items-center"
                 style={{
                   height: "105px", width: "105px", borderRadius: "50%", overflow: "hidden",
-                  border: !startUpDetails.imglink && "1px solid black"
+                  border: !profilepic && "1px solid black"
 
 
                 }}>
 
-                <img src={startUpDetails.imglink || userimg} alt="userimg" />
+                <img src={profilepic || userimg} alt="userimg" />
               </div>
 
 
@@ -349,18 +362,21 @@ export default function Account({ BASE_URL, startUpDetails, setStartUpDetails, s
                 title={"Company Email"} data={companyEmail}
                 width={80} disable={true} />
 
-              <DatePicker width={"60%"} title={"Company Founded"}
-                selectedDate={foundedDate} setSelectedDate={setFoundedDate} />
+              <DetailsButton width={80} title={"Head Quarter"}
+                data={location} setFunction={setLocation} disable={allow}/>
+
+              <DatePicker width={"200px"} title={"Company Founded"}
+                selectedDate={foundedDate} setSelectedDate={setFoundedDate} disable={allow}/>
 
               <div className='flex flex-row'>
 
                 <DetailsButton
                   title={"Employee"} data={noOfEmployees}
-                  width={40} disable={false} type={"number"}
-                  setFunction={setNoOfEmployees} />
+                  width={40} disable={allow} type={"number"}
+                  setFunction={setNoOfEmployees}  />
 
                 <DetailsDrop title={"Sector"} data={sector} setFunction={setSector}
-                  menu={sectorItems} width={35} />
+                  menu={sectorItems} width={35}  disable={allow}/>
 
               </div>
 
@@ -400,10 +416,11 @@ export default function Account({ BASE_URL, startUpDetails, setStartUpDetails, s
                 style={{
                   outline: "none", padding: "7px 10px", width: "100%", height: "150px",
                   border: "1px solid rgba(214, 221, 235, 1)", color: "rgba(37, 50, 75, 1)", marginBottom: "5px", overflowY: "auto", scrollbarWidth: "none",
-                  msOverflowStyle: "none", resize: 'none'
+                  msOverflowStyle: "none", resize: 'none',background:"none",cursor: allow && "not-allowed"
                 }}
                 placeholder='Enter Company Description'
-              ></textarea>
+               disabled={allow}
+               ></textarea>
               <span
                 style={{
                   fontSize: "14px", fontWeight: "400",
@@ -436,44 +453,52 @@ export default function Account({ BASE_URL, startUpDetails, setStartUpDetails, s
             >Add elsewhere links to your company profile. You can add only username without full https links.</span>
           </div>
 
-          <div className='flex flex-col'
+          <div className='flex flex-col pb-5'
             style={{ width: "100%", gap: "40px" }}
           >
             <div className='flex flex-row justify-around'>
 
               <DetailsButton
                 title={"Website"} data={website} setFunction={setWebsite}
-                width={50} disable={false} type={"link"} />
+                width={50} disable={allow} type={"link"} />
 
               <DetailsButton
                 title={"CrunchBase"} data={cruchbase}
-                width={50} disable={false} setFunction={setCruchbase} />
+                width={50} disable={allow} setFunction={setCruchbase} />
             </div>
 
             <div className='flex flex-row'>
 
               <DetailsButton
                 title={"Linkedin"} data={linkedIn}
-                width={50} disable={false} setFunction={setLinkedIn} />
+                width={50} disable={allow} setFunction={setLinkedIn} />
 
               <DetailsButton
                 title={"Twitter"} data={twitter} setFunction={setTwitter}
-                width={50} disable={false} />
+                width={50} disable={allow} />
             </div>
 
             <div className='flex flex-row'>
 
               <DetailsButton
                 title={"Instagram"} data={insta} setFunction={setInsta}
-                width={50} disable={false} />
+                width={50} disable={allow} />
 
               <DetailsButton
                 title={"Facebook"} data={Facebook} setFunction={setFacebook}
-                width={50} disable={false} />
+                width={50} disable={allow} />
             </div>
+            <div className='flex flex-row'>
+
             <DetailsButton
               title={"YouTube"} data={youtube} setFunction={setYoutube}
-              width={50} disable={false} />
+              width={50} disable={allow} />
+
+              <DetailsButton
+                title={"Tracxn"} data={tracxn} setFunction={setTracxn}
+                width={50} disable={allow} />
+            </div>
+           
 
           </div>
         </div>
@@ -513,7 +538,7 @@ export default function Account({ BASE_URL, startUpDetails, setStartUpDetails, s
               style={{ width: "100%", gap: "40px" }}
             >
 
-              {founder.map((value, key) => (
+              {founder?.map((value, key) => (
 
                 <div className='w-full flex flex-col gap-2'>
 
@@ -522,11 +547,13 @@ export default function Account({ BASE_URL, startUpDetails, setStartUpDetails, s
                   <div className='flex flex-row full justify-between'>
                     <Input title={"Founder Name"}
                       value={value.name}
+                      allow={allow}
                       onChange={(e) => {
                         updateFounderName(e.target.value, value.id)
                       }} />
 
                     <Input title={"Founder Linkedin"} value={value.linkedIn}
+                    allow={allow}
 
                       onChange={(e) => {
                         updateFounderLinkedIn(e.target.value, value.id);
@@ -541,9 +568,10 @@ export default function Account({ BASE_URL, startUpDetails, setStartUpDetails, s
                       style={{
                         outline: "none", padding: "7px 10px", width: "100%", height: "150px",
                         border: "1px solid rgba(214, 221, 235, 1)", color: "rgba(37, 50, 75, 1)", marginBottom: "5px", overflowY: "auto", scrollbarWidth: "none",
-                        msOverflowStyle: "none", resize: 'none'
+                        msOverflowStyle: "none", resize: 'none',background:"none",cursor: allow && "not-allowed"
                       }}
                       maxLength={500}
+                      disabled={allow}
                       value={value.bio}
                       onChange={(e) => {
                         updateFounderBio(e.target.value, value.id);
@@ -585,11 +613,13 @@ export default function Account({ BASE_URL, startUpDetails, setStartUpDetails, s
               <div className='flex flex-row full justify-between'>
                 <Input title={"HR Name"}
                   value={hrName}
+                  allow={allow}
                   onChange={(e) => {
                     setHrName(e.target.value)
                   }} />
 
                 <Input title={"HR Email"} value={hrEmail}
+                allow={allow}
 
                   onChange={(e) => {
                     setHrEmail(e.target.value);
@@ -600,11 +630,12 @@ export default function Account({ BASE_URL, startUpDetails, setStartUpDetails, s
               <div className='flex flex-row full justify-between'>
                 <Input title={"HR Designation"}
                   value={hrDesignation}
+                  allow={allow}
                   onChange={(e) => {
                     setHrDesignation(e.target.value)
                   }} />
 
-                <Input title={"HR Linkedin"} value={hrLinkedin}
+                <Input title={"HR Linkedin"} value={hrLinkedin} allow={allow}
 
                   onChange={(e) => {
                     setHrLinkedin(e.target.value);
@@ -621,14 +652,24 @@ export default function Account({ BASE_URL, startUpDetails, setStartUpDetails, s
 
           </div>
 
-        </div>}
+        </div>}</>
 
-
+                }
 
     </div>
 
   );
 }
+
+
+
+
+
+
+
+
+
+
 
 const Icon = ({ addField, deleteField }) => (
 
@@ -648,7 +689,7 @@ const Icon = ({ addField, deleteField }) => (
   </div>
 )
 
-const Input = ({ title, onChange, value, width }) => (
+const Input = ({ title, onChange, value, width,allow }) => (
   <div className='flex flex-col'>
 
     <span
@@ -660,8 +701,9 @@ const Input = ({ title, onChange, value, width }) => (
     <input type="text" style={{
       height: "40px", width: "100%", minWidth: "450px", outline: "none",
       border: "1px solid rgba(214, 221, 235, 1)", padding: "3px 8px",
-      color: "rgba(81, 91, 111, 1)"
+      color: "rgba(81, 91, 111, 1)",background:"none",cursor: allow && "not-allowed"
     }}
+    disabled={allow}
       value={value}
       onChange={onChange}
     />
