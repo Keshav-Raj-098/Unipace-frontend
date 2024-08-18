@@ -9,7 +9,7 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
 
 
-function JobListing({ deadline,detailsButtonClick, designation, approval,index,type,totalApplications,totalRequired,PostDate }) {
+function JobListing({ deadline,detailsButtonClick, designation, approval,index,type,totalApplications,totalRequired,PostDate,}) {
   const isDisapproved = approval === 'disapproved';
   const isPending = approval === 'pending';
   const styles = {

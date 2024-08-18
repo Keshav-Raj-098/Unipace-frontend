@@ -23,7 +23,10 @@ export default function Internship({ BASE_URL, startUpDetails, setShowAlert, set
   const convertToTableRows = (jsonData) => {
     const jsonDataArray = [];
     for (let i = 0; i < jsonData.length; i++) {
+   
+      
       const oneJsonData = jsonData[i];
+      console.log(oneJsonData.studentsApplied);
       const convertedJsonData = {
         id: i + 1,
         company: oneJsonData.companyName,
@@ -41,6 +44,7 @@ export default function Internship({ BASE_URL, startUpDetails, setShowAlert, set
       };
       jsonDataArray.push(convertedJsonData);
     }
+
     setInternshipTableRow(jsonDataArray);
   };
 
@@ -270,7 +274,7 @@ export default function Internship({ BASE_URL, startUpDetails, setShowAlert, set
                   approval={internship.approval}
                   index={index}
                   detailsButtonClick={() => {
-                    navigate('../Jobapplicant', { state: { jobId: internship.details,applied: internship.studentsApplied,color:"joblist",
+                    navigate('../Jobapplicant', { state: { jobId: internship.details,applied: internship.studentsApplied,color:"joblist",required:internship.totalRequired,
                       designation:internship.title } });
                   }}
                 />

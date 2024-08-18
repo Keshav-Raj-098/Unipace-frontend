@@ -70,6 +70,8 @@ const Line = ({ start, end }) => (<div
 export default function Apply({ BASE_URL, studentDetails, setShowAlert, setAlertMessage, setAlertSeverity }) {
   const navigate = useNavigate();
   const { jobId,totalApplied } = useLocation().state;
+  console.log(jobId,totalApplied);
+  
   const [loading, setLoading] = useState(true);
   const [percent, setPercent] = useState(0);
   const [whyShouldWeHireYou, setWhyShouldWeHireYou] = useState('');
@@ -85,6 +87,8 @@ export default function Apply({ BASE_URL, studentDetails, setShowAlert, setAlert
         .then((data) => {
           if (data.status === 200) {
             setJobStartUpDetails(data.startUpDetails);
+            
+            
 
 
           } else {
@@ -108,13 +112,13 @@ export default function Apply({ BASE_URL, studentDetails, setShowAlert, setAlert
         .then((response) => response.json())
         .then((data) => {
           if (data.status === 200) {
-            getStartUpDetails(data.jobDetails.startUpId);
+            
             setJobDetails(data.jobDetails);
-            let x = parseInt(data.jobDetails.noOfOffers) 
+            let x = parseInt(data.jobDetails.totalApplications) 
             let y = parseInt(totalApplied) 
             setPercent((y/x)*100);
-            console.log(data.jobDetails);
-
+            getStartUpDetails(data.jobDetails.startupId);
+            
             setLoading(false);
           } else {
             console.log(data);
@@ -125,6 +129,7 @@ export default function Apply({ BASE_URL, studentDetails, setShowAlert, setAlert
     }
   };
 
+    
   const submitResume = async (e) => {
     e.preventDefault();
     const formData = {
@@ -176,15 +181,10 @@ export default function Apply({ BASE_URL, studentDetails, setShowAlert, setAlert
 
   useEffect(() => {
     getJobDetails();
-    console.log(jobDetails);
-    
-    
-   
-   
-    // console.log(jobStartUpDetails);
-    console.log(jobDetails);
+
   }, []);
   const createdAtMoment = moment(jobDetails.createdAt, 'YYYY-MM-DD')
+  const Deadline = moment(jobDetails.deadline, 'YYYY-MM-DD')
   
   
 
@@ -369,13 +369,13 @@ export default function Apply({ BASE_URL, studentDetails, setShowAlert, setAlert
               <p
                 style={{ fontSize: "14px", fontWeight: "500", textAlign: "center", color: "#7c8493", fontFamily: "Epilogue, sans-seri", marginTop: "5px" }}
               ><span className='font-bold text-black'>{totalApplied} applied </span> of
-                {` ` + jobDetails.noOfOffers} capacity</p>
+                {` ` + jobDetails.totalApplications} capacity</p>
 
             </div>
 
-            <Line start={"Apply Before"} end={jobDetails.deadline} />
+            <Line start={"Apply Before"} end={Deadline.format('MMM DD YYYY')} />
             <Line start={"Job Posted On"} end={createdAtMoment.format('MMM DD YYYY')} />
-            <Line start={"Salary"} end={jobDetails.stipend} />
+            <Line start={"Salary"} end={jobDetails.salary} />
             { jobDetails.duration && <Line start={"Duration"} end={jobDetails.duration} />}
 
 

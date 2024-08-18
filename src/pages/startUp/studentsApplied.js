@@ -3,8 +3,8 @@ import LibraryBooksRoundedIcon from '@mui/icons-material/LibraryBooksRounded';
 import HistoryEduIcon from '@mui/icons-material/HistoryEdu';
 import StudentAppliedTable from '../../components/table';
 import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
 import PopOver from '../../components/startUp/popOver';
+import { useLocation, useNavigate } from 'react-router-dom';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import JobDetails from "../../components/startUp/Jobdetails.js"
@@ -21,7 +21,7 @@ export default function StudentsApplied({ BASE_URL, setShowAlert, setAlertMessag
 
 
 
-  const { applied, designation, jobId } = useLocation().state;
+  const { applied, designation, jobId,required } = useLocation().state;
   const [loading, setLoading] = useState(true);
   const [studentsAppliedTableRow, setStudentsAppliedTableRow] = useState([]);
   const [open, setOpen] = React.useState(false);
@@ -56,6 +56,8 @@ export default function StudentsApplied({ BASE_URL, setShowAlert, setAlertMessag
     };
     const url = `${BASE_URL}/api/startUp/jobs/${applied}`;
     try {
+      console.log(applied);
+
       await fetch(url, requestOptions)
         .then((response) => response.json())
         .then((data) => {
@@ -72,8 +74,7 @@ export default function StudentsApplied({ BASE_URL, setShowAlert, setAlertMessag
 
   const convertToTableRows = (studentsApplied) => {
     const jsonDataArray = [];
-    console.log(studentsApplied);
-    
+
     for (let i = 0; i < studentsApplied.length; i++) {
       const oneJsonData = studentsApplied[i].student;
       const x = studentsApplied[i];
@@ -211,6 +212,20 @@ export default function StudentsApplied({ BASE_URL, setShowAlert, setAlertMessag
     }
   }
 
+  
+
+  const name = ({ status }) => {
+    switch (status) {
+      case "Selected":
+        return "Hired";
+      case "Applied":
+        return "In Review";
+      case "Not Selected":
+        return "Declined";
+      default:
+        return status;
+    }
+  };
 
 
   return (
@@ -232,7 +247,7 @@ export default function StudentsApplied({ BASE_URL, setShowAlert, setAlertMessag
             <span>Design</span><Dot />
             <span>Full-Time</span><Dot />
             <span className='flex flex-row'
-            >4/ <p style={{ color: "rgba(124, 132, 147, 1)" }}>11 Hired</p></span>
+            >4/ <p style={{ color: "rgba(124, 132, 147, 1)" }}>{`${required}`} Hired</p></span>
           </div>
         </div>
 
@@ -304,7 +319,7 @@ export default function StudentsApplied({ BASE_URL, setShowAlert, setAlertMessag
 
       <div className='my-1'>
 
-        {applyColor === "details" && <JobDetails BASE_URL={BASE_URL} jobId={jobId} />}
+        {applyColor === "details" && <JobDetails BASE_URL={BASE_URL} jobId={jobId} applied={studentsAppliedTableRow.length}/>}
         {applyColor === "applicants" &&
 
           <div
@@ -346,8 +361,11 @@ export default function StudentsApplied({ BASE_URL, setShowAlert, setAlertMessag
             <div className='my-5 flex flex-col gap-2'
               style={{ border: "1px solid rgba(214, 221, 235, 1)", }}>
 
-              {studentsAppliedTableRow.map((student, index) => (
-                <div className='w-full flex flex-row justify-between items-center'
+              {studentsAppliedTableRow.map((student, index) => {
+
+                const status =name({ status: student.statusUpdate.status });
+
+                return <div className='w-full flex flex-row justify-between items-center'
                   style={{
                     backgroundColor: (index % 2 === 0) && "rgba(248, 248, 253, 1)",
                     padding: "8px 12px"
@@ -357,14 +375,14 @@ export default function StudentsApplied({ BASE_URL, setShowAlert, setAlertMessag
                     style={{ width: "230px" }}>
                     <span className='flex flex-row justify-center items-center'
                       style={{
-                        border: !student.imglink && "1px solid black", height: "50px", width: "50px",overflow:"hidden",
+                        border: !student.imglink && "1px solid black", height: "50px", width: "50px", overflow: "hidden",
                         borderRadius: "50%"
                       }}>
-                        { student.imglink ? <img src={student.imglink} alt="profile" />:
+                      {student.imglink ? <img src={student.imglink} alt="profile" /> :
 
-                          <FaUserAlt fontSize={"21px"} />
+                        <FaUserAlt fontSize={"21px"} />
 
-                        }
+                      }
                     </span>
 
                     <span>{student.name}</span>
@@ -382,13 +400,13 @@ export default function StudentsApplied({ BASE_URL, setShowAlert, setAlertMessag
 
                   {/* hiring stage */}
 
-                  <div className='flex flex-row justify-start items-center'
-                    style={{ width: "130px" }}>
+                  <div className='flex flex-row justify-center items-center'
+                    style={{ width: "16%" }}>
 
-                    <div className='interview basic'>
-                      Interview
-
+                    <div className={`basic ${(status || "").replace(/\s+/g, '')}`}>
+                      {status}
                     </div>
+
                   </div>
                   {/* applied date */}
                   <div
@@ -397,25 +415,26 @@ export default function StudentsApplied({ BASE_URL, setShowAlert, setAlertMessag
 
                   {/* see Application */}
 
-                  <div style={{width:"210px"}}>
+                  <div style={{ width: "210px" }}>
 
-                    <span style={{padding:"6px 12px",border:"1px solid rgba(70, 64, 222, 1)",
-                    color:"rgba(70, 64, 222, 1)",backgroundColor:"#e9ebfd",cursor:"pointer",
-                    fontWeight:"700",fontSize:"14px"
+                    <span style={{
+                      padding: "6px 12px", border: "1px solid rgba(70, 64, 222, 1)",
+                      color: "rgba(70, 64, 222, 1)", backgroundColor: "#e9ebfd", cursor: "pointer",
+                      fontWeight: "700", fontSize: "14px"
 
                     }}
-                    
-                    onClick={()=>{
-                      navigate("../application",{state:{studentDetails:student,color:"joblist",jobId:jobId}})
-                    }}
-                    
+
+                      onClick={() => {
+                        navigate("../application", { state: { studentDetails: student, color: "joblist", jobId: jobId } })
+                      }}
+
                     >
                       See Application
                     </span>
                   </div>
 
                 </div>
-              ))}
+              })}
 
 
 
@@ -459,5 +478,6 @@ const TitleBox = ({ width, naame }) => (
     }}>
     {naame}
     <RiExpandUpDownFill /></div>
+    
 )
 //href={`https://drive.google.com/file/d/${value}/preview`}

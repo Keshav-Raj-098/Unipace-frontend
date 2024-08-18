@@ -16,8 +16,8 @@ import { Select, InputLabel, FormControl, MenuItem } from '@mui/material';
 
 const StudentApplication = ({BASE_URL,setAlertMessage,setAlertSeverity,setShowAlert}) => {
 
-    const { studentDetails,jobId } = useLocation()?.state
-    const [status, setStatus] = useState(studentDetails.statusUpdate.status === "Applied" ?  "In Review" : studentDetails.statusUpdate.status )
+    const { studentDetails,jobId,student,Status } = useLocation()?.state
+    const [status, setStatus] = useState(studentDetails?.statusUpdate?.status || Status)
     const navigate = useNavigate();
     console.log(studentDetails);
     
@@ -39,56 +39,47 @@ const StudentApplication = ({BASE_URL,setAlertMessage,setAlertSeverity,setShowAl
             color: "rgba(37, 50, 75, 1)"
         }
     }
-
     const handleClick = async() => {
-
-        const studentId = studentDetails?.statusUpdate?.studentId;
+        const studentId = studentDetails?.statusUpdate?.studentId || student.id;
         const statuss = status; // Ensure this is correctly set
-      
-        // Debugging logs
-        console.log('status:', status);
-        console.log('studentId:', studentId);
-      
+
         if (!status || !studentId) {
           console.error('Form data is incomplete:', { status, studentId });
           return;
         }
-      
+    
         const formdata = {
             status: statuss,
             studentId: studentId,
-          };
-
-
-    const requestOptions = {
-        method: 'PUT',
-            // headers: {
-            //     Authorization: localStorage.localStorageStartUpToken,
-            // },
-            body: JSON.stringify(formdata),
         };
-        
-          const url = `${BASE_URL}/api/startUp/jobs/${jobId}`;
-          
-          try {
-              console.log(formdata);
-            const response = await fetch(url, requestOptions);
-            const data = await response.json();
+    
+    
+        const requestOptions = {
+            method: 'PUT',
+            headers: {
+                'Authorization': localStorage.localStorageStartUpToken,
+                'Content-Type': 'application/json'  // Add this line to specify JSON content
+            },
+            body: JSON.stringify(formdata),  // Convert formdata to JSON string
+        };
+    
+        const url = `${BASE_URL}/api/startUp/jobs/${jobId}`;
+        fetch(url, requestOptions)
+        .then(response => response.json())
+        .then(data => {
             if (data.status === 200) {
-            //   setLoading(false);
-              setAlertMessage(`Application's Status Updated successfully.`);
-              setAlertSeverity('success');
-              setShowAlert(true);
-              navigate('../application', { state: { type: 'Internship' } });
-            } else {
-              console.log(data);
+                setAlertMessage(`Application's Status Updated successfully.`);
+                setAlertSeverity('success');
+                setShowAlert(true);
+                navigate(-1, { state: { studentDetails:studentDetails,jobId:jobId}})
+                console.log(data);
             }
-          } catch (error) {
-            console.log(error);
-          }
-        
-
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
     }
+    
 
 
 
@@ -140,10 +131,9 @@ const StudentApplication = ({BASE_URL,setAlertMessage,setAlertSeverity,setShowAl
                         }}
                     >
                         
-                        <MenuItem value={"In Review"}>In Review</MenuItem>
+                        <MenuItem value={"Applied"}>In Review</MenuItem>
+                        <MenuItem value={"Not Shortlisted"}>Not Shortlisted</MenuItem>
                         <MenuItem value={"Shortlisted"}>Shortlisted</MenuItem>
-                        <MenuItem value={"Not Shortlisted"}>Shortlisted</MenuItem>
-                        <MenuItem value={"Interview"}>Interview</MenuItem>
                         <MenuItem value={"Selected"}>Hired</MenuItem>
                         <MenuItem value={"Not Selected"}>Declined</MenuItem>
                     </Select>
@@ -167,10 +157,10 @@ const StudentApplication = ({BASE_URL,setAlertMessage,setAlertSeverity,setShowAl
                     <div className='flex flex-col gap-5  items-center'>
                     <span className='flex flex-row justify-center items-center'
                       style={{
-                        border: !studentDetails.imglink && "1px solid black", height: "80px", width: "80px",overflow:"hidden",
+                        border: !(studentDetails||student)?.imglink && "1px solid black", height: "80px", width: "80px",overflow:"hidden",
                         borderRadius: "50%"
                       }}>
-                        { studentDetails.imglink ? <img src={studentDetails.imglink} alt="profile" />:
+                        { (studentDetails||student)?.imglink ? <img src={(studentDetails||student)?.imglink} alt="profile" />:
 
                           <FaUserAlt fontSize={"21px"} />
 
@@ -183,7 +173,7 @@ const StudentApplication = ({BASE_URL,setAlertMessage,setAlertSeverity,setShowAl
                                     color: "rgba(37, 50, 75, 1)",
                                     fontWeight: "700",
                                 }}
-                            >{studentDetails.name}</span>
+                            >{(studentDetails||student)?.name}</span>
                             <div className='flex flex-row gap-1 justify-center items-center'
                                 style={{ width: "70px" }}>
                                 <FaStar fontSize={"19px"} color='rgba(255, 184, 54, 1)' />
@@ -244,15 +234,17 @@ const StudentApplication = ({BASE_URL,setAlertMessage,setAlertSeverity,setShowAl
                             <div className='flex flex-row gap-1 items-center'>
                                 <span
                                     style={{ height: "9px", width: "9px", borderRadius: "50%" }}
-                                    className='intervieww'></span>
+                                    className='Selected1'></span>
 
-                                <span className='interview1'>Interview</span>
+                                <span className='Selected2'>{status}</span>
 
                             </div>
 
                         </div>
                         <div className='stage flex flex-row gap-1 my-3'>
-                            <span></span>
+                            <span
+                            
+                            ></span>
                             <span></span>
                             <span></span>
                             <span></span>
@@ -275,7 +267,7 @@ const StudentApplication = ({BASE_URL,setAlertMessage,setAlertSeverity,setShowAl
                                 color='rgba(124, 132, 147, 1)' stroke='2px' />
                             <div className='flex flex-col'>
                                 <span style={styles.small}>Email</span>
-                                <span style={styles.small}>{studentDetails.email}</span>
+                                <span style={styles.small}>{(studentDetails||student)?.email}</span>
                             </div>
 
 

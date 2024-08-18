@@ -14,7 +14,10 @@ import "../components/student/buttonstyle.css"
 // jobStartUpDetails.stage, jobStartUpDetails.companyPhoto, jobStartUpDetails.socials
 // jobStartUpDetails.founderImage
 export default function Details({ BASE_URL, startUpDetails }) {
+
+  
   const { jobId, applied, positions } = useLocation().state;
+ 
   const [loading, setLoading] = useState(true);
   const [loading2, setLoading2] = useState(false);
   const [jobDetails, setJobDetails] = useState([]);
@@ -90,13 +93,16 @@ export default function Details({ BASE_URL, startUpDetails }) {
         .then((data) => {
           if (data.status === 200) {
             if (jobStartUpDetails === null) {
-              getStartUpDetails(data.jobDetails.startUpId);
+              getStartUpDetails(data.jobDetails.startupId);
 
             }
             setJobDetails(data.jobDetails);
-            let x = parseInt(data.jobDetails.totalApplications)
+            
+            let x = parseInt(positions)
             let y = parseInt(applied)
             setPercent((y / x) * 100);
+            console.log(data.jobDetails.startupId);
+            getStartUpDetails(data.jobDetails.startupId);
             setLoading(false);
           } else {
             console.log(data);
@@ -109,9 +115,6 @@ export default function Details({ BASE_URL, startUpDetails }) {
 
   useEffect(() => {
     getJobDetails();
-    console.log(jobDetails);
-    console.log(jobStartUpDetails);
-
     checkadmin();
   }, []);
 
@@ -220,6 +223,7 @@ export default function Details({ BASE_URL, startUpDetails }) {
 
           >
             {/* Main Content */}
+            <Paragraphs title={"Description"} paragraph={[jobDetails.description]} />
             <Paragraphs title={"Responsibilities"} paragraph={jobDetails.responsibilities} />
             <Paragraphs title={"Nice-to-haves"} paragraph={jobDetails.skillsRequired} />
             <Paragraphs title={"Selection Process"} paragraph={jobDetails.selectionProcess} />
@@ -274,7 +278,7 @@ export default function Details({ BASE_URL, startUpDetails }) {
                 <p
                   style={{ fontSize: "14px", fontWeight: "500", textAlign: "center", color: "#7c8493", fontFamily: "Epilogue, sans-seri", marginTop: "5px" }}
                 ><span className='font-bold text-black'>{applied} applied </span> of
-                  {` ` + jobDetails.noOfOffers} capacity</p>
+                  {` ` + positions} capacity</p>
 
               </div>
 

@@ -35,12 +35,12 @@
 }
 
 
-.Notshortlisted{
+.NotShortlisted{
   border-color: rgba(255, 101, 80, 1);
   color: rgba(255, 101, 80, 1);
 }
 
-.Notselected {
+.NotSelected {
   border-color: #e32108;
   color: #e32108;
 }

@@ -33,24 +33,28 @@ const convertToTableRows = (jsonData, studentId) => {
   const jsonDataArray = [];
   for (let i = 0; i < jsonData.length; i++) {
     const oneJsonData = jsonData[i];
+    console.log(oneJsonData);
+    
+    
     const convertedJsonData = {
       id: i + 1,
       company: oneJsonData.companyName,
       role: oneJsonData.title,
-      // location: oneJsonData.jobLocation,
+      
+      location: oneJsonData.jobLocation,
       totalPositions: oneJsonData.totalApplications,
       totalApplied: oneJsonData.studentsApplied?.length,
-      status:oneJsonData.studentsApplied ? checkStatus(oneJsonData.studentsApplied) : null,
       details: oneJsonData.id,
+      img:oneJsonData.photolink,
+      status:checkStatus(oneJsonData.studentsApplied, studentId),
       apply: {
         jobId: oneJsonData.id,
-        status: oneJsonData.studentsApplied ? checkStatus(oneJsonData.studentsApplied) : null,
+        status: checkStatus(oneJsonData.studentsApplied, studentId),
         deadline: oneJsonData.deadline,
       },
     };
     jsonDataArray.push(convertedJsonData);
   }
-
   return jsonDataArray;
 };
 
@@ -75,7 +79,8 @@ export default function Dashboard({ BASE_URL, studentDetails, setShowAlert, setA
   const [data,setdata] = useState()
   const [isLoading,setLoading] = useState()
 
- 
+  console.log(data);
+  
 
   const handleSearch = (role, company, location,internship) => {
      
@@ -84,13 +89,11 @@ export default function Dashboard({ BASE_URL, studentDetails, setShowAlert, setA
      }
 
   }
-  console.log(studentDetails.id);
   useEffect(() => {
     const fetchJobs = async () => {
         try {
             const jobs = await getOpportunityList(BASE_URL, type, studentDetails.id);
             setdata(jobs);  // make sure `setdata` is correctly spelled as `setData`
-            console.log(data);
             
         } catch (error) {
             console.error("Error fetching jobs:", error);
@@ -102,7 +105,6 @@ export default function Dashboard({ BASE_URL, studentDetails, setShowAlert, setA
     fetchJobs();
 }, []);
 
-   console.log(data);
    
 
 
@@ -192,21 +194,22 @@ export default function Dashboard({ BASE_URL, studentDetails, setShowAlert, setA
 
 
 
-                  {/* {
+                  {
 
-                    internship.status === "Not Applied" && */}
+                    internship.status === "Not Applied" &&
 
                     <JobListing
-                      logo={logo2}
+                      logo={internship.img || logo2}
                       companyName={internship.company}
                       role={internship.role}
                       location={internship.location}
                       totalAvailable={internship.totalPositions}
-                      totalApplied={internship.totalApplications}
+                      totalApplied={internship.totalApplied}
                       changeColor={index % 2 === 0}
                       status={internship.status}
+                   
                       detailsButtonClick={() => {
-                        navigate('../details', { state: { jobId: internship.details } });
+                        navigate('../details', { state: { jobId: internship.details,img:internship.img } });
                       }}
                       applyButtonClick={() => {
                         // Handle the apply button click
@@ -221,7 +224,7 @@ export default function Dashboard({ BASE_URL, studentDetails, setShowAlert, setA
                         }
                       }}
                     />
-                  {/* } */}
+                  } 
                 </Grid>
               ))
               }</div>

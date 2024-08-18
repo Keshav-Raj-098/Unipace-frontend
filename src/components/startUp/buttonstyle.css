@@ -128,23 +128,39 @@
   color: rgba(86, 205, 173, 1);
 }
 
-.review {
+.InReview {
   border-color: rgba(255, 184, 54, 1);
   color: rgba(255, 184, 54, 1);
 }
 
-.interview {
+/* .interview {
   border-color: rgba(38, 164, 255, 1);
   color: rgba(38, 164, 255, 1);
-}
+} */
 
-
-.Declined {
+.NotShortlisted{
   border-color: rgba(255, 101, 80, 1);
   color: rgba(255, 101, 80, 1);
 }
 
+.Declined {
+  border-color: #e32108;
+  color: #e32108;
+}
 
+
+.Shortlisted1 {background-color: rgba(70, 64, 222, 1);}
+.Selected1 {background-color: rgba(86, 205, 173, 1);}
+.Applied1 {background-color: rgba(255, 184, 54, 1);}
+.NotShortlisted1{background-color: rgba(255, 101, 80, 1)}
+.NotSelected1 {background-color: #e32108;}
+.neutral{border:"1px solid black"}
+
+.Shortlisted2 {color: rgba(70, 64, 222, 1);}
+.Selected2 {color: rgba(86, 205, 173, 1);}
+.Applied2 {color: rgba(255, 184, 54, 1);}
+.NotShortlisted2{color: rgba(255, 101, 80, 1)}
+.NotSelected2 {color: #e32108;}
 
 /* Styles for Student Application */
 
@@ -155,14 +171,6 @@
 }
 
 
-
-.intervieww {
-  background-color: rgba(38, 164, 255, 1);
-}
-
-.interview1 {
-  color: rgba(38, 164, 255, 1);
-}
 
 .status {
   padding: 5px 12px;

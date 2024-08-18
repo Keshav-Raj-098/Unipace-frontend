@@ -251,7 +251,7 @@ export default function App() {
               >
                 <Route path="dashboard" element={<Dashboard
                   startUpDetails={startUpDetails} BASE_URL={BASE_URL} />} />
-                <Route path="applicants" element={<Applicants />} />
+                <Route path="applicants" element={<Applicants BASE_URL={BASE_URL} startUpDetails={startUpDetails}/>} />
                 <Route path="application" element={<StudentApplication BASE_URL={BASE_URL}
                 {...setAlertProps}/>} />
                 {/* <Route path="Jobapplicant" element={<JobApplicants  BASE_URL={BASE_URL} {...setAlertProps}/>} /> */}
