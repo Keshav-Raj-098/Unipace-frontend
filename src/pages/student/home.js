@@ -53,9 +53,9 @@ const Home = ({ studentDetails, BASE_URL }) => {
         setapplied(applied_jobs(opportunityList));
         setApplied(jobs_data(opportunityList,"Applied"));
         setShortlisted(jobs_data(opportunityList,"Shortlisted"));
-        setNotShortlisted(jobs_data(opportunityList,"Not shortlisted"));
+        setNotShortlisted(jobs_data(opportunityList,"Not Shortlisted"));
         setselected(jobs_data(opportunityList,"Selected"));
-        setNotSelected(jobs_data(opportunityList,"Not selected"));
+        setNotSelected(jobs_data(opportunityList,"Not Selected"));
       } catch (error) {
         console.error(error);
       } finally {
@@ -143,8 +143,8 @@ const Home = ({ studentDetails, BASE_URL }) => {
              <Grid item xs={12} key={internship.id}>
                        { 
                  
-                 (!['Applied', 'Shortlisted', 'Selected', 'Not shortlisted', 
-                  'Not selected'].includes(internship.status))  &&
+                 (!['Applied', 'Shortlisted', 'Selected', 'Not Shortlisted', 
+                  'Not Selected'].includes(internship.status))  &&
 
                     <JobListing
                     logo={logo}

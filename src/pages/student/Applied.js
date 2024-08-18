@@ -36,13 +36,16 @@ const convertToTableRows = (jsonData, studentId) => {
   const jsonDataArray = [];
   for (let i = 0; i < jsonData.length; i++) {
     const oneJsonData = jsonData[i];
+    console.log(oneJsonData);
+    
     const convertedJsonData = {
       id: i + 1,
       company: oneJsonData.companyName,
-      designation: oneJsonData.designation,
-      stipend: oneJsonData.stipend,
+      designation: oneJsonData.title,
+      stipend: oneJsonData.salary,
       deadline: oneJsonData.deadline,
-      totalPositions: oneJsonData.noOfOffers,
+      img:oneJsonData.photolink,
+      totalPositions: oneJsonData.totalApplications,
       totalApplied: oneJsonData.studentsApplied.length,
       location: oneJsonData.jobLocation,
       status: checkStatus(oneJsonData.studentsApplied, studentId),
@@ -68,7 +71,8 @@ const getOpportunityList = async (BASE_URL, type, studentId) => {
 
 export default function Dashboard({ BASE_URL, studentDetails, setShowAlert, setAlertMessage, setAlertSeverity }) {
   const [applyColor, setapplyColor] = useState("All")
-  const [status, setStatus] = useState(['Applied', 'Shortlisted', 'Selected', 'Not shortlisted', 'Not selected'])
+  const [status, setStatus] = useState(['Applied', 'Shortlisted', 'Selected', 
+    'Not Shortlisted', 'Not Selected'])
   const type = useLocation().state?.type || "Internship";
   const navigate = useNavigate();
   const [selected, setselected] = useState(0);
@@ -99,9 +103,9 @@ export default function Dashboard({ BASE_URL, studentDetails, setShowAlert, setA
 
         setApplied(jobs_data(opportunityList, "Applied"));
         setShortlisted(jobs_data(opportunityList, "Shortlisted"));
-        setNotShortlisted(jobs_data(opportunityList, "Not shortlisted"));
+        setNotShortlisted(jobs_data(opportunityList, "Not Shortlisted"));
         setselected(jobs_data(opportunityList, "Selected"));
-        setNotSelected(jobs_data(opportunityList, "Not selected"))
+        setNotSelected(jobs_data(opportunityList, "Not Selected"))
         setall(applied_jobs(opportunityList))
       } catch (error) {
         console.error(error);
@@ -130,13 +134,13 @@ export default function Dashboard({ BASE_URL, studentDetails, setShowAlert, setA
         setapplyColor(`${text}`)
 
         if (text === "All") {
-          setStatus(['Applied', 'Shortlisted', 'Selected', 'Not shortlisted', 'Not selected'])
+          setStatus(['Applied', 'Shortlisted', 'Selected', 'Not Shortlisted', 'Not Selected'])
         }
         else if (text === "Shortlisted") { setStatus("Shortlisted") }
-        else if (text === "Applied") { setStatus("Applied") }
-        else if (text === "Selected") { setStatus("Selected") }
-        else if (text === "Not Shortlisted") { setStatus("Not shortlisted") }
-        else if (text === "Not Selected") { setStatus("Not selected") }
+        else if (text === "Applied") { setStatus(["Applied"]) }
+        else if (text === "Selected") { setStatus(["Selected"]) }
+        else if (text === "Not Shortlisted") { setStatus(["Not Shortlisted"]) }
+        else if (text === "Not Selected") { setStatus(["Not Selected"]) }
       }}
 
     ><span>{`${text} (`}<span
@@ -249,7 +253,7 @@ export default function Dashboard({ BASE_URL, studentDetails, setShowAlert, setA
                       {status.includes(internship.status) &&
 
                         <JobListing
-                          logo={logo2}
+                          logo={internship.img || logo2}
                           companyName={internship.company}
                           mission={internship.mission}
                           role={internship.designation}

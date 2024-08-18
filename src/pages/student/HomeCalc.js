@@ -12,7 +12,7 @@ const total_jobs = (data) => {
   };
 
   const applied_jobs = (data) => {
-    const statuses =  ['Applied', 'Shortlisted', 'Selected', 'Not shortlisted', 'Not selected'];
+    const statuses =  ['Applied', 'Shortlisted', 'Selected', 'Not Shortlisted', 'Not Selected'];
     let value = 0;
 
     data.forEach((e) => {
@@ -27,9 +27,10 @@ const total_jobs = (data) => {
   const jobs_data = (data,status) => {
    
     let value = 0;
-
+    
     data.forEach((e) => {
-      if (e.status===`${status}`) {
+      console.log(e.status);
+      if (e.status==`${status}`) {
         value++;
       }
     });

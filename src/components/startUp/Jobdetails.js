@@ -76,7 +76,7 @@ export default function Details({ BASE_URL, startUpDetails,jobId,details,applied
       console.log(error);
     }
   };
-  console.log(jobId);
+
   
    
   const getJobDetails = async (e) => {
@@ -201,6 +201,7 @@ export default function Details({ BASE_URL, startUpDetails,jobId,details,applied
 
           >
             {/* Main Content */}
+            <Paragraphs title={"Description"} paragraph={[jobDetails.description]} />
             <Paragraphs title={"Responsibilities"} paragraph={jobDetails.responsibilities} />
             <Paragraphs title={"Nice-to-haves"} paragraph={jobDetails.skillsRequired} />
             <Paragraphs title={"Selection Process"} paragraph={jobDetails.selectionProcess} />

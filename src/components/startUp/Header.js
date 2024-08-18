@@ -17,7 +17,7 @@ const Header = ({ name,logo }) => {
                 className="flex flex-row justify-center items-center"
                 style={{
                   height: "75px", width: "75px", borderRadius: "50%", overflow: "hidden",
-                  border: logo && "1px solid black"
+                  border: !logo && "1px solid black"
 
 
                 }}>

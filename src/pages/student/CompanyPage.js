@@ -44,10 +44,10 @@ const Line2 = ({ title, text }) => (
 const CompanyPage = () => {
 
   const navigate = useNavigate();
-  const startUpDetails = useLocation().state?.StartUpDetails;
+  const { StartUpDetails } = useLocation().state;
   const [Loading, setLoading] = useState(true)
 
-  console.log(startUpDetails);
+  console.log(StartUpDetails);
   useEffect(() => {
     const timeout = setTimeout(() => {
       setLoading(false);
@@ -59,7 +59,8 @@ const CompanyPage = () => {
   }, []);
 
   const directTo = (address) => {
-    if (address) { window.open(address, '_blank');}};
+    if (address) { window.open(address, '_blank'); }
+  };
 
 
   return (
@@ -108,20 +109,20 @@ const CompanyPage = () => {
             >
               <span
                 style={{ fontSize: "24px", fontWeight: "600", color: "rgba(37, 50, 75, 1)" }}
-              >{startUpDetails?.companyName}</span>
+              >{StartUpDetails?.companyName}</span>
 
-              <p style={{ fontSize: "18px", fontWeight: "400", }}>{startUpDetails?.companyVision}</p>
+              <p style={{ fontSize: "18px", fontWeight: "400", }}>{StartUpDetails?.aboutCompany}</p>
 
               <p className='mt-5'>
-                {startUpDetails?.sector && <Line start={"Sector"} end={startUpDetails?.sector} />}
-                {startUpDetails?.noOfEmployees &&
-                  <Line start={"No. of Employees"} end={startUpDetails?.noOfEmployees} />}
+                {StartUpDetails?.sector && <Line start={"Sector"} end={StartUpDetails?.sector} />}
+                {StartUpDetails?.noOfEmployees &&
+                  <Line start={"No. of Employees"} end={StartUpDetails?.noOfEmployees} />}
               </p>
 
             </div>
 
 
-            <img src={internshipImage} alt="companyImg" height="125px" width="150px" />
+            <img src={StartUpDetails?.profileimglink || internshipImage} alt="companyImg" height="125px" width="150px" />
 
 
 
@@ -135,7 +136,8 @@ const CompanyPage = () => {
         <div className='px-2 pb-4 flex flex-col gap-2'>
 
           {/* Founder */}
-          {startUpDetails?.founder[0].name &&
+          {StartUpDetails?.founder.map((founder, index) => (
+
             <div className='px-4'
               style={{ backgroundColor: "#f8f8fd" }}
             >
@@ -154,7 +156,7 @@ const CompanyPage = () => {
               >
                 <div className='flex flex-row'>
 
-                  <Line2 title={"Name"} text={startUpDetails.founder[0]?.name} />
+                  <Line2 title={"Name"} text={founder.name} />
 
                   <div className={` flex flex-row w-full`}
                     style={{ marginTop: "6px" }}
@@ -163,9 +165,9 @@ const CompanyPage = () => {
                       style={{ color: "#25324b", fontSize: "20", fontWeight: "400", }}
                     >Linkedin
                       <ArrowRightIcon style={{ position: "relative", right: "6px" }} /></span>
-                    <LinkedInIcon 
-                    className='hover:cursor-pointer'
-                    onClick={()=>{directTo(startUpDetails.founder[0]?.linkedIn)}} />
+                    <LinkedInIcon
+                      className='hover:cursor-pointer'
+                      onClick={() => { directTo(founder.linkedIn) }} />
                   </div>
 
                   <div className={` flex flex-row w-full`} style={{ marginTop: "6px" }}>
@@ -173,8 +175,8 @@ const CompanyPage = () => {
                     >Website
                       <ArrowRightIcon style={{ position: "relative", right: "6px" }} /></span>
                     <LanguageIcon
-                    className='hover:cursor-pointer'
-                    onClick={()=>{directTo(startUpDetails.founder[0]?.website)}} />
+                      className='hover:cursor-pointer'
+                      onClick={() => { directTo(founder.website) }} />
                   </div>
                 </div>
 
@@ -188,13 +190,17 @@ const CompanyPage = () => {
                 >Bio<ArrowRightIcon style={{ position: "relative", right: "6px" }} /></span>
                 <span
                   style={{ fontSize: "17px", fontWeight: "400", textOverflow: "wordwrap", whiteSpace: "normal", wordWrap: "break-word", }}
-                >{startUpDetails.founder[0]?.bio}</span>
+                >{founder.bio}</span>
               </div>
 
 
 
 
             </div>
+
+
+          ))
+
           }
 
 
@@ -218,19 +224,22 @@ const CompanyPage = () => {
               }}
             >
 
-              <Line2 title={"Name"} text={startUpDetails?.hrName} />
-              <Line2 title={"Designation"} text={startUpDetails?.hrDesignation} />
+              <Line2 title={"Name"} text={StartUpDetails?.hrName} />
+              <Line2 title={"Designation"} text={StartUpDetails?.hrDesignation} />
 
               <div className={` flex flex-row w-full`}
                 style={{ marginTop: "6px" }}
               >
                 <span
                   style={{ color: "#25324b", fontSize: "20", fontWeight: "400", }}
-                >E-mail
+                >Contacts
                   <ArrowRightIcon style={{ position: "relative", right: "6px" }} /></span>
                 <MailIcon
-                  className='hover:cursor-pointer'
-                  onClick={()=>{directTo(startUpDetails?.hrEmail)}} />
+                  className='hover:cursor-pointer mr-2'
+                  onClick={() => { directTo(StartUpDetails?.hrEmail) }} />
+                   <LinkedInIcon
+                      className='hover:cursor-pointer'
+                      onClick={() => { directTo(StartUpDetails?.hrLinkedin) }} />
               </div>
 
 
@@ -245,7 +254,7 @@ const CompanyPage = () => {
           {/* Contact Us */}
 
           <div className=' flex flex-row items-center'
-            style={{ backgroundColor: "#f8f8fd",gap:"30px",padding:"40px 16px" }}>
+            style={{ backgroundColor: "#f8f8fd", gap: "30px", padding: "40px 16px" }}>
 
             <span style={{
               fontSize: "23px", fontWeight: "600", color: "rgba(37, 50, 75, 1)",
@@ -256,28 +265,28 @@ const CompanyPage = () => {
             <div className='flex flex-row justify-center self-center'
               style={{
                 fontWeight: "400", color: "rgba(81, 91, 111, 1)",
-                fontFamily: "Epilogue,serif", lineHeight: "25.5px", 
-                gap:"15px"
+                fontFamily: "Epilogue,serif", lineHeight: "25.5px",
+                gap: "15px"
               }}
             >
 
-              
+
 
               <InstagramIcon className='hover:cursor-pointer'
-                onClick={()=>{directTo(startUpDetails.social)}} />
+                onClick={() => { directTo(StartUpDetails.social) }} />
 
               <LinkedInIcon className='hover:cursor-pointer'
-                onClick={()=>{directTo(startUpDetails.linkedIn)}} />
+                onClick={() => { directTo(StartUpDetails.linkedIn) }} />
               <LanguageIcon className='hover:cursor-pointer'
-                onClick={()=>{directTo(startUpDetails.website)}} />
+                onClick={() => { directTo(StartUpDetails.website) }} />
               <MailIcon className='hover:cursor-pointer'
-                onClick={()=>{directTo(startUpDetails.email)}} />
-                {/* Tracxn */}
+                onClick={() => { directTo(StartUpDetails.email) }} />
+              {/* Tracxn */}
               <InstagramIcon className='hover:cursor-pointer'
-                onClick={()=>{directTo(startUpDetails.tracxn)}} />
-                {/* cruchbase */}
+                onClick={() => { directTo(StartUpDetails.tracxn) }} />
+              {/* cruchbase */}
               <InstagramIcon className='hover:cursor-pointer'
-                onClick={()=>{directTo(startUpDetails.cruchbase)}} />
+                onClick={() => { directTo(StartUpDetails.cruchbase) }} />
 
             </div>
 

@@ -53,8 +53,8 @@ export default function Account({ BASE_URL, startUpDetails, setStartUpDetails, s
   const [hrLinkedin, setHrLinkedin] = useState(startUpDetails.hrLinkedin);
   const [hrDesignation, setHrDesignation] = useState(startUpDetails.hrDesignation);
 
-   
 
+   
 
 
 

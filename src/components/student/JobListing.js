@@ -17,7 +17,7 @@ function JobListing({ logo, companyName, role,  detailsButtonClick, applyButtonC
 
 
   const [percentSeatAvailable, setPercentSeatAvailable] = useState(0);
-  const [isLoading, setisLoading] = useState(true);
+  const [isLoading, setisLoading] = useState(false);
 
 
 
@@ -108,7 +108,7 @@ function JobListing({ logo, companyName, role,  detailsButtonClick, applyButtonC
         >23 Jul 2024</span></div>
 
       <div
-        style={{ width: "15%" }}>
+        style={{ width: "auto" }}>
         <span className={`basic ${(status || "").replace(/\s+/g, '')} flex flex-row justify-center`}
           style={{
             fontSize: "14px", fontWeight: "600",
@@ -245,7 +245,7 @@ function JobListing({ logo, companyName, role,  detailsButtonClick, applyButtonC
   return (
     
 
-    (status === null) ? <JobNotApplied /> : <JobApplied />
+    (status === "Not Applied") ? <JobNotApplied /> : <JobApplied />
 
 
   );

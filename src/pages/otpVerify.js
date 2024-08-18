@@ -75,7 +75,7 @@ export default function OTPVerify({ BASE_URL, setStartUpDetails,
             setAlertMessage('Sign in successfully.');
             setAlertSeverity('success');
             setShowAlert(true);
-            navigate('../startUp/internship', {
+            navigate('../startUp/dashboard', {
               state: { type: 'Internship' },
             });
           } else if (data.status === 401) {
@@ -123,7 +123,7 @@ export default function OTPVerify({ BASE_URL, setStartUpDetails,
             setAlertMessage('Sign Up successfully.');
             setAlertSeverity('success');
             setShowAlert(true);
-            navigate('../startUp/account');
+            navigate('../startUp/dashboard');
           } else if (data.status === 401) {
             setLoading(false);
             setAlertMessage('Wrong OTP.');
