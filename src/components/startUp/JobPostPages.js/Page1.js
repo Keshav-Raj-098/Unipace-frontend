@@ -8,7 +8,6 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import CloseIcon from '@mui/icons-material/Close';
-import { IoMdAdd } from "react-icons/io";
 import AddButton from '../AddButton';
 import DatePicker from "../Datepicker"
 import { DetailsButton } from '../../student/account';

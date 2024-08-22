@@ -13,17 +13,20 @@ import { CiGlobe } from "react-icons/ci";
 import { FaLinkedin } from "react-icons/fa";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { Select, InputLabel, FormControl, MenuItem } from '@mui/material';
+import pdf from "../../assets/resume.pdf"
 
-const StudentApplication = ({BASE_URL,setAlertMessage,setAlertSeverity,setShowAlert}) => {
 
-    const { studentDetails,jobId,student,Status } = useLocation()?.state
+const StudentApplication = ({ BASE_URL, setAlertMessage, setAlertSeverity, setShowAlert }) => {
+
+    const { studentDetails, jobId, student, Status } = useLocation()?.state
     const [status, setStatus] = useState(studentDetails?.statusUpdate?.status || Status)
     const navigate = useNavigate();
     console.log(studentDetails);
-    
 
-  
-   
+
+    const link = studentDetails?.resumeLink || student?.resumeLink ;
+
+
 
     const styles = {
         small: {
@@ -39,21 +42,21 @@ const StudentApplication = ({BASE_URL,setAlertMessage,setAlertSeverity,setShowAl
             color: "rgba(37, 50, 75, 1)"
         }
     }
-    const handleClick = async() => {
+    const handleClick = async () => {
         const studentId = studentDetails?.statusUpdate?.studentId || student.id;
         const statuss = status; // Ensure this is correctly set
 
         if (!status || !studentId) {
-          console.error('Form data is incomplete:', { status, studentId });
-          return;
+            console.error('Form data is incomplete:', { status, studentId });
+            return;
         }
-    
+
         const formdata = {
             status: statuss,
             studentId: studentId,
         };
-    
-    
+
+
         const requestOptions = {
             method: 'PUT',
             headers: {
@@ -62,24 +65,24 @@ const StudentApplication = ({BASE_URL,setAlertMessage,setAlertSeverity,setShowAl
             },
             body: JSON.stringify(formdata),  // Convert formdata to JSON string
         };
-    
+
         const url = `${BASE_URL}/api/startUp/jobs/${jobId}`;
         fetch(url, requestOptions)
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === 200) {
-                setAlertMessage(`Application's Status Updated successfully.`);
-                setAlertSeverity('success');
-                setShowAlert(true);
-                navigate(-1, { state: { studentDetails:studentDetails,jobId:jobId}})
-                console.log(data);
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 200) {
+                    setAlertMessage(`Application's Status Updated successfully.`);
+                    setAlertSeverity('success');
+                    setShowAlert(true);
+                    navigate(-1, { state: { studentDetails: studentDetails, jobId: jobId } })
+                    console.log(data);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
     }
-    
+
 
 
 
@@ -100,72 +103,80 @@ const StudentApplication = ({BASE_URL,setAlertMessage,setAlertSeverity,setShowAl
                         <span style={{ fontSize: "21px", fontWeight: "600", color: "rgba(37, 50, 75, 1)" }}>Applicant Details</span>
                     </div>
                 </div>
+                <div className='flex flex-row gap-1 items-center'>
+                    <FormControl>
+                        <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={status}
+                            onChange={(e) => setStatus(e.target.value)}
+                            sx={{
+                                borderColor: 'rgba(204, 204, 245, 1)', // Change border color
+                                color: 'rgba(70, 64, 222, 1)', // Change text color
+                                '& .MuiOutlinedInput-notchedOutline': {
+                                    borderColor: 'rgba(204, 204, 245, 1)', // Set border color
+                                },
+                                '&:hover .MuiOutlinedInput-notchedOutline': {
+                                    borderColor: 'rgba(204, 204, 245, 1)', // Change border color on hover
+                                },
+                                '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                                    borderColor: 'rgba(204, 204, 245, 1)', // Border color when focused
+                                },
+                                '& .MuiSelect-select': {
+                                    color: 'rgba(70, 64, 222, 1)', // Text color
+                                },
+                                '&:focus': {
+                                    outline: 'none', // Remove the default outline
+                                },
+                                '& .MuiSvgIcon-root': {
+                                    color: 'rgba(70, 64, 222, 1)', // Customize the dropdown icon color
+                                },
+                            }}
+                        >
 
-                <FormControl>
-                    <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={status}
-                        onChange={(e) => setStatus(e.target.value)}
-                        sx={{
-                            borderColor: 'rgba(204, 204, 245, 1)', // Change border color
-                            color: 'rgba(70, 64, 222, 1)', // Change text color
-                            '& .MuiOutlinedInput-notchedOutline': {
-                                borderColor: 'rgba(204, 204, 245, 1)', // Set border color
-                            },
-                            '&:hover .MuiOutlinedInput-notchedOutline': {
-                                borderColor: 'rgba(204, 204, 245, 1)', // Change border color on hover
-                            },
-                            '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                                borderColor: 'rgba(204, 204, 245, 1)', // Border color when focused
-                            },
-                            '& .MuiSelect-select': {
-                                color: 'rgba(70, 64, 222, 1)', // Text color
-                            },
-                            '&:focus': {
-                                outline: 'none', // Remove the default outline
-                            },
-                            '& .MuiSvgIcon-root': {
-                                color: 'rgba(70, 64, 222, 1)', // Customize the dropdown icon color
-                            },
-                        }}
+                            <MenuItem value={"Applied"}>In Review</MenuItem>
+                            <MenuItem value={"Not Shortlisted"}>Not Shortlisted</MenuItem>
+                            <MenuItem value={"Shortlisted"}>Shortlisted</MenuItem>
+                            <MenuItem value={"Selected"}>Hired</MenuItem>
+                            <MenuItem value={"Not Selected"}>Declined</MenuItem>
+                        </Select>
+                    </FormControl>
+
+
+                    <span className='p-2 text-white cursor-pointer' style={{ backgroundColor: "#1986d2" }}
+                        onClick={handleClick}
                     >
-                        
-                        <MenuItem value={"Applied"}>In Review</MenuItem>
-                        <MenuItem value={"Not Shortlisted"}>Not Shortlisted</MenuItem>
-                        <MenuItem value={"Shortlisted"}>Shortlisted</MenuItem>
-                        <MenuItem value={"Selected"}>Hired</MenuItem>
-                        <MenuItem value={"Not Selected"}>Declined</MenuItem>
-                    </Select>
-                </FormControl>
+                        save
+                    </span>
+                </div>
 
 
 
             </div>
 
             <div className='flex flex-row justify-between'
-                style={{ gap: "30px", height: "auto" }}>
+                style={{ gap: "15px", height: "100%" }}>
                 {/* left Part */}
 
 
 
                 <div
-                    style={{ border: "1px solid rgba(214, 221, 235, 1)", minWidth: "300px", width: "40%", padding: "12px 20px" }}>
+                    style={{ border: "1px solid rgba(214, 221, 235, 1)", minWidth: "300px", width: "37%", padding: "12px 20px" }}>
 
                     {/* profile */}
 
                     <div className='flex flex-col gap-5  items-center'>
-                    <span className='flex flex-row justify-center items-center'
-                      style={{
-                        border: !(studentDetails||student)?.imglink && "1px solid black", height: "80px", width: "80px",overflow:"hidden",
-                        borderRadius: "50%"
-                      }}>
-                        { (studentDetails||student)?.imglink ? <img src={(studentDetails||student)?.imglink} alt="profile" />:
+                        <span className='flex flex-row justify-center items-center'
+                            style={{
+                                border: !(studentDetails || student)?.imglink && "1px solid black", height: "80px", width: "80px", overflow: "hidden",
+                                borderRadius: "50%"
+                            }}>
+                            {(studentDetails || student)?.imglink ? <img src={(studentDetails || student)?.imglink} alt="profile" /> :
 
-                          <FaUserAlt fontSize={"21px"} />
+                                <FaUserAlt fontSize={"21px"} />
 
-                        }
-                    </span>
+                            }
+                        </span>
                         <div className='flex flex-row gap-1 items-center justify-between w-full' >
                             <span
                                 style={{
@@ -173,7 +184,7 @@ const StudentApplication = ({BASE_URL,setAlertMessage,setAlertSeverity,setShowAl
                                     color: "rgba(37, 50, 75, 1)",
                                     fontWeight: "700",
                                 }}
-                            >{(studentDetails||student)?.name}</span>
+                            >{(studentDetails || student)?.name}</span>
                             <div className='flex flex-row gap-1 justify-center items-center'
                                 style={{ width: "70px" }}>
                                 <FaStar fontSize={"19px"} color='rgba(255, 184, 54, 1)' />
@@ -243,7 +254,7 @@ const StudentApplication = ({BASE_URL,setAlertMessage,setAlertSeverity,setShowAl
                         </div>
                         <div className='stage flex flex-row gap-1 my-3'>
                             <span
-                            
+
                             ></span>
                             <span></span>
                             <span></span>
@@ -267,7 +278,7 @@ const StudentApplication = ({BASE_URL,setAlertMessage,setAlertSeverity,setShowAl
                                 color='rgba(124, 132, 147, 1)' stroke='2px' />
                             <div className='flex flex-col'>
                                 <span style={styles.small}>Email</span>
-                                <span style={styles.small}>{(studentDetails||student)?.email}</span>
+                                <span style={styles.small}>{(studentDetails || student)?.email}</span>
                             </div>
 
 
@@ -314,13 +325,13 @@ const StudentApplication = ({BASE_URL,setAlertMessage,setAlertSeverity,setShowAl
                         border: "1px solid rgba(214, 221, 235, 1)",
                         minWidth: "calc(100% - 330px)", height: "100%", width: "58%"
                     }}
-                >
-
-                    <span className='p-2 text-white cursor-pointer' style={{backgroundColor:"#1986d2"}}
-                    onClick={handleClick}
-                    >
-                        save
-                    </span>
+                >  
+                {link ?
+                    <iframe src={link} 
+                    type="application/pdf"  width={"100%"} height={"600px"} />
+                   :
+                   <>No Resume Uploaded</> 
+                }
 
                 </div>
 

@@ -93,6 +93,7 @@ export default function StudentsApplied({ BASE_URL, setShowAlert, setAlertMessag
         linkedIn: oneJsonData.linkedIn,
         statusUpdate: { status: x.status, studentId: x.studentId },
         resumeLinkId: `https://drive.google.com/file/d/${oneJsonData.resumeId}/preview`,
+        resumeLink : oneJsonData.resumeLink,
       };
       jsonDataArray.push(convertedJsonData);
     }

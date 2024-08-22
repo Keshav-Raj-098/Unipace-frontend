@@ -16,6 +16,7 @@ export default function Account({ BASE_URL, studentDetails, setStudentDetails, s
   const [loading, setLoading] = useState(false);
   const [resumeFile, setResumeFile] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
+  
   const [applyColor, setapplyColor] = useState("profile");
   const [page, setPage] = useState(true);
   const name = studentDetails.name;
@@ -43,7 +44,8 @@ export default function Account({ BASE_URL, studentDetails, setStudentDetails, s
   const updateOrSave = studentDetails.resumeLink === '' || studentDetails.resumeLink === undefined ? 'Save' : 'Update';
 
 
-
+  console.log(resumeFile);
+  
 
 
   const updateStudentAccount = async (e) => {
@@ -61,7 +63,7 @@ export default function Account({ BASE_URL, studentDetails, setStudentDetails, s
     formData.append('resumeLink', resumeLink);
     formData.append('linkedIn', linkedIn);
     formData.append('image', selectedFile)
-    // formData.append('resume', resumeFile);
+    formData.append('Resume', resumeFile);
     const requestOptions = {
       method: 'PUT',
       headers: {
@@ -70,7 +72,6 @@ export default function Account({ BASE_URL, studentDetails, setStudentDetails, s
       body: formData,
     };
     const url = `${BASE_URL}/api/student/register/${studentDetails.id}`;
-    // const url = `http://localhost:1515/api/student/register/${studentDetails.id}`;
 
     console.log(url);
 

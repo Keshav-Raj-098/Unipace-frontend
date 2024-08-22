@@ -19,7 +19,6 @@ import InfoIcon from '@mui/icons-material/Info';
 const Sidebar = ({setStartUpDetails}) => {
 
   const  applyColor= useLocation().state?.color || "dashboard";
-  // const [applyColor, setapplyColor] = useState(applyto)
 
 
 
@@ -123,9 +122,9 @@ const Sidebar = ({setStartUpDetails}) => {
       <Sidebtn title={"Dashboard"} icon={<DashboardIcon fontSize='17px'/>}
        navigateto={"dashboard"} type={"Account"} />
      
-      
+{/*       
       <Sidebtn title={"Company Profile"} icon={<BusinessIcon fontSize='17px'/>} 
-      navigateto={"companyprofile"} type={"Internship"} />
+      navigateto={"companyprofile"} type={"Internship"} /> */}
 
 
       <Sidebtn title={"All Applicants"} icon={<GroupsIcon fontSize='17px'/>}

@@ -40,7 +40,8 @@ export default function Internship({ BASE_URL, startUpDetails, setShowAlert, set
         createdAt:oneJsonData.createdAt,
         deadline:oneJsonData.deadline,
         totalRequired:oneJsonData.totalRequired,
-        totalApplications:oneJsonData.totalApplications
+        totalApplications:oneJsonData.totalApplications,
+        
       };
       jsonDataArray.push(convertedJsonData);
     }

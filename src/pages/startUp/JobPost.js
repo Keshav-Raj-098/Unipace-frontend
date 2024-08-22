@@ -111,10 +111,9 @@ export default function AddNew({ BASE_URL, setShowAlert, setAlertMessage, setAle
       selectionProcess: selectionProcess,
       totalApplications:totalApplications,
       totalRequired:totalRequired,
-      startUpId: "884c8085-ccba-4bf6-9494-f15001d57472",
+      startUpId: startUpId,
       createdAt: moment(new Date()).format('YYYY-MM'),
     };
-    console.log(startUpId);
     
     
     
@@ -189,7 +188,7 @@ export default function AddNew({ BASE_URL, setShowAlert, setAlertMessage, setAle
             setAlertMessage('Opportunity updated successfully.');
             setAlertSeverity('success');
             setShowAlert(true);
-            navigate(-1);
+            navigate();
           } else {
             console.log(data);
           }

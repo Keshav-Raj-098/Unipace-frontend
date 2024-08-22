@@ -183,7 +183,10 @@ const ResumeUloader = ({ title, data, width, disable, setFunction }) => (
           inputProps={{
             accept: '.pdf',
           }}
-          onChange={(e) => setFunction(e)}
+          onChange={(e) => {
+            const file = e.target.files[0];  // Get the selected file
+            setFunction(file);  // Set the file via setFunction
+        }}
           disabled={disable}
           fullWidth
         />
