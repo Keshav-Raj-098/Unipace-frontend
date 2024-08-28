@@ -183,8 +183,8 @@ export default function Apply({ BASE_URL, studentDetails, setShowAlert, setAlert
     getJobDetails();
 
   }, []);
-  const createdAtMoment = moment(jobDetails.createdAt, 'YYYY-MM-DD')
-  const Deadline = moment(jobDetails.deadline, 'YYYY-MM-DD')
+  const createdAtMoment = moment(jobDetails?.createdAt, 'YYYY-MM-DD')
+  const Deadline = moment(jobDetails?.deadline, 'YYYY-MM-DD')
   
   
 
@@ -374,7 +374,7 @@ export default function Apply({ BASE_URL, studentDetails, setShowAlert, setAlert
             </div>
 
             <Line start={"Apply Before"} end={Deadline.format('MMM DD YYYY')} />
-            <Line start={"Job Posted On"} end={createdAtMoment.format('MMM DD YYYY')} />
+            <Line start={"Job Posted On"} end={createdAtMoment?.format('MMM DD YYYY')} />
             <Line start={"Salary"} end={jobDetails.salary} />
             { jobDetails.duration && <Line start={"Duration"} end={jobDetails.duration} />}
 
