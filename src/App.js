@@ -19,6 +19,7 @@ import { useEffect, useState } from 'react';
 import { Box, CircularProgress } from '@mui/material';
 import AlertSnackbar from '../src/components/snackbar';
 import AdminSignInRedirect from './pages/admin/AdminSignInRedirect';
+import AdminPage from './pages/admin/index.js';
 import AdminDashboard from './pages/admin/dashboard';
 import AdminIndex from './pages/admin/index';
 import ReactGA from 'react-ga';
@@ -37,6 +38,8 @@ import JobApplicants from "./pages/startUp/Applicant.js"
 import CompanyProfile from "./pages/startUp/CompanyProfile.js"
 import StudentApplication from "./pages/startUp/StudentApplication.js"
 import AdminLogin from "./pages/adminSignin.js"
+import StudentApproval from "./pages/admin/StudentApprove.js"
+
 
 
 
@@ -44,9 +47,8 @@ const trackingId = 'G-1D3RFBNRQV';
 ReactGA.initialize(trackingId);
 
 const BASE_URL = process.env.REACT_APP_BACKEND_URL_PRODUCTION || process.env.REACT_APP_BACKEND_URL;
+const ADMIN_URL = process.env.REACT_APP_ADMIN_URL;
 const timer = 3000;
-
-console.log(BASE_URL);
 
 export default function App() {
   // localStorage.clear()
@@ -141,7 +143,7 @@ export default function App() {
   useEffect(() => {
 
 
-    console.log(newJD);
+    // console.log(newJD);
 
 
   }, [newJD])
@@ -277,10 +279,13 @@ export default function App() {
                 <Route path="details" element={<JobDetails BASE_URL={BASE_URL} startUpDetails={startUpDetails} />} />{' '}
                 {/* TODO check if  shouldn't there be an alert property here also? */}
               </Route>
-              <Route path="admin" element={<AdminLogin {...setAlertProps}  />}>
+              <Route path="admin" element={<AdminPage/>}>
               {/* <Route path="admin" element={<AdminIndex mode={mode} setMode={setMode} />}> */}
-                <Route path="" element={<AdminSignInRedirect />} />
-                <Route path="dashboard" element={<AdminDashboard />} />
+                {/* <Route path="" element={<AdminSignInRedirect/>} /> */}
+                <Route path="" element={<AdminLogin {...setAlertProps}/>} />
+                <Route path="dashboard" element={<AdminDashboard {...setAlertProps}  />} />
+                <Route path="company" element={<CompanyDetails />} />
+                <Route path="studentApprove" element={<StudentApproval {...setAlertProps}  />} />
                 <Route path="details" element={<JobDetails BASE_URL={BASE_URL} startUpDetails={null} />} />
               </Route>
 

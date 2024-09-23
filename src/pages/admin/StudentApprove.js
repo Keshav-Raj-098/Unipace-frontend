@@ -19,14 +19,12 @@ export default function AdminDashboard({ setShowAlert, setAlertMessage, setAlert
       console.log(oneJsonData);
       const convertedJsonData = {
         id: i + 1,
-        company: oneJsonData.companyName,
-        designation: oneJsonData.title,
-        type: oneJsonData.type,
-        stipend: oneJsonData.salary,
-        deadline: oneJsonData.deadline,
-        details: {id:oneJsonData.id,positions:oneJsonData.totalApplications,applied:10},
-        update: oneJsonData.id,
-        studentsApplied: oneJsonData.id,
+        name: oneJsonData.name,
+        department: oneJsonData.department,
+        year: oneJsonData.year,
+        cgpa: oneJsonData.cgpa,
+        imglink: oneJsonData.imglink,
+        resumelink:oneJsonData.resumelink,
         approval: oneJsonData.approval || 'pending',
       };
       jsonDataArray.push(convertedJsonData);
@@ -46,10 +44,8 @@ export default function AdminDashboard({ setShowAlert, setAlertMessage, setAlert
         Authorization: localStorage.adminCode,
       },
       body: JSON.stringify(formData),
-     
-      
     };
-    const url = `${process.env.REACT_APP_ADMIN_URL}/job`;
+    const url = `${process.env.REACT_APP_ADMIN_URL}/student`;
     fetch(url, requestOptions)
       .then((response) => {
         if (!response.ok) {
@@ -68,25 +64,37 @@ export default function AdminDashboard({ setShowAlert, setAlertMessage, setAlert
 
   const internshipTableColumn = [
     {
-      field: 'company',
-      headerName: 'Company',
+      field: 'imglink',
+      headerName: 'Photo',
       flex: 1,
     },
     {
-      field: 'designation',
-      headerName: 'Designation',
-      flex: 1,
+      field: 'name',
+      headerName: 'Name',
+      flex: 1.8,
     },
     {
-      field: 'type',
-      headerName: 'Type',
-      flex: 1,
+      field: 'department',
+      headerName: 'Department',
+      flex: 1.5,
     },
     {
-      field: 'stipend',
-      headerName: 'Stipend',
-      flex: 1,
+      field: 'year',
+      headerName: 'Year',
+      flex:0.7,
     },
+    {
+      field: 'cgpa',
+      headerName: 'CGPA',
+      flex:0.5,
+    },
+    {
+        field: 'resumelink',
+        headerName: 'Resume',
+        flex: 1,
+        
+        
+      },
     {
       field: 'approval',
       headerName: 'Approval Status',
@@ -104,23 +112,7 @@ export default function AdminDashboard({ setShowAlert, setAlertMessage, setAlert
         );
       },
     },
-    {
-      field: 'details',
-      headerName: 'Details',
-      flex: 1,
-      renderCell: ({ value }) => {
-        return (
-          <Button
-            size="small"
-            onClick={() => {
-              return navigate('../details', { state: { jobId: value.id, applied: value.applied, positions:value.positions } });
-            }}
-          >
-            <VisibilityRoundedIcon />
-          </Button>
-        );
-      },
-    },
+   
   ];
 
   useEffect(() => {
@@ -133,7 +125,7 @@ export default function AdminDashboard({ setShowAlert, setAlertMessage, setAlert
       <Card>
         <CardContent>
           <Typography variant="h5" sx={{ mb: 2 }}>
-           Opportunities
+           Students
           </Typography>
           {loading ? (
             <Box
