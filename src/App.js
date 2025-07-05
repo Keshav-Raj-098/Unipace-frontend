@@ -48,7 +48,7 @@ ReactGA.initialize(trackingId);
 
 const BASE_URL = process.env.REACT_APP_BACKEND_URL_PRODUCTION || process.env.REACT_APP_BACKEND_URL;
 
-const ADMIN_URL = process.env.REACT_APP_ADMIN_URL;
+
 const timer = 3000;
 
 export default function App() {
@@ -67,6 +67,8 @@ export default function App() {
   const [loading2, setloading2] = useState(false)
 
 
+console.log("Backend URL in prod:", process.env.REACT_APP_BACKEND_URL);
+console.log("Base URL in prod:", process.env.BASE_URL);
 
 
   const colorTheme = createTheme({
