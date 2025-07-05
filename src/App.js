@@ -46,7 +46,11 @@ import StudentApproval from "./pages/admin/StudentApprove.js"
 const trackingId = 'G-1D3RFBNRQV';
 ReactGA.initialize(trackingId);
 
-const BASE_URL = process.env.REACT_APP_BACKEND_URL_PRODUCTION || process.env.REACT_APP_BACKEND_URL;
+const BASE_URL =  process.env.REACT_APP_BACKEND_URL;
+
+
+console.log("Backend URL in prod:", process.env.REACT_APP_BACKEND_URL);
+console.log("Base URL in prod:", BASE_URL);
 
 
 const timer = 3000;
@@ -67,8 +71,6 @@ export default function App() {
   const [loading2, setloading2] = useState(false)
 
 
-console.log("Backend URL in prod:", process.env.REACT_APP_BACKEND_URL);
-console.log("Base URL in prod:", process.env.BASE_URL);
 
 
   const colorTheme = createTheme({
